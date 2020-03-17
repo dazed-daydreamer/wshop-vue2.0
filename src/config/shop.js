@@ -67,7 +67,7 @@ export const shopComponentsList = [
     },
     {
         title: '列表导航',
-        icon: 'hicon-liebiaodaohang',
+        icon: 'icon-liebiaodaohang',
         component: 'listNav',
         group: '图文类'
     },
@@ -157,14 +157,14 @@ export const shopComponentsList = [
     },
     {
         title: '直播',
-        image: 'icon-zhibo',
+        icon: 'icon-zhibo',
         component: 'live',
         group: '营销类'
     },
     {
         title: '弹窗广告',
         component: 'popUps',
-        icon: 'icon-danchuangguanggao',
+        icon: 'icon-show_viphuiyuanguanggao',
         group: '其他组件'
     }
 ]

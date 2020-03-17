@@ -11,6 +11,7 @@
             <div class="group-title">{{item.group}}</div>
             <draggable v-model="item.list" :options="draggableOptions" class="cu-list">
               <li v-for="(listItem,listIndex) in item.list" :key="listIndex" class="cu-item">
+                <span class="iconfont" :class="listItem.icon"></span>
                 <span>{{listItem.title}}</span>
               </li>
             </draggable>
@@ -87,17 +88,20 @@ export default {
     }
   }
   .el-scrollbar {
-    height: 500px !important;
+    height: 600px !important;
     .el-scrollbar__view {
       .group-list {
         .group-item {
+          .group-title {
+            text-align: left;
+            font-size: 13px;
+            margin-bottom: 20px;
+          }
           .cu-list {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 0px 10px;
-            padding-right: 20px;
             .cu-item {
+              margin-right: 10px;
               width: 76px;
               height: 76px;
               box-sizing: border-box;
@@ -108,17 +112,22 @@ export default {
               text-align: center;
               background-color: #ffffff;
               margin-bottom: 20px;
+              display: flex;
               cursor: pointer;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
               &:hover {
                 border: 1px solid $theme-color;
               }
-              img {
-                width: 88px;
-                height: 50px;
+              .iconfont {
+                margin-bottom: 10px;
+                font-size: 20px;
+                font-weight: 400;
+                color: $theme-color;
               }
               span {
                 font-size: 12px;
-                font-weight: bold;
               }
             }
           }

@@ -16,7 +16,6 @@
 
 
 <script>
-import ShopSliderComponent from "./shop-slider-component.vue";
 import { shopMixins } from "@/mixins/shop-mixins.js";
 export default {
   mixins: [shopMixins],
@@ -29,8 +28,6 @@ export default {
     };
   },
   components: {
-    //轮播图表单
-    ShopSliderComponent
   },
   watch: {
     //当监测到选择的组件改变的时候，动态引入组件表单

@@ -10,6 +10,7 @@
           :options="draggableOptions"
           class="cu-list"
           :scrollSensitivity="300"
+          @add="addList"
         >
           <li
             v-for="(item,index) in componentsList"
@@ -18,11 +19,12 @@
             @click="itemChoose(index)"
             :class="{crrent:index === getCurrentComponentIndex}"
           >
-            <div class="top-warpper">
-              <span>{{item.title}}</span>
-              <span @click.stop="delItem(item)">删除</span>
+            <div class="delete">
+              <el-popconfirm title="是否删除组件吗" @onConfirm="delItem(item)">
+                <span class="el-icon-close" slot="reference"></span>
+              </el-popconfirm>
             </div>
-            <img :src="item.componentImage" alt />
+            <component v-bind:is="item.introduce" :form="item.form"></component>
           </li>
         </draggable>
       </el-scrollbar>
@@ -33,6 +35,7 @@
 <script>
 import { shopMixins } from "mixins/shop-mixins";
 import draggable from "vuedraggable";
+import CustomizeProduct from "./customize/customize-product";
 export default {
   mixins: [shopMixins],
   data() {
@@ -67,27 +70,26 @@ export default {
     //删除选中组件
     //item  选择组件的信息
     delItem(item) {
-      this.$confirm("确定要删除组件吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
-        });
+    },
+    //每当添加一个组件的时候触发
+    //evt    新组件的信息
+    addList(evt) {
+      const index = evt.newIndex;
+      const item = JSON.parse(JSON.stringify(this.componentsList[index]));
+      let introduce;
+      switch (item.component) {
+        case "product":
+          introduce = CustomizeProduct;
+          break;
+      }
+      this.$set(item, "introduce", introduce);
+      this.$set(item, "form", {});
+      this.componentsList.splice(index, 1, item);
     }
   },
-  components:{
+  components: {
     draggable,
+    CustomizeProduct
   }
 };
 </script>
@@ -120,35 +122,32 @@ export default {
             list-style: none;
             cursor: pointer;
             position: relative;
+            border: 1px solid transparent;
             &:hover {
-              border: 1px solid $theme-color;
-              .top-warpper {
-                display: flex;
-              }
+              border-color: $theme-color;
             }
-            .top-warpper {
+            .delete {
               position: absolute;
               top: 0;
-              left: 0;
-              width: 100%;
-              height: 30px;
-              justify-content: space-between;
-              align-items: center;
-              background-color: #fff;
+              z-index: 10;
+              right: 0;
+              width: 20px;
+              height: 20px;
+              border-radius: 0px 0px 0px 100%;
+              background-color: $theme-color;
+              font-size: 12px;
               display: none;
               span {
-                margin: 0px 10px;
-                color: $theme-color;
-                font-size: 14px;
+                margin-top: 2px;
+                margin-left: 2px;
+                color: #fff;
               }
-            }
-            img {
-              width: 100%;
-              height: 100%;
-              display: block;
             }
             &.crrent {
               border: 1px solid $theme-color;
+              .delete {
+                display: block;
+              }
             }
             &.sortable-ghost {
               display: flex;
