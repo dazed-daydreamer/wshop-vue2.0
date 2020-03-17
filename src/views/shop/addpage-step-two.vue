@@ -86,7 +86,7 @@ export default {
       display: flex;
       justify-content: space-between;
       .template-components-warpper {
-        width: 240px;
+        width: 270px;
         flex-shrink: 0;
       }
       .template-page-warpper {

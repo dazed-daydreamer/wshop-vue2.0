@@ -16,6 +16,7 @@
         </div>
         <div class="item-image">
           <span class="title">选择图片</span>
+          <img src="../../assets/images/rectangle-picture.png" alt="">
         </div>
         <div class="item-url">
           <span class="title">图片链接</span>
@@ -117,6 +118,36 @@ export default {
     .el-slider {
       margin: 0px 15px;
       flex: 1;
+    }
+  }
+  .cu-list {
+    padding-bottom: 20px;
+    .cu-item {
+      border-radius: 5px;
+      margin-top: 20px;
+      border: 1px solid $border-color;
+      .item-title {
+        background-color: #efefef;
+        height: 30px;
+        line-height: 30px;
+        text-align: left;
+        padding-left: 20px;
+        span {
+          font-size: 13px;
+        }
+      }
+      .item-image,
+      .item-url {
+        display: flex;
+        align-items: center;
+        .title {
+          text-align: left;
+          width: 100px;
+          flex-shrink: 0;
+          font-size: 13px;
+          padding-left: 20px;
+        }
+      }
     }
   }
 }
