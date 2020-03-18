@@ -97,10 +97,10 @@ export default {
             font-size: 13px;
             margin-bottom: 20px;
           }
-          .cu-list {
+          & > .cu-list {
             display: flex;
             flex-wrap: wrap;
-            .cu-item {
+            & > .cu-item {
               margin-right: 10px;
               width: 76px;
               height: 76px;
@@ -120,13 +120,13 @@ export default {
               &:hover {
                 border: 1px solid $theme-color;
               }
-              .iconfont {
+              & > .iconfont {
                 margin-bottom: 10px;
                 font-size: 20px;
                 font-weight: 400;
                 color: $theme-color;
               }
-              span {
+              & > span {
                 font-size: 12px;
               }
             }

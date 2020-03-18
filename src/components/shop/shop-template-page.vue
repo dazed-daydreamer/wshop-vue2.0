@@ -69,8 +69,7 @@ export default {
     },
     //删除选中组件
     //item  选择组件的信息
-    delItem(item) {
-    },
+    delItem(item) {},
     //每当添加一个组件的时候触发
     //evt    新组件的信息
     addList(evt) {
@@ -116,8 +115,8 @@ export default {
     .el-scrollbar__wrap {
       overflow-x: hidden;
       .el-scrollbar__view {
-        .cu-list {
-          .cu-item {
+        & > .cu-list {
+          & > .cu-item {
             margin-right: 1px;
             list-style: none;
             cursor: pointer;
@@ -126,7 +125,7 @@ export default {
             &:hover {
               border-color: $theme-color;
             }
-            .delete {
+            & > .delete {
               position: absolute;
               top: 0;
               z-index: 10;
