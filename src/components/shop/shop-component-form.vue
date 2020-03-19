@@ -1,16 +1,18 @@
 <template>
   <div class="shop-component-form">
-    <div class="top-title">
-      <span class="iconfont" :class="icon"></span>
-      <span>{{title}}</span>
-    </div>
-    <div class="empty-component" v-if="getCurrentComponentIndex === -1">请先选择组件</div>
-    <div class="has-component">
-      <component
-        v-bind:is="hasComponent"
-        :form="getCurrentComponentItem.form ?getCurrentComponentItem.form :{}"
-      ></component>
-    </div>
+    <el-scrollbar>
+      <div class="top-title">
+        <span class="iconfont" :class="icon"></span>
+        <span>{{title}}</span>
+      </div>
+      <div class="empty-component" v-if="getCurrentComponentIndex === -1">请先选择组件</div>
+      <div class="has-component" v-else>
+        <component
+          v-bind:is="hasComponent"
+          :form="getCurrentComponentItem.form ?getCurrentComponentItem.form :{}"
+        ></component>
+      </div>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -58,6 +60,7 @@ export default {
   border-radius: 5px;
   overflow: hidden;
   padding: 5px 0px;
+  height: 700px;
   .top-title {
     padding: 0px 20px;
     height: 50px;

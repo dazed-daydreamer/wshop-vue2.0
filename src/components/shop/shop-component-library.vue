@@ -88,7 +88,7 @@ export default {
     }
   }
   .el-scrollbar {
-    height: 600px !important;
+    height: 700px !important;
     .el-scrollbar__view {
       .group-list {
         .group-item {

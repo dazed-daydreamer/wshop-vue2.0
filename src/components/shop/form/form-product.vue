@@ -1,14 +1,18 @@
 <template>
   <div class="form-product-warpper">
     <div class="component-style">
-      <div class="title">选择风格</div>
+      <div class="title">
+        <span>选择风格</span>
+      </div>
       <div class="style-warpper">
         <img :src="styleImg" alt />
         <div class="style-change" @click.stop="changeStyle">修改风格</div>
       </div>
     </div>
     <div class="choice-product">
-      <div class="title">选择商品</div>
+      <div class="title">
+        <span>选择商品</span>
+      </div>
       <div class="radio-warpper">
         <el-radio-group v-model="localForm.product">
           <el-radio :label="0">手动选择</el-radio>
@@ -27,7 +31,9 @@
       </div>
     </div>
     <div class="sort-warpper">
-      <div class="title">商品排序</div>
+      <div class="title">
+        <span>商品排序</span>
+      </div>
       <div class="radio-warpper">
         <el-radio-group v-model="localForm.sort">
           <el-radio :label="0">千人千面</el-radio>
@@ -43,12 +49,75 @@
         </div>
       </div>
     </div>
+    <div class="component-style">
+      <div class="title">
+        <span>显示内容</span>
+        <span>(划线价和会员价同时选择时，优先显示会员价)</span>
+      </div>
+      <div class="show-warpper">
+        <el-checkbox-group v-model="checkList" @change="showChange">
+          <el-checkbox :label="item.key" v-for="(item,index) in showArr" :key="index">
+            <span>{{item.title}}</span>
+          </el-checkbox>
+        </el-checkbox-group>
+      </div>
+    </div>
+    <div class="buy-warpper">
+      <div class="title">
+        <span>购物车按钮</span>
+      </div>
+      <div class="radio-warpper">
+        <el-radio-group v-model="localForm.buyStyle">
+          <el-radio :label="0">购买</el-radio>
+          <el-radio :label="1">
+            <span class="el-icon-circle-plus style-2"></span>
+          </el-radio>
+          <el-radio :label="2">
+            <span class="iconfont icon-gouwuche style-3"></span>
+          </el-radio>
+          <el-radio :label="-1">
+            <span>隐藏</span>
+          </el-radio>
+        </el-radio-group>
+      </div>
+    </div>
+    <div class="sign-warpper">
+      <div class="title">
+        <span>角标设置</span>
+      </div>
+      <div class="radio-warpper">
+        <el-radio-group v-model="localForm.sign">
+          <el-radio :label="false">不显示</el-radio>
+          <el-radio :label="true">系统图标</el-radio>
+        </el-radio-group>
+      </div>
+      <div v-if="localForm.sign" class="input-warpper">
+        <el-input v-model="localForm.signTitle" size="medium">
+          <template slot="prepend">文字</template>
+        </el-input>
+      </div>
+    </div>
+    <l-dialog ref="stypeDialog" title="风格选择器">
+      <div class="stype-dialog-warpper">
+        <ul class="cu-list">
+          <li v-for="(item,index) in stypeImgArr" :key="index" class="cu-item">
+            <div class="img-warpper">
+              <img :src="require(`assets/images/${
+              item
+      }`)" alt />
+            </div>
+            <span>风格{{index+1}}</span>
+          </li>
+        </ul>
+      </div>
+    </l-dialog>
   </div>
 </template>
 
 
 <script>
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
+import LDialog from "../../public/l-dialog.vue";
 export default {
   mixins: [shopFormMixins],
   data() {
@@ -64,9 +133,10 @@ export default {
         title: true,
         subtitle: true,
         price: true,
-        sales: true,
-        member: true,
-        sign: "",
+        sales: false,
+        member: false,
+        sign: false,
+        signTitle: "推介",
         product: 0,
         sort: 0,
         sortType: 0
@@ -78,10 +148,40 @@ export default {
         "goods,list.png",
         "otherGoods,three3.png",
         "otherGoods,three.png",
+        "twoGoods,list2.png",
         "otherGoods,three2.png"
       ],
       //排序数组
-      sortArr: ["综合", "价格降序", "价格升序", "访问量", "成交转化率"]
+      sortArr: ["综合", "价格降序", "价格升序", "访问量", "成交转化率"],
+      //显示内容多选数组
+      checkList: [],
+      //显示内容数组
+      showArr: [
+        {
+          title: "商品名称",
+          key: "title"
+        },
+        {
+          title: "商品价格",
+          key: "price"
+        },
+        {
+          title: "划线原价",
+          key: "original"
+        },
+        {
+          title: "商品销量",
+          key: "sales"
+        },
+        {
+          title: "副标题",
+          key: "subtitle"
+        },
+        {
+          title: "会员价",
+          key: "member"
+        }
+      ]
     };
   },
   props: {
@@ -95,6 +195,7 @@ export default {
     //初始化表单
     _initForm() {
       this.getStyleImg();
+      this.initCheckList();
     },
     //获取风格图片
     getStyleImg() {
@@ -102,8 +203,35 @@ export default {
         this.stypeImgArr[this.localForm.style]
       }`);
     },
+    //初始化显示内容多选数组
+    initCheckList() {
+      let arr = [];
+      this.showArr.forEach(item => {
+        if (this.localForm[item.key]) {
+          arr.push(item.key);
+        }
+      });
+      this.checkList = arr;
+    },
     //改变风格
-    changeStyle() {}
+    changeStyle() {
+      this.$refs.stypeDialog.show();
+    },
+    //显示内容改变
+    // arr 显示内容数组
+    showChange(arr) {
+      this.showArr.forEach(item => {
+        const index = arr.findIndex(showItem => item.key === showItem);
+        if (index === -1) {
+          this.$set(this.localForm, item.key, false);
+        } else {
+          this.$set(this.localForm, item.key, true);
+        }
+      });
+    }
+  },
+  components: {
+    LDialog
   }
 };
 </script>
@@ -111,14 +239,27 @@ export default {
 
 
 <style lang="scss">
+@import "@/styles/theme.scss";
 .form-product-warpper {
   text-align: left;
+  .radio-warpper {
+    margin-top: 20px;
+    .el-radio__label {
+      font-size: 12px;
+    }
+  }
   & > div {
     padding: 20px 20px;
     border-top: 5px solid #f6f7f9;
     .title {
       font-size: 13px;
       font-weight: bold;
+      span:nth-of-type(2) {
+        font-size: 12px;
+        font-weight: 400;
+        margin-left: 5px;
+        color: $secondary-text-color;
+      }
     }
   }
   .component-style {
@@ -144,12 +285,6 @@ export default {
     }
   }
   .choice-product {
-    .radio-warpper {
-      margin-top: 20px;
-      .el-radio__label {
-        font-size: 12px;
-      }
-    }
     .product-warpper {
       margin-top: 20px;
       text-align: center;
@@ -163,17 +298,68 @@ export default {
     }
   }
   .sort-warpper {
-    .radio-warpper {
-      margin-top: 20px;
-      .el-radio__label {
-        font-size: 12px;
-      }
-    }
     .sort-introduce {
       margin-top: 20px;
       font-size: 12px;
-      .el-select{
-          width: 100%;
+      .el-select {
+        width: 100%;
+      }
+    }
+  }
+
+  .show-warpper {
+    .el-checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      .el-checkbox {
+        margin-top: 3px;
+        margin-right: 0px;
+        width: 33%;
+      }
+    }
+  }
+
+  .buy-warpper {
+    .style-2 {
+      font-size: 17px;
+    }
+    .style-3 {
+      font-size: 17px;
+    }
+  }
+
+  .sign-warpper {
+    .input-warpper {
+      margin-top: 20px;
+    }
+  }
+
+  .stype-dialog-warpper {
+    padding: 16px;
+    padding-bottom: 0px;
+    .cu-list {
+      display: flex;
+      flex-wrap: wrap;
+      .cu-item {
+        cursor: pointer;
+        width: 33%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        margin-bottom:16px;
+        .img-warpper{
+          margin:0px 20px;
+          margin-bottom: 10px;
+          border:1px solid $border-color;
+          background-color: #f7f8fa;
+          img{
+            width: 100%;
+          }
+        }
+        &>span{
+          font-size: 13px;
+        }
       }
     }
   }

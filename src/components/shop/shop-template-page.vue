@@ -54,6 +54,11 @@ export default {
   created() {
     //初始化vuex被选择组件
     this._initCurrentComponentData();
+    //监听自定义页面表单改变
+    this.bus.$on("formChange", res => {
+      const item = this.componentsList[this.getCurrentComponentIndex];
+      item.form = res;
+    });
   },
   methods: {
     //初始化vuex被选择组件
