@@ -40,11 +40,18 @@ export default {
     getCurrentComponentIndex() {
       this.title = this.getCurrentComponentItem.title;
       this.icon = this.getCurrentComponentItem.icon;
+      let hasComponent = null;
       switch (this.getCurrentComponentItem.component) {
         case "product":
-          this.hasComponent = FormProduct;
+          hasComponent = FormProduct;
           break;
       }
+      if (this.hasComponent == hasComponent) {
+        this.hasComponent = null;
+      }
+      this.$nextTick(() => {
+        this.hasComponent = hasComponent;
+      });
     }
   }
 };

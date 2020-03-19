@@ -6,7 +6,7 @@
       </div>
       <div class="style-warpper">
         <img :src="styleImg" alt />
-        <div class="style-change" @click.stop="changeStyle">修改风格</div>
+        <div class="style-change" @click.stop="styleDialogShow">修改风格</div>
       </div>
     </div>
     <div class="choice-product">
@@ -56,7 +56,12 @@
       </div>
       <div class="show-warpper">
         <el-checkbox-group v-model="checkList" @change="showChange">
-          <el-checkbox :label="item.key" v-for="(item,index) in showArr" :key="index">
+          <el-checkbox
+            :label="item.key"
+            v-for="(item,index) in showArr"
+            :key="index"
+            v-show="checkShow(item)"
+          >
             <span>{{item.title}}</span>
           </el-checkbox>
         </el-checkbox-group>
@@ -97,11 +102,18 @@
         </el-input>
       </div>
     </div>
-    <l-dialog ref="stypeDialog" title="风格选择器">
+    <l-dialog ref="stypeDialog" title="风格选择器" @confirm="styleConfirm">
       <div class="stype-dialog-warpper">
         <ul class="cu-list">
-          <li v-for="(item,index) in stypeImgArr" :key="index" class="cu-item">
+          <li
+            v-for="(item,index) in stypeImgArr"
+            :key="index"
+            class="cu-item"
+            :class="{current:styleIndex === index}"
+            @click="styleChange(index)"
+          >
             <div class="img-warpper">
+              <span class="el-icon-success"></span>
               <img :src="require(`assets/images/${
               item
       }`)" alt />
@@ -159,29 +171,37 @@ export default {
       showArr: [
         {
           title: "商品名称",
-          key: "title"
+          key: "title",
+          has: [0, 1, 2, 3, 4, 5, 6]
         },
         {
           title: "商品价格",
-          key: "price"
+          key: "price",
+          has: [0, 1, 2, 3, 4, 5, 6]
         },
         {
           title: "划线原价",
-          key: "original"
+          key: "original",
+          has: [0, 1, 2]
         },
         {
           title: "商品销量",
-          key: "sales"
+          key: "sales",
+          has: [0, 1, 2]
         },
         {
           title: "副标题",
-          key: "subtitle"
+          key: "subtitle",
+          has: [0, 2]
         },
         {
           title: "会员价",
-          key: "member"
+          key: "member",
+          has: [0, 1, 2]
         }
-      ]
+      ],
+      //当前风格
+      styleIndex: 0
     };
   },
   props: {
@@ -213,9 +233,20 @@ export default {
       });
       this.checkList = arr;
     },
-    //改变风格
-    changeStyle() {
+    //显示风格选择
+    styleDialogShow() {
+      this.styleIndex = this.localForm.style;
       this.$refs.stypeDialog.show();
+    },
+    //改变风格
+    //index  改变到当前风格
+    styleChange(index) {
+      this.styleIndex = index;
+    },
+    //确认风格
+    styleConfirm() {
+      this.localForm.style = this.styleIndex;
+      this.getStyleImg();
     },
     //显示内容改变
     // arr 显示内容数组
@@ -228,6 +259,14 @@ export default {
           this.$set(this.localForm, item.key, true);
         }
       });
+    },
+    //检查该风格是否可以显示
+    //item 每个显示内容
+    checkShow(item) {
+      const index = item.has.findIndex(
+        hasItem => hasItem === this.localForm.style
+      );
+      return index === -1 ? false : true;
     }
   },
   components: {
@@ -316,6 +355,9 @@ export default {
         margin-top: 3px;
         margin-right: 0px;
         width: 33%;
+        .el-checkbox__label {
+          font-size: 13px;
+        }
       }
     }
   }
@@ -347,17 +389,36 @@ export default {
         text-align: center;
         display: flex;
         flex-direction: column;
-        margin-bottom:16px;
-        .img-warpper{
-          margin:0px 20px;
-          margin-bottom: 10px;
-          border:1px solid $border-color;
-          background-color: #f7f8fa;
-          img{
-            width: 100%;
+        margin-bottom: 16px;
+        &.current {
+          .img-warpper {
+            border-color: $theme-color;
+            .el-icon-success {
+              display: block;
+            }
           }
         }
-        &>span{
+        .img-warpper {
+          border-radius: 5px;
+          margin: 0px 20px;
+          margin-bottom: 10px;
+          border: 1px solid $border-color;
+          background-color: #f7f8fa;
+          position: relative;
+          img {
+            width: 100%;
+          }
+          .el-icon-success {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            font-size: 17px;
+            transform: translate(50%, 50%);
+            color: $theme-color;
+            display: none;
+          }
+        }
+        & > span {
           font-size: 13px;
         }
       }

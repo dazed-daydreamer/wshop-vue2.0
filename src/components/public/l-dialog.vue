@@ -6,7 +6,7 @@
       </el-scrollbar>
       <div slot="footer" class="dialog-footer">
         <el-button @click="hide" size="medium">取 消</el-button>
-        <el-button type="primary" @click="hide" size="medium">确 定</el-button>
+        <el-button type="primary" @click="confirm" size="medium">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -27,11 +27,18 @@ export default {
     }
   },
   methods: {
+    //显示弹窗
     show() {
       this.dialogShow = true;
     },
+    //隐藏弹窗
     hide() {
       this.dialogShow = false;
+    },
+    //确认
+    confirm(){
+      this.$emit('confirm');
+      this.hide();
     }
   }
 };
@@ -43,7 +50,7 @@ export default {
 .l-dialog-warpper {
   .el-dialog {
     width: 908px;
-    height: 713px;
+    height: 550px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -59,7 +66,7 @@ export default {
     }
     .el-dialog__body {
       padding: 0px;
-      height: 596px;
+      height: 433px;
       flex-shrink: 0;
     }
     .el-dialog__footer {
