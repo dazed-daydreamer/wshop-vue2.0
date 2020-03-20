@@ -33,9 +33,10 @@
 </template>
 
 <script>
-import { shopMixins } from "mixins/shop-mixins";
+import { shopMixins } from "mixins/shop-mixins.js";
 import draggable from "vuedraggable";
-import CustomizeProduct from "./customize/customize-product";
+import CustomizeProduct from "./customize/customize-product.vue";
+import CustomizeTab from './customize/customize-tab.vue'
 export default {
   mixins: [shopMixins],
   data() {
@@ -85,6 +86,8 @@ export default {
         case "product":
           introduce = CustomizeProduct;
           break;
+        case "tab":
+          introduce = CustomizeTab; 
       }
       this.$set(item, "introduce", introduce);
       this.$set(item, "form", {});
@@ -154,11 +157,13 @@ export default {
               }
             }
             &.sortable-ghost {
-              display: flex;
-              justify-content: center;
-              align-items: center;
+              position: relative;
               &::before {
                 content: "放这里";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
               }
               height: 80px;
               width: 100%;

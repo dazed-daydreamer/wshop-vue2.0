@@ -67,7 +67,7 @@
         </el-checkbox-group>
       </div>
     </div>
-    <div class="buy-warpper">
+    <div class="buy-warpper" v-show="hasBuy">
       <div class="title">
         <span>购物车按钮</span>
       </div>
@@ -102,7 +102,7 @@
         </el-input>
       </div>
     </div>
-    <l-dialog ref="stypeDialog" title="风格选择器" @confirm="styleConfirm">
+    <l-dialog ref="stypeDialog" title="风格选择器" @confirm="styleConfirm" class="dialog">
       <div class="stype-dialog-warpper">
         <ul class="cu-list">
           <li
@@ -148,7 +148,7 @@ export default {
         sales: false,
         member: false,
         sign: false,
-        signTitle: "推介",
+        signTitle: "推荐",
         product: 0,
         sort: 0,
         sortType: 0
@@ -269,6 +269,14 @@ export default {
       return index === -1 ? false : true;
     }
   },
+  computed: {
+    //是否具有购买按钮
+    hasBuy() {
+      return this.localForm.style == 5 || this.localForm.style == 6
+        ? false
+        : true;
+    }
+  },
   components: {
     LDialog
   }
@@ -287,7 +295,7 @@ export default {
       font-size: 12px;
     }
   }
-  & > div {
+  & > div:not(.dialog) {
     padding: 20px 20px;
     border-top: 5px solid #f6f7f9;
     .title {

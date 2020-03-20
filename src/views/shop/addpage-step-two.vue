@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { publicMixins } from "mixins/public-mixins";
+import { publicMixins } from "mixins/public-mixins.js";
 import ShopComponentLibrary from "components/shop/shop-component-library.vue";
 import ShopTemplatePage from "components/shop/shop-template-page.vue";
 import ShopComponentForm from "components/shop/shop-component-form.vue";

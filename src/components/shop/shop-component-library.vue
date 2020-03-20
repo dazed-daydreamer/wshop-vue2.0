@@ -24,7 +24,7 @@
 
 <script>
 import draggable from "vuedraggable";
-import { shopComponentsList } from "@/config/shop";
+import { shopComponentsList } from "@/config/shop.js";
 export default {
   data() {
     return {

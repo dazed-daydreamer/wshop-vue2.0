@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { publicMixins } from "mixins/public-mixins";
+import { publicMixins } from "mixins/public-mixins.js";
 export default {
   mixins: [publicMixins],
   data() {
