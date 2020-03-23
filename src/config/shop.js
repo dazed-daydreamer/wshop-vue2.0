@@ -27,7 +27,6 @@ export const shopComponentsList = [
         title: '公告',
         icon: 'icon-gonggao',
         component: 'notice',
-        
         group: '图文类'
     },
     {
@@ -288,4 +287,6 @@ export const shopComponentsLikeInit = {
             price: 20,
             original: 30,
             sales: 0
-        },
+        },
+    ],
+}
