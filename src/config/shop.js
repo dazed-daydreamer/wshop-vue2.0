@@ -27,10 +27,11 @@ export const shopComponentsList = [
         title: '公告',
         icon: 'icon-gonggao',
         component: 'notice',
+        
         group: '图文类'
     },
     {
-        title: '店铺头部',
+        title: '搜索框',
         icon: 'icon-chaxunsousuokuang',
         component: 'search',
         group: '图文类'
@@ -168,3 +169,123 @@ export const shopComponentsList = [
         group: '其他组件'
     }
 ]
+
+
+export const shopComponentsProductInit = {
+    style: 0,
+    productList: [
+        {
+            title: "这里是商品标题",
+            subtitle: "这里是商品副标题",
+            price: 20,
+            original: 30,
+            sales: 0
+        },
+        {
+            title: "这里是商品标题",
+            subtitle: "这里是商品副标题",
+            price: 20,
+            original: 30,
+            sales: 0
+        },
+        {
+            title: "这里是商品标题",
+            subtitle: "这里是商品副标题",
+            price: 20,
+            original: 30,
+            sales: 0
+        }
+    ],
+    original: false,
+    buyStyle: 0,
+    title: true,
+    subtitle: true,
+    price: true,
+    sales: false,
+    member: false,
+    sign: false,
+    signTitle: "推荐",
+    product: 0,
+    sort: 0,
+    sortType: 0
+}
+
+
+
+export const shopComponentsTabInit = {
+    style: 0,
+    tabList: [
+        {
+            title: "选项",
+            product: [
+                {
+                    title: "这里是商品标题",
+                    subtitle: "这里是商品副标题",
+                    price: 20,
+                    original: 30,
+                    sales: 0
+                },
+                {
+                    title: "这里是商品标题",
+                    subtitle: "这里是商品副标题",
+                    price: 20,
+                    original: 30,
+                    sales: 0
+                },
+                {
+                    title: "这里是商品标题",
+                    subtitle: "这里是商品副标题",
+                    price: 20,
+                    original: 30,
+                    sales: 0
+                }
+            ]
+        },
+        {
+            title: "选项",
+            product: [
+                {
+                    title: "这里是商品标题",
+                    subtitle: "这里是商品副标题",
+                    price: 20,
+                    original: 30,
+                    sales: 0
+                }
+            ]
+        }
+    ],
+    original: false,
+    buyStyle: 0,
+    title: true,
+    subtitle: true,
+    price: true,
+    sales: false,
+    sign: false,
+    signTitle: "推荐",
+    product: 0,
+    sort: 0,
+    sortType: 0,
+    currentTab: 0
+}
+
+
+export const shopComponentsLikeInit = {
+    style: 0,
+    title: '猜你喜欢',
+    titleShow: true,
+    count: 1,
+    productList: [
+        {
+            title: "这里是商品标题",
+            subtitle: "这里是商品副标题",
+            price: 20,
+            original: 30,
+            sales: 0
+        },
+        {
+            title: "这里是商品标题",
+            subtitle: "这里是商品副标题",
+            price: 20,
+            original: 30,
+            sales: 0
+        },

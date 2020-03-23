@@ -20,6 +20,7 @@
 <script>
 import { shopMixins } from "@/mixins/shop-mixins.js";
 import FormProduct from "./form/form-product.vue";
+import FormTab from "./form/form-tab.vue";
 export default {
   mixins: [shopMixins],
   data() {
@@ -32,9 +33,6 @@ export default {
       icon: ""
     };
   },
-  components: {
-    FormProduct
-  },
   watch: {
     //当监测到选择的组件改变的时候，动态引入组件表单
     getCurrentComponentIndex() {
@@ -45,6 +43,11 @@ export default {
         case "product":
           hasComponent = FormProduct;
           break;
+        case "tab":
+          hasComponent = FormTab;
+          break;
+        default:
+          hasComponent = null;
       }
       if (this.hasComponent == hasComponent) {
         this.hasComponent = null;

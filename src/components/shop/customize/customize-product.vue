@@ -1,35 +1,35 @@
 <template>
   <div class="customize-product-warpper">
     <div class="cu-list" :class="listClass">
-      <div class="cu-item" v-for="(item,index) in localForm.productList" :key="index">
-        <div class="sign-warpper" v-if="localForm.sign">
+      <div class="cu-item" v-for="(item,index) in form.productList" :key="index">
+        <div class="sign-warpper" v-if="form.sign">
           <img src="../../../assets/images/common_label2.png" alt />
-          <span>{{localForm.signTitle}}</span>
+          <span>{{form.signTitle}}</span>
         </div>
         <el-image :src="require('../../../assets/images/default_banner.png')" fit="cover"></el-image>
         <div class="data-warpper">
-          <span class="title" v-if="localForm.title">{{item.title}}</span>
+          <span class="title" v-if="form.title">{{item.title}}</span>
           <span class="subtitle" v-if="hasSubtitle">{{item.subtitle}}</span>
           <div class="price-buy">
             <div class="price-warpper">
               <div>
-                <span class="price" v-if="localForm.price">￥{{item.price.toFixed(2)}}</span>
+                <span class="price" v-if="form.price">￥{{item.price.toFixed(2)}}</span>
                 <span
                   class="original"
-                  v-if="localForm.original&&!localForm.member&&hasPartial"
+                  v-if="form.original&&!form.member&&hasPartial"
                 >￥{{item.original.toFixed(2)}}</span>
-                <div v-if="localForm.member&&hasPartial">
+                <div v-if="form.member&&hasPartial">
                   <span class="iconfont icon-huiyuan"></span>
                   <span>会员价</span>
                 </div>
               </div>
-              <div v-if="localForm.sales&&hasPartial">
+              <div v-if="form.sales&&hasPartial">
                 <span>已售{{item.sales}}</span>
               </div>
             </div>
-            <div class="buy-warpper" v-if="localForm.buyStyle != -1&&hasBuy">
-              <span v-if="localForm.buyStyle === 0" class="style-1">购买</span>
-              <span v-else-if="localForm.buyStyle === 1" class="el-icon-circle-plus style-2"></span>
+            <div class="buy-warpper" v-if="form.buyStyle != -1&&hasBuy">
+              <span v-if="form.buyStyle === 0" class="style-1">购买</span>
+              <span v-else-if="form.buyStyle === 1" class="el-icon-circle-plus style-2"></span>
               <span v-else class="iconfont style-3 icon-gouwuche"></span>
             </div>
           </div>
@@ -49,108 +49,24 @@ export default {
       default: {}
     }
   },
-  data() {
-    return {
-      //本地表单
-      localForm: {
-        style: 0,
-        productList: [
-          {
-            title: "这里是商品标题",
-            subtitle: "这里是商品副标题",
-            price: 20,
-            original: 30,
-            sales: 0
-          },
-          {
-            title: "这里是商品标题",
-            subtitle: "这里是商品副标题",
-            price: 20,
-            original: 30,
-            sales: 0
-          },
-          {
-            title: "这里是商品标题",
-            subtitle: "这里是商品副标题",
-            price: 20,
-            original: 30,
-            sales: 0
-          }
-        ],
-        original: false,
-        buyStyle: 0,
-        title: true,
-        subtitle: true,
-        price: true,
-        sales: false,
-        member: false,
-        sign: false,
-        signTitle: "推荐",
-        product: 0,
-        sort: 0,
-        sortType: 0
-      }
-    };
-  },
   computed: {
     //是否具有二级标题
     hasSubtitle() {
       return (
-        this.localForm.subtitle &&
-        (this.localForm.style === 0 || this.localForm.style === 2)
+        this.form.subtitle && (this.form.style === 0 || this.form.style === 2)
       );
     },
     //不同样式的class
     listClass() {
-      return `listtyle-${this.localForm.style + 1}`;
+      return `listtyle-${this.form.style + 1}`;
     },
     //是否具有部分功能
     hasPartial() {
-      return this.localForm.style >= 3 ? false : true;
+      return this.form.style >= 3 ? false : true;
     },
     //是否具有购买按钮
     hasBuy() {
-      return this.localForm.style == 5 || this.localForm.style == 6
-        ? false
-        : true;
-    }
-  },
-  watch: {
-    //监听父级传过来的表单。赋值给本地表单
-    form: {
-      handler(val) {
-        this.localForm = Object.assign(this.localForm, val);
-        if (
-          !this.localForm.productList ||
-          this.localForm.productList.length === 0
-        ) {
-          this.$set(this.localForm, "productList", [
-            {
-              title: "这里是商品标题",
-              subtitle: "这里是商品副标题",
-              price: 20,
-              original: 30,
-              sales: 0
-            },
-            {
-              title: "这里是商品标题",
-              subtitle: "这里是商品副标题",
-              price: 20,
-              original: 30,
-              sales: 0
-            },
-            {
-              title: "这里是商品标题",
-              subtitle: "这里是商品副标题",
-              price: 20,
-              original: 30,
-              sales: 0
-            }
-          ]);
-        }
-      },
-      immediate: true,
-      deep: true
+      return this.form.style == 5 || this.form.style == 6 ? false : true;
     }
   }
 };
@@ -329,7 +245,7 @@ export default {
   .cu-list.listtyle-3 {
     .cu-item {
       padding: 0px 10px;
-      .sign-warpper{
+      .sign-warpper {
         left: 10px;
       }
     }
@@ -354,6 +270,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding: 0px 10px;
     .cu-item {
       flex-direction: row;
       width: 48%;

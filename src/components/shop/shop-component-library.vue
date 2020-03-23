@@ -38,7 +38,7 @@ export default {
           put: false,
           pull: "clone"
         }
-      }
+      },
     };
   },
   created() {

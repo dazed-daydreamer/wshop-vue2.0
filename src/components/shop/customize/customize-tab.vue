@@ -4,9 +4,9 @@
       <ul class="cu-list">
         <li
           class="cu-item"
-          v-for="(item,index) in localForm.tabList"
+          v-for="(item,index) in form.tabList"
           :key="index"
-          :class="{current:index === localForm.currentTab}"
+          :class="{current:index === form.currentTab}"
         >
           <span>{{item.title}}</span>
         </li>
@@ -15,34 +15,34 @@
     <div class="product-warpper" :class="listClass">
       <ul class="cu-list">
         <li class="cu-item" v-for="(item,index) in productList" :key="index">
-          <div class="sign-warpper" v-if="localForm.sign">
+          <div class="sign-warpper" v-if="form.sign">
             <img src="../../../assets/images/common_label2.png" alt />
-            <span>{{localForm.signTitle}}</span>
+            <span>{{form.signTitle}}</span>
           </div>
           <el-image :src="require('../../../assets/images/default_banner.png')" fit="cover"></el-image>
           <div class="data-warpper">
-            <span class="title" v-if="localForm.title">{{item.title}}</span>
+            <span class="title" v-if="form.title">{{item.title}}</span>
             <span class="subtitle" v-if="hasSubtitle">{{item.subtitle}}</span>
             <div class="price-buy">
               <div class="price-warpper">
                 <div>
-                  <span class="price" v-if="localForm.price">￥{{item.price.toFixed(2)}}</span>
+                  <span class="price" v-if="form.price">￥{{item.price.toFixed(2)}}</span>
                   <span
                     class="original"
-                    v-if="localForm.original&&!localForm.member&&hasPartial"
+                    v-if="form.original&&!form.member&&hasPartial"
                   >￥{{item.original.toFixed(2)}}</span>
-                  <div v-if="localForm.member&&hasPartial">
+                  <div v-if="form.member&&hasPartial">
                     <span class="iconfont icon-huiyuan"></span>
                     <span>会员价</span>
                   </div>
                 </div>
-                <div v-if="localForm.sales&&hasPartial">
+                <div v-if="form.sales&&hasPartial">
                   <span>已售{{item.sales}}</span>
                 </div>
               </div>
-              <div class="buy-warpper" v-if="localForm.buyStyle != -1&&hasBuy">
-                <span v-if="localForm.buyStyle === 0" class="style-1">购买</span>
-                <span v-else-if="localForm.buyStyle === 1" class="el-icon-circle-plus style-2"></span>
+              <div class="buy-warpper" v-if="form.buyStyle != -1&&hasBuy">
+                <span v-if="form.buyStyle === 0" class="style-1">购买</span>
+                <span v-else-if="form.buyStyle === 1" class="el-icon-circle-plus style-2"></span>
                 <span v-else class="iconfont style-3 icon-gouwuche"></span>
               </div>
             </div>
@@ -55,91 +55,35 @@
 
 <script>
 export default {
-  data() {
-    return {
-      //本地表单
-      localForm: {
-        style: 0,
-        tabList: [
-          {
-            title: "选项",
-            product: [
-              {
-                title: "这里是商品标题",
-                subtitle: "这里是商品副标题",
-                price: 20,
-                original: 30,
-                sales: 0
-              },
-              {
-                title: "这里是商品标题",
-                subtitle: "这里是商品副标题",
-                price: 20,
-                original: 30,
-                sales: 0
-              },
-              {
-                title: "这里是商品标题",
-                subtitle: "这里是商品副标题",
-                price: 20,
-                original: 30,
-                sales: 0
-              }
-            ]
-          },
-          {
-            title: "选项",
-            product: [
-              {
-                title: "这里是商品标题",
-                subtitle: "这里是商品副标题",
-                price: 20,
-                original: 30,
-                sales: 0
-              }
-            ]
-          }
-        ],
-        original: false,
-        buyStyle: 0,
-        title: true,
-        subtitle: true,
-        price: true,
-        sales: false,
-        sign: false,
-        signTitle: "推荐",
-        product: 0,
-        sort: 0,
-        sortType: 0,
-        currentTab: 0
-      }
-    };
+  props: {
+    //父组件传过来的表单
+    form: {
+      type: Object,
+      default: {}
+    }
   },
   computed: {
     //不同的tab返回不同的列表信息
     productList() {
-      return this.localForm.tabList[this.localForm.currentTab].product;
+      return this.form.tabList[this.form.currentTab].product;
     },
     //是否具有二级标题
     hasSubtitle() {
       return (
-        this.localForm.subtitle &&
-        (this.localForm.style === 0 || this.localForm.style === 2)
+        this.form.subtitle && (this.form.style === 0 || this.form.style === 2)
       );
     },
     //不同样式的class
     listClass() {
-      return `listtyle-${this.localForm.style + 1}`;
+      return `listtyle-${this.form.style + 1}`;
     },
     //是否具有部分功能
     hasPartial() {
-      return this.localForm.style >= 3 ? false : true;
+      return this.form.style >= 3 ? false : true;
     },
     //是否具有购买按钮
     hasBuy() {
-      return this.localForm.style == 5 || this.localForm.style == 6
-        ? false
-        : true;
+      return this.form.style == 5 || this.form.style == 6 ? false : true;
     }
   }
 };
@@ -152,12 +96,17 @@ export default {
   .tab-warpper {
     line-height: 40px;
     .cu-list {
-      display: flex;
+      text-align: left;
       margin: 0;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
       .cu-item {
+        display: inline-block;
         width: 85px;
         font-size: 14px;
         border-bottom: 2px solid transparent;
+        text-align: center;
         &.current {
           border-color: #ee6135;
         }
@@ -171,10 +120,11 @@ export default {
       .cu-item {
         margin-bottom: 15px;
         text-align: left;
+        position: relative;
         .sign-warpper {
           position: absolute;
           top: 0;
-          left: 0;
+          left: 0px;
           width: 35px;
           height: 35px;
           z-index: 20;
@@ -282,6 +232,116 @@ export default {
       .cu-list {
         .cu-item {
           padding: 0px 10px;
+        }
+      }
+    }
+    &.listtyle-2,
+    &.listtyle-4,
+    &.listtyle-5 {
+      .cu-list {
+        justify-content: space-between;
+        display: flex;
+        padding: 0px 10px;
+        flex-wrap: wrap;
+        .cu-item {
+          width: 48%;
+        }
+      }
+    }
+
+    &.listtyle-7 {
+      .cu-list {
+        display: flex;
+        overflow: hidden;
+        padding-left: 10px;
+        .cu-item {
+          margin-right: 10px;
+          width: 100px;
+          flex-shrink: 0;
+          .el-image {
+            width: 100%;
+            height: 100px;
+          }
+        }
+      }
+    }
+
+    &.listtyle-4,
+    &.listtyle-5 {
+      .cu-list {
+        .cu-item {
+          width: 32%;
+          .el-image {
+            width: 100%;
+            height: 130px;
+          }
+          .title {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+
+    &.listtyle-5 {
+      .cu-list {
+        .cu-item {
+          transform: scale(0.9);
+        }
+        .cu-item:nth-of-type(3n + 2) {
+          transform: scale(1);
+        }
+      }
+    }
+
+    &.listtyle-1,
+    &.listtyle-3 {
+      .cu-list {
+        .cu-item {
+          padding: 0px 10px;
+          .sign-warpper {
+            left: 10px;
+          }
+        }
+      }
+    }
+
+    &.listtyle-3 {
+      .cu-list {
+        .cu-item {
+          display: flex;
+          flex-direction: row;
+          .el-image {
+            width: 105px;
+            height: 105px;
+            flex-shrink: 0;
+          }
+          .data-warpper {
+            flex: 1;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+
+    &.listtyle-6 {
+      .cu-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0px 10px;
+        .cu-item {
+          display: flex;
+          flex-direction: row;
+          width: 48%;
+          .el-image {
+            width: 90px;
+            height: 90px;
+            flex-shrink: 0;
+          }
+          .data-warpper {
+            flex: 1;
+            justify-content: space-between;
+          }
         }
       }
     }

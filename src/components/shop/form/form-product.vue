@@ -130,6 +130,7 @@
 <script>
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
 import LDialog from "../../public/l-dialog.vue";
+import { shopComponentsProductInit } from "@/config/shop.js";
 export default {
   mixins: [shopFormMixins],
   data() {
@@ -137,22 +138,7 @@ export default {
       //风格图片
       styleImg: "",
       //本地表单
-      localForm: {
-        style: 0,
-        productList: [],
-        original: false,
-        buyStyle: 0,
-        title: true,
-        subtitle: true,
-        price: true,
-        sales: false,
-        member: false,
-        sign: false,
-        signTitle: "推荐",
-        product: 0,
-        sort: 0,
-        sortType: 0
-      },
+      localForm: JSON.parse(JSON.stringify(shopComponentsProductInit)),
       //样式图片数组
       stypeImgArr: [
         "goods,one.png",

@@ -11,6 +11,7 @@
           class="cu-list"
           :scrollSensitivity="300"
           @add="addList"
+          @sort="sortChange"
         >
           <li
             v-for="(item,index) in componentsList"
@@ -20,7 +21,7 @@
             :class="{crrent:index === getCurrentComponentIndex}"
           >
             <div class="delete">
-              <el-popconfirm title="是否删除组件吗" @onConfirm="delItem(item)">
+              <el-popconfirm title="是否删除组件吗" @onConfirm="delItem(index)">
                 <span class="el-icon-close" slot="reference"></span>
               </el-popconfirm>
             </div>
@@ -36,7 +37,13 @@
 import { shopMixins } from "mixins/shop-mixins.js";
 import draggable from "vuedraggable";
 import CustomizeProduct from "./customize/customize-product.vue";
-import CustomizeTab from './customize/customize-tab.vue'
+import CustomizeTab from "./customize/customize-tab.vue";
+import CustomizeLike from "./customize/customize-like.vue";
+import {
+  shopComponentsProductInit,
+  shopComponentsTabInit,
+  shopComponentsLikeInit
+} from "@/config/shop.js";
 export default {
   mixins: [shopMixins],
   data() {
@@ -58,7 +65,9 @@ export default {
     //监听自定义页面表单改变
     this.bus.$on("formChange", res => {
       const item = this.componentsList[this.getCurrentComponentIndex];
-      item.form = res;
+      if (item) {
+        item.form = JSON.parse(JSON.stringify(res));
+      }
     });
   },
   methods: {
@@ -74,29 +83,57 @@ export default {
       this.setCurrentComponentItem(this.componentsList[index]);
     },
     //删除选中组件
-    //item  选择组件的信息
-    delItem(item) {},
+    //index  选择组件的索引
+    delItem(index) {
+      this.componentsList.splice(index, 1);
+      if (index === this.getCurrentComponentIndex) {
+        this.setCurrentComponentIndex(-1);
+        this.setCurrentComponentItem({});
+      }
+    },
     //每当添加一个组件的时候触发
     //evt    新组件的信息
     addList(evt) {
       const index = evt.newIndex;
       const item = JSON.parse(JSON.stringify(this.componentsList[index]));
+      let form = {};
       let introduce;
       switch (item.component) {
         case "product":
           introduce = CustomizeProduct;
+          form = shopComponentsProductInit;
           break;
         case "tab":
-          introduce = CustomizeTab; 
+          introduce = CustomizeTab;
+          form = shopComponentsTabInit;
+          break;
+        case "like":
+          introduce = CustomizeLike;
+          form = shopComponentsLikeInit;
+          break;
       }
       this.$set(item, "introduce", introduce);
-      this.$set(item, "form", {});
+      this.$set(item, "form", JSON.parse(JSON.stringify(form)));
       this.componentsList.splice(index, 1, item);
+    },
+    //当拖拽排序时候触发
+    sortChange(evt) {
+      const oldIndex = evt.oldIndex;
+      const newIndex = evt.newIndex;
+      if (
+        (oldIndex === this.getCurrentComponentIndex ||
+          newIndex === this.getCurrentComponentIndex) &&
+        evt.pullMode != "clone"
+      ) {
+        const index =
+          this.getCurrentComponentIndex === oldIndex ? newIndex : oldIndex;
+        this.setCurrentComponentIndex(index);
+        this.setCurrentComponentItem(this.componentsList[index]);
+      }
     }
   },
   components: {
-    draggable,
-    CustomizeProduct
+    draggable
   }
 };
 </script>
@@ -163,7 +200,7 @@ export default {
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                transform: translate(-50%,-50%);
+                transform: translate(-50%, -50%);
               }
               height: 80px;
               width: 100%;
