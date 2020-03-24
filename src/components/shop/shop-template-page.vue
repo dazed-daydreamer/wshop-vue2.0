@@ -185,6 +185,8 @@ export default {
                 margin-top: 2px;
                 margin-left: 2px;
                 color: #fff;
+                width: 100%;
+                height: 100%;
               }
             }
             &.crrent {

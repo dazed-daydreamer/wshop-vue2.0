@@ -10,6 +10,17 @@
         <li class="cu-item" v-for="(item,index) in form.productList" :key="index">
           <el-image :src="require('../../../assets/images/default_picture.png')" fit="cover"></el-image>
           <div class="title">{{item.title}}</div>
+          <div class="price">
+            <span>￥{{item.price}}</span>
+            <span>￥{{item.original}}</span>
+          </div>
+          <div class="buy">
+            <div>
+              <span>已售卖</span>
+              <span>{{item.sales}}</span>
+            </div>
+            <span>购买</span>
+          </div>
         </li>
       </ul>
     </div>
@@ -31,6 +42,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/styles/theme.scss";
 .customize-like-warpper {
   margin-top: 20px;
   & > .title {
@@ -56,6 +68,36 @@ export default {
       .title {
         margin-top: 10px;
         font-size: 13px;
+      }
+      .price {
+        margin-top: 3px;
+        span:nth-of-type(1) {
+          color: $price-color;
+        }
+        span:nth-of-type(2) {
+          margin-left: 5px;
+          font-size: 12px;
+          color: #909399;
+          text-decoration: line-through;
+        }
+      }
+      .buy {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3px;
+        align-items: center;
+        div {
+          span {
+            font-size: 12px;
+            color: #909399;
+          }
+        }
+        & > span {
+          background-color: #2589ff;
+          color: #fff;
+          font-size: 12px;
+          padding: 6px;
+        }
       }
     }
   }
