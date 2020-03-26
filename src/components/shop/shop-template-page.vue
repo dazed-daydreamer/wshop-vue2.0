@@ -39,10 +39,12 @@ import draggable from "vuedraggable";
 import CustomizeProduct from "./customize/customize-product.vue";
 import CustomizeTab from "./customize/customize-tab.vue";
 import CustomizeLike from "./customize/customize-like.vue";
+import CustomizeRanking from "./customize/customize-ranking.vue";
 import {
   shopComponentsProductInit,
   shopComponentsTabInit,
-  shopComponentsLikeInit
+  shopComponentsLikeInit,
+  shopComponentsRankingInit
 } from "@/config/shop.js";
 export default {
   mixins: [shopMixins],
@@ -110,6 +112,9 @@ export default {
         case "like":
           introduce = CustomizeLike;
           form = shopComponentsLikeInit;
+        case "ranking":
+          introduce = CustomizeRanking;
+          form = shopComponentsRankingInit;
           break;
       }
       this.$set(item, "introduce", introduce);

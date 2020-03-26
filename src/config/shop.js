@@ -273,20 +273,13 @@ export const shopComponentsLikeInit = {
     title: '猜你喜欢',
     titleShow: true,
     count: 1,
-    productList: [
-        {
-            title: "这里是商品标题",
-            subtitle: "这里是商品副标题",
-            price: 20,
-            original: 30,
-            sales: 0
-        },
-        {
-            title: "这里是商品标题",
-            subtitle: "这里是商品副标题",
-            price: 20,
-            original: 30,
-            sales: 0
-        },
-    ],
+}
+
+
+
+export const shopComponentsRankingInit = {
+    style: 0,
+    title: '商品排行',
+    titleShow: true,
+    count: 1,
 }

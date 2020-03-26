@@ -21,6 +21,7 @@
 import { shopMixins } from "@/mixins/shop-mixins.js";
 import FormProduct from "./form/form-product.vue";
 import FormTab from "./form/form-tab.vue";
+import FormLike from "./form/form-like.vue";
 export default {
   mixins: [shopMixins],
   data() {
@@ -45,6 +46,9 @@ export default {
           break;
         case "tab":
           hasComponent = FormTab;
+          break;
+        case "like":
+          hasComponent = FormLike;
           break;
         default:
           hasComponent = null;

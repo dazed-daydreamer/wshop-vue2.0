@@ -1,5 +1,5 @@
 <template>
-  <div class="customize-like-warpper">
+  <div class="customize-ranking-warpper">
     <div class="title" v-if="form.titleShow">
       <div class="line"></div>
       <span>{{form.title}}</span>
@@ -62,7 +62,7 @@ export default {
 
 <style lang="scss">
 @import "@/styles/theme.scss";
-.customize-like-warpper {
+.customize-ranking-warpper {
   margin-top: 20px;
   & > .title {
     display: flex;
