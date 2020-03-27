@@ -282,4 +282,6 @@ export const shopComponentsRankingInit = {
     title: '商品排行',
     titleShow: true,
     count: 1,
+    classify: 0,
+    keyWord:''
 }
