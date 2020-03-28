@@ -283,5 +283,21 @@ export const shopComponentsRankingInit = {
     titleShow: true,
     count: 1,
     classify: 0,
-    keyWord:''
+    keyWord: ''
+}
+
+
+export const shopComponentsNoticeInit = {
+    notice: '由于天气原因，近期物流会推迟发货',
+    style: 0,
+    padding: 5
+}
+
+
+export const shopComponentsSearchInit = {
+    iconColor: '#fd463e',
+    titleColor: '#999999',
+    radiusStyle: 0,
+    placeholder: '补水面膜',
+    placeholderStyle: 0
 }

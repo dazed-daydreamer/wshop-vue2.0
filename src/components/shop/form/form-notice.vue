@@ -1,5 +1,5 @@
 <template>
-  <div class="form-like-warpper">
+  <div class="form-notice-warpper">
     <div class="component-style">
       <div class="title">
         <span>选择风格</span>
@@ -9,35 +9,17 @@
         <div class="style-change" @click.stop="styleDialogShow">修改风格</div>
       </div>
     </div>
-    <div class="title-style">
-      <div class="tips">该模块商品由系统根据算法自动展示，无需编辑</div>
-      <div class="title">
-        <span>标题</span>
-      </div>
-      <div class="style-warpper">
-        <div class="radio-warpper">
-          <el-radio v-model="localForm.titleShow" :label="true">显示</el-radio>
-          <el-radio v-model="localForm.titleShow" :label="false">隐藏</el-radio>
-        </div>
-        <div class="title-warpper">
-          <span>文字</span>
-          <el-input
-            type="text"
-            placeholder="请输入内容"
-            v-model="localForm.title"
-            maxlength="8"
-            show-word-limit
-          ></el-input>
-        </div>
+    <div class="notice-warpper">
+      <div class="title">公告信息</div>
+      <div class="notice-input">
+        <el-input v-model="localForm.notice" ></el-input>
       </div>
     </div>
-    <div class="count-warpper">
-      <div class="title">
-        <span>显示条数</span>
-      </div>
-      <div class="slider-warpper">
-        <el-slider v-model="localForm.count" :min="1" :max="20"></el-slider>
-        <span>{{localForm.count}}</span>
+    <div class="padding-warpper">
+      <div class="title">上下边距</div>
+      <div class="change-padding">
+        <el-slider v-model="localForm.padding" :max="50"></el-slider>
+        <span>{{localForm.padding}}px</span>
       </div>
     </div>
     <l-dialog ref="stypeDialog" title="风格选择器" @confirm="styleConfirm" class="dialog">
@@ -64,8 +46,9 @@
   </div>
 </template>
 
+
 <script>
-import { shopComponentsLikeInit } from "@/config/shop.js";
+import { shopComponentsNoticeInit } from "@/config/shop.js";
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
 import LDialog from "../../public/l-dialog.vue";
 export default {
@@ -75,12 +58,18 @@ export default {
       //风格图片
       styleImg: "",
       //本地表单
-      localForm: JSON.parse(JSON.stringify(shopComponentsLikeInit)),
+      localForm: JSON.parse(JSON.stringify(shopComponentsNoticeInit)),
       //样式图片数组
-      stypeImgArr: ["twoGoods,two.png", "twoGoods,list2.png"],
+      stypeImgArr: ["notice,style1.png", "notice,style2.png"],
       //当前风格
       styleIndex: 0
     };
+  },
+  methods: {
+    //初始化表单
+    _initForm() {
+      this.getStyleImg();
+    }
   },
   props: {
     //父组件传过来的表单
@@ -88,12 +77,6 @@ export default {
       type: Object,
       default: {}
     }
-  },
-  methods: {
-    //初始化表单
-    _initForm() {
-      this.getStyleImg();
-    },
   },
   components: {
     LDialog
@@ -104,7 +87,7 @@ export default {
 
 <style lang="scss">
 @import "@/styles/theme.scss";
-.form-like-warpper {
+.form-notice-warpper {
   text-align: left;
   & > div:not(.dialog) {
     padding: 20px 20px;
@@ -142,38 +125,14 @@ export default {
       }
     }
   }
-  .title-style {
-    .tips {
-      border: 1px solid #d8e8fc;
-      background-color: #e5f0fe;
-      padding: 12px 16px;
-      border-radius: 6px;
-      color: #666;
-      font-size: 12px;
-      margin-bottom: 20px;
-    }
-    .style-warpper {
+  .notice-warpper {
+    .notice-input {
       margin-top: 20px;
-      .radio-warpper {
-        .el-radio__label {
-          font-size: 12px;
-        }
-      }
-      .title-warpper {
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-        span {
-          width: 50px;
-          flex-shrink: 0;
-          font-size: 12px;
-        }
-      }
     }
   }
 
-  .count-warpper {
-    .slider-warpper {
+  .padding-warpper {
+    .change-padding {
       display: flex;
       align-items: center;
       margin-top: 10px;

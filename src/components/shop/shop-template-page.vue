@@ -40,11 +40,15 @@ import CustomizeProduct from "./customize/customize-product.vue";
 import CustomizeTab from "./customize/customize-tab.vue";
 import CustomizeLike from "./customize/customize-like.vue";
 import CustomizeRanking from "./customize/customize-ranking.vue";
+import CustomizeNotice from "./customize/customize-notice.vue";
+import CustomizeSearch from "./customize/customize-search.vue";
 import {
   shopComponentsProductInit,
   shopComponentsTabInit,
   shopComponentsLikeInit,
-  shopComponentsRankingInit
+  shopComponentsRankingInit,
+  shopComponentsNoticeInit,
+  shopComponentsSearchInit
 } from "@/config/shop.js";
 export default {
   mixins: [shopMixins],
@@ -115,6 +119,14 @@ export default {
         case "ranking":
           introduce = CustomizeRanking;
           form = shopComponentsRankingInit;
+          break;
+        case "notice":
+          introduce = CustomizeNotice;
+          form = shopComponentsNoticeInit;
+          break;
+        case "search":
+          introduce = CustomizeSearch;
+          form = shopComponentsSearchInit;
           break;
       }
       this.$set(item, "introduce", introduce);

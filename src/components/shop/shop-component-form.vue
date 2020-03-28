@@ -22,7 +22,9 @@ import { shopMixins } from "@/mixins/shop-mixins.js";
 import FormProduct from "./form/form-product.vue";
 import FormTab from "./form/form-tab.vue";
 import FormLike from "./form/form-like.vue";
-import FormRanking from "./form/form-ranking";
+import FormRanking from "./form/form-ranking.vue";
+import FormNotice from "./form/form-notice.vue";
+import FormSearch from "./form/form-search.vue";
 export default {
   mixins: [shopMixins],
   data() {
@@ -53,6 +55,12 @@ export default {
           break;
         case "ranking":
           hasComponent = FormRanking;
+          break;
+        case "notice":
+          hasComponent = FormNotice;
+          break;
+        case "search":
+          hasComponent = FormSearch;
           break;
         default:
           hasComponent = null;

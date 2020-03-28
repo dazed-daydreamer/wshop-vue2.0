@@ -138,27 +138,6 @@ export default {
     _initForm() {
       this.getStyleImg();
     },
-    //获取风格图片
-    getStyleImg() {
-      this.styleImg = require(`assets/images/${
-        this.stypeImgArr[this.localForm.style]
-      }`);
-    },
-    //显示风格选择
-    styleDialogShow() {
-      this.styleIndex = this.localForm.style;
-      this.$refs.stypeDialog.show();
-    },
-    //改变风格
-    //index  改变到当前风格
-    styleChange(index) {
-      this.styleIndex = index;
-    },
-    //确认风格
-    styleConfirm() {
-      this.localForm.style = this.styleIndex;
-      this.getStyleImg();
-    }
   },
   components: {
     LDialog
