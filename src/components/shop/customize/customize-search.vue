@@ -1,5 +1,5 @@
 <template>
-  <div class="customize-search-warpper">
+  <div class="customize-search-warpper" :class="radiusClass">
     <div class="search-warpper" :class="{center:form.placeholderStyle === 1}">
       <span class="el-icon-search" :style="{color:form.iconColor}"></span>
       <span :style="{color:form.titleColor}">{{form.placeholder}}</span>
@@ -15,6 +15,11 @@ export default {
       type: Object,
       default: {}
     }
+  },
+  computed: {
+    radiusClass() {
+      return `radius-style-${this.form.radiusStyle}`;
+    }
   }
 };
 </script>
@@ -23,6 +28,16 @@ export default {
 <style lang="scss">
 .customize-search-warpper {
   padding: 5px 10px;
+  &.radius-style-1 {
+    .search-warpper {
+      border-radius: 50px;
+    }
+  }
+  &.radius-style-2 {
+    .search-warpper {
+      border-radius: 5px;
+    }
+  }
   .search-warpper {
     border: 1px solid #ededed;
     background: #f7f8fa;

@@ -52,6 +52,12 @@
         </ul>
       </div>
     </div>
+    <div class="title-placeholder">
+      <div class="title">默认文字</div>
+      <div class="input-placeholder">
+        <el-input v-model="localForm.placeholder" maxlength="15" show-word-limit></el-input>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -187,6 +193,12 @@ export default {
           }
         }
       }
+    }
+  }
+
+  .title-placeholder {
+    .input-placeholder {
+      margin-top: 20px;
     }
   }
 }
