@@ -1,3 +1,4 @@
+//组件列表
 export const shopComponentsList = [
     {
         title: '商品组',
@@ -169,7 +170,7 @@ export const shopComponentsList = [
     }
 ]
 
-
+//商品组初始化数据
 export const shopComponentsProductInit = {
     style: 0,
     productList: [
@@ -210,7 +211,7 @@ export const shopComponentsProductInit = {
 }
 
 
-
+//选项卡初始化数据
 export const shopComponentsTabInit = {
     style: 0,
     tabList: [
@@ -267,7 +268,7 @@ export const shopComponentsTabInit = {
     currentTab: 0
 }
 
-
+//猜你喜欢初始化数据
 export const shopComponentsLikeInit = {
     style: 0,
     title: '猜你喜欢',
@@ -276,7 +277,7 @@ export const shopComponentsLikeInit = {
 }
 
 
-
+//商品排行初始化数据
 export const shopComponentsRankingInit = {
     style: 0,
     title: '商品排行',
@@ -286,18 +287,43 @@ export const shopComponentsRankingInit = {
     keyWord: ''
 }
 
-
+//公告初始化数据
 export const shopComponentsNoticeInit = {
     notice: '由于天气原因，近期物流会推迟发货',
     style: 0,
     padding: 5
 }
 
-
+//搜索框初始化数据
 export const shopComponentsSearchInit = {
     iconColor: '#fd463e',
     titleColor: '#999999',
     radiusStyle: 0,
     placeholder: '补水面膜',
     placeholderStyle: 0
+}
+
+//轮播图初始化数据
+export const shopComponentsSliderInit = {
+    dotStyle: 0,
+    positionStyle: 1,
+    slider: [{
+        img: '',
+        url: '',
+    }, {
+        img: '',
+        url: '',
+    }]
+}
+
+//图片初始化数据
+export const shopComponentsPictureInit = {
+    style:0,
+    picture: [{
+        img: '',
+        url: '',
+    }, {
+        img: '',
+        url: '',
+    }]
 }

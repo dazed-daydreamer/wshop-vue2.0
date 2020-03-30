@@ -25,6 +25,8 @@ import FormLike from "./form/form-like.vue";
 import FormRanking from "./form/form-ranking.vue";
 import FormNotice from "./form/form-notice.vue";
 import FormSearch from "./form/form-search.vue";
+import FromSlider from "./form/form-slider.vue";
+import FormPicture from "./form/form-picture.vue";
 export default {
   mixins: [shopMixins],
   data() {
@@ -61,6 +63,12 @@ export default {
           break;
         case "search":
           hasComponent = FormSearch;
+          break;
+        case "slider":
+          hasComponent = FromSlider;
+          break;
+        case "picture":
+          hasComponent = FormPicture;
           break;
         default:
           hasComponent = null;

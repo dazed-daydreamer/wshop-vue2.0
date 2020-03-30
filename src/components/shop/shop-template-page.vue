@@ -42,13 +42,17 @@ import CustomizeLike from "./customize/customize-like.vue";
 import CustomizeRanking from "./customize/customize-ranking.vue";
 import CustomizeNotice from "./customize/customize-notice.vue";
 import CustomizeSearch from "./customize/customize-search.vue";
+import CustomizeSlider from "./customize/customize-slider.vue";
+import CustomizePicture from "./customize/customize-picture.vue";
 import {
   shopComponentsProductInit,
   shopComponentsTabInit,
   shopComponentsLikeInit,
   shopComponentsRankingInit,
   shopComponentsNoticeInit,
-  shopComponentsSearchInit
+  shopComponentsSearchInit,
+  shopComponentsSliderInit,
+  shopComponentsPictureInit
 } from "@/config/shop.js";
 export default {
   mixins: [shopMixins],
@@ -127,6 +131,14 @@ export default {
         case "search":
           introduce = CustomizeSearch;
           form = shopComponentsSearchInit;
+          break;
+        case "slider":
+          introduce = CustomizeSlider;
+          form = shopComponentsSliderInit;
+          break;
+        case "picture":
+          introduce = CustomizePicture;
+          form = shopComponentsPictureInit;
           break;
       }
       this.$set(item, "introduce", introduce);
