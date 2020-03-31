@@ -1,6 +1,6 @@
 <template>
   <div class="l-dialog-warpper">
-    <el-dialog :title="title" :visible.sync="dialogShow">
+    <el-dialog :title="title" :visible.sync="dialogShow" :close-on-click-modal="false">
       <el-scrollbar>
         <slot></slot>
       </el-scrollbar>

@@ -10,13 +10,7 @@
       <div class="set-hot" @click="setHot">设置热区</div>
     </div>
 
-    <l-dialog
-      ref="hotDialog"
-      title="热区编辑器"
-      @confirm="hotConfirm"
-      class="dialog"
-      :hasCustomFooter="true"
-    >
+    <l-dialog ref="hotDialog" title="热区编辑器" class="dialog" :hasCustomFooter="true">
       <div class="hot-dialog-warpper">
         <div class="introduce">
           <ul>
@@ -26,9 +20,21 @@
             </li>
           </ul>
         </div>
-        <div class="operation">
+        <div class="operation" ref="operation">
           <img :src="localForm.img" alt v-if="localForm.img" />
           <img src="../../../assets/images/default_banner.png" alt v-else />
+          <div class="draggable-warpper">
+            <vue-draggable-resizable
+              :w="100"
+              :h="100"
+              @dragging="onDrag"
+              @resizing="onResize"
+              @activated="onActivated(index)"
+              :parent="true"
+              v-for="(item,index) in localForm.list"
+              :key="index"
+            >222</vue-draggable-resizable>
+          </div>
         </div>
       </div>
       <div slot="footer">
@@ -44,6 +50,8 @@
 import { shopComponentsHotInit } from "@/config/shop.js";
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
 import LDialog from "../../public/l-dialog.vue";
+import VueDraggableResizable from "vue-draggable-resizable";
+import "vue-draggable-resizable/dist/VueDraggableResizable.css";
 export default {
   mixins: [shopFormMixins],
   data() {
@@ -51,7 +59,9 @@ export default {
       //本地表单
       localForm: JSON.parse(JSON.stringify(shopComponentsHotInit)),
       //编辑介绍
-      introduceArr: ["添加热区", "调整热区大小", "设置热区链接", "保存设置"]
+      introduceArr: ["添加热区", "调整热区大小", "设置热区链接", "保存设置"],
+      //正在被调整的热区
+      activeIndex: 0
     };
   },
   props: {
@@ -62,16 +72,56 @@ export default {
     }
   },
   methods: {
+    //设置热区
     setHot() {
       this.$refs.hotDialog.show();
     },
+    //保存热区
     saveHot() {
-      this.$refs.hotDialog.hide();
+      const width = this.$refs.operation.clientWidth;
+      const height = this.$refs.operation.clientHeight;
+      // console.log(width, height);
+      console.log(this.localForm.list);
+      // this.$refs.hotDialog.hide();
     },
-    addHot() {}
+    //添加热区
+    addHot() {
+      this.localForm.list.push({
+        url: "",
+        x: "",
+        y: "",
+        width: 100,
+        height: 100
+      });
+    },
+    //热区放大缩小
+    onResize(x, y, width, height) {
+      const item = JSON.parse(
+        JSON.stringify(this.localForm.list[this.activeIndex])
+      );
+      item.x = x;
+      item.y = y;
+      item.width = width;
+      item.height = height;
+      this.localForm.list.splice(this.activeIndex, 1, item);
+    },
+    //热区拖拽
+    onDrag(x, y) {
+      const item = JSON.parse(
+        JSON.stringify(this.localForm.list[this.activeIndex])
+      );
+      item.x = x;
+      item.y = y;
+      this.localForm.list.splice(this.activeIndex, 1, item);
+    },
+    //拖拽或点击的时候触发
+    onActivated(index) {
+      this.activeIndex = index;
+    }
   },
   components: {
-    LDialog
+    LDialog,
+    VueDraggableResizable
   }
 };
 </script>
@@ -155,7 +205,14 @@ export default {
       img {
         width: 100%;
       }
-      
+      .draggable-warpper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        .draggable {
+          background-color: rgb(217, 236, 255);
+        }
+      }
     }
   }
 }
