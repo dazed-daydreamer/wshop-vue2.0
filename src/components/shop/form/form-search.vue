@@ -1,5 +1,5 @@
 <template>
-  <div class="form-search-warpper">
+  <div class="form-search-warpper shop-template-form">
     <div class="color-style">
       <div class="title">
         <span>颜色选择</span>
@@ -107,21 +107,6 @@ export default {
 <style lang="scss">
 @import "@/styles/theme.scss";
 .form-search-warpper {
-  text-align: left;
-  & > div:not(.dialog) {
-    padding: 20px 20px;
-    border-top: 5px solid #f6f7f9;
-    & > .title {
-      font-size: 13px;
-      font-weight: bold;
-      span:nth-of-type(2) {
-        font-size: 12px;
-        font-weight: 400;
-        margin-left: 5px;
-        color: $secondary-text-color;
-      }
-    }
-  }
   .color-style {
     .color-select {
       & > div {

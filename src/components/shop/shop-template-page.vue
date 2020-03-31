@@ -44,6 +44,7 @@ import CustomizeNotice from "./customize/customize-notice.vue";
 import CustomizeSearch from "./customize/customize-search.vue";
 import CustomizeSlider from "./customize/customize-slider.vue";
 import CustomizePicture from "./customize/customize-picture.vue";
+import CustomizeHot from "./customize/customize-hot.vue";
 import {
   shopComponentsProductInit,
   shopComponentsTabInit,
@@ -52,7 +53,8 @@ import {
   shopComponentsNoticeInit,
   shopComponentsSearchInit,
   shopComponentsSliderInit,
-  shopComponentsPictureInit
+  shopComponentsPictureInit,
+  shopComponentsHotInit
 } from "@/config/shop.js";
 export default {
   mixins: [shopMixins],
@@ -139,6 +141,10 @@ export default {
         case "picture":
           introduce = CustomizePicture;
           form = shopComponentsPictureInit;
+          break;
+        case "hot":
+          introduce = CustomizeHot;
+          form = shopComponentsHotInit;
           break;
       }
       this.$set(item, "introduce", introduce);

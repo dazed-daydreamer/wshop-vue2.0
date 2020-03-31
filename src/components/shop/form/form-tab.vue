@@ -1,5 +1,5 @@
 <template>
-  <div class="form-tab-warpper">
+  <div class="form-tab-warpper shop-template-form">
     <div class="list-warpper">
       <div class="title">
         <span>选项卡设置</span>
@@ -273,7 +273,6 @@ export default {
 <style lang="scss">
 @import "@/styles/theme.scss";
 .form-tab-warpper {
-  text-align: left;
   .radio-warpper {
     margin-top: 20px;
     .el-radio__label {
@@ -281,20 +280,6 @@ export default {
     }
   }
 
-  & > div:not(.dialog) {
-    padding: 20px 20px;
-    border-top: 5px solid #f6f7f9;
-    & > .title {
-      font-size: 13px;
-      font-weight: bold;
-      span:nth-of-type(2) {
-        font-size: 12px;
-        font-weight: 400;
-        margin-left: 5px;
-        color: $secondary-text-color;
-      }
-    }
-  }
   .list-warpper {
     .cu-list {
       border: 1px solid $border-color;
@@ -412,9 +397,9 @@ export default {
       }
     }
 
-    .input-warpper{
-        margin: 10px;
-        margin-bottom: 20px;
+    .input-warpper {
+      margin: 10px;
+      margin-bottom: 20px;
     }
   }
 }

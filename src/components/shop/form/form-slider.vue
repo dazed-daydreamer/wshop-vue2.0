@@ -1,5 +1,5 @@
 <template>
-  <div class="form-slider-warpper">
+  <div class="form-slider-warpper  shop-template-form">
     <div class="dot-style">
       <div class="title">
         <span>轮播点样式</span>
@@ -119,21 +119,6 @@ export default {
 <style lang="scss">
 @import "@/styles/theme.scss";
 .form-slider-warpper {
-  text-align: left;
-  & > div:not(.dialog) {
-    padding: 20px 20px;
-    border-top: 5px solid #f6f7f9;
-    & > .title {
-      font-size: 13px;
-      font-weight: bold;
-      span:nth-of-type(2) {
-        font-size: 12px;
-        font-weight: 400;
-        margin-left: 5px;
-        color: $secondary-text-color;
-      }
-    }
-  }
   .dot-style {
     .dot-change {
       margin-top: 10px;

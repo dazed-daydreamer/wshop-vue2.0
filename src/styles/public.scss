@@ -19,3 +19,31 @@ ul {
   border-radius: 5px;
   padding: 15px;
 }
+
+.shop-template-form {
+  text-align: left;
+  & > div:not(.dialog) {
+    padding: 20px 20px;
+    border-top: 5px solid #f6f7f9;
+    & > .title {
+      font-size: 13px;
+      font-weight: bold;
+      span:nth-of-type(2) {
+        font-size: 12px;
+        font-weight: 400;
+        margin-left: 5px;
+        color: #909399;
+      }
+    }
+  }
+
+  .tips {
+    border: 1px solid #d8e8fc;
+    background-color: #e5f0fe;
+    padding: 12px 16px;
+    border-radius: 6px;
+    color: #666;
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+}

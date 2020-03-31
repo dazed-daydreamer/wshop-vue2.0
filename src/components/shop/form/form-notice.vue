@@ -1,5 +1,5 @@
 <template>
-  <div class="form-notice-warpper">
+  <div class="form-notice-warpper shop-template-form">
     <div class="component-style">
       <div class="title">
         <span>选择风格</span>
@@ -88,21 +88,6 @@ export default {
 <style lang="scss">
 @import "@/styles/theme.scss";
 .form-notice-warpper {
-  text-align: left;
-  & > div:not(.dialog) {
-    padding: 20px 20px;
-    border-top: 5px solid #f6f7f9;
-    & > .title {
-      font-size: 13px;
-      font-weight: bold;
-      span:nth-of-type(2) {
-        font-size: 12px;
-        font-weight: 400;
-        margin-left: 5px;
-        color: $secondary-text-color;
-      }
-    }
-  }
   .component-style {
     .style-warpper {
       margin-top: 20px;

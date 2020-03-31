@@ -318,7 +318,7 @@ export const shopComponentsSliderInit = {
 
 //图片初始化数据
 export const shopComponentsPictureInit = {
-    style:0,
+    style: 0,
     picture: [{
         img: '',
         url: '',
@@ -326,4 +326,11 @@ export const shopComponentsPictureInit = {
         img: '',
         url: '',
     }]
+}
+
+
+//热区初始化数据
+export const shopComponentsHotInit = {
+    img: '',
+    list: []
 }
