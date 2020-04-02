@@ -1,5 +1,5 @@
 <template>
-  <div class="form-notice-warpper shop-template-form">
+  <div class="form-cube-warpper shop-template-form">
     <div class="component-style">
       <div class="title">
         <span>选择风格</span>
@@ -9,19 +9,15 @@
         <div class="style-change" @click.stop="styleDialogShow">修改风格</div>
       </div>
     </div>
-    <div class="notice-warpper">
-      <div class="title">公告信息</div>
-      <div class="notice-input">
-        <el-input v-model="localForm.notice" ></el-input>
+
+    <div class="cube-layout">
+      <div class="title">
+        <span>魔方布局</span>
+      </div>
+      <div class="setting-layout">
       </div>
     </div>
-    <div class="padding-warpper">
-      <div class="title">上下边距</div>
-      <div class="change-padding">
-        <el-slider v-model="localForm.padding" :max="50"></el-slider>
-        <span>{{localForm.padding}}px</span>
-      </div>
-    </div>
+
     <l-dialog ref="stypeDialog" title="风格选择器" @confirm="styleConfirm" class="dialog">
       <div class="stype-dialog-warpper">
         <ul class="cu-list">
@@ -48,34 +44,46 @@
 
 
 <script>
-import { shopComponentsNoticeInit } from "@/config/shop.js";
+import { shopComponentsCubeInit } from "@/config/shop.js";
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
 import LDialog from "../../public/l-dialog.vue";
 export default {
   mixins: [shopFormMixins],
   data() {
     return {
+      //本地表单
+      localForm: JSON.parse(JSON.stringify(shopComponentsCubeInit)),
       //风格图片
       styleImg: "",
-      //本地表单
-      localForm: JSON.parse(JSON.stringify(shopComponentsNoticeInit)),
       //样式图片数组
-      stypeImgArr: ["notice,style1.png", "notice,style2.png"],
+      stypeImgArr: [
+        "cube,custom.png",
+        "cube,style1.png",
+        "cube,style2.png",
+        "cube,style3.png",
+        "cube,style4.png",
+        "cube,style5.png",
+        "cube,style6.png",
+        "cube,style7.png",
+        "cube,style8.png",
+        "cube,style9.png",
+        "cube,style10.png"
+      ],
       //当前风格
       styleIndex: 0
     };
-  },
-  methods: {
-    //初始化表单
-    _initForm() {
-      this.getStyleImg();
-    }
   },
   props: {
     //父组件传过来的表单
     form: {
       type: Object,
       default: {}
+    }
+  },
+  methods: {
+    //初始化表单
+    _initForm() {
+      this.getStyleImg();
     }
   },
   components: {
@@ -86,35 +94,6 @@ export default {
 
 
 <style lang="scss">
-@import "@/styles/theme.scss";
-.form-notice-warpper {
-  .notice-warpper {
-    .notice-input {
-      margin-top: 20px;
-    }
-  }
-
-  .padding-warpper {
-    .change-padding {
-      display: flex;
-      align-items: center;
-      margin-top: 10px;
-      .el-slider {
-        margin-left: 10px;
-        width: 200px;
-        flex-shrink: 0;
-      }
-      span {
-        width: 56px;
-        margin-left: 20px;
-        background: #f6f7f9;
-        text-align: center;
-        height: 26px;
-        line-height: 26px;
-        border-radius: 5px;
-        font-size: 12px;
-      }
-    }
-  }
+.form-cube-warpper {
 }
 </style>

@@ -28,7 +28,8 @@ import FormSearch from "./form/form-search.vue";
 import FromSlider from "./form/form-slider.vue";
 import FormPicture from "./form/form-picture.vue";
 import FormHot from "./form/form-hot.vue";
-import FormPictures from './form/form-pictures.vue'
+import FormPictures from "./form/form-pictures.vue";
+import FormCube from "./form/form-cube.vue";
 export default {
   mixins: [shopMixins],
   data() {
@@ -77,7 +78,10 @@ export default {
           break;
         case "pictures":
           hasComponent = FormPictures;
-          break; 
+          break;
+        case "cube":
+          hasComponent = FormCube;
+          break;
         default:
           hasComponent = null;
       }

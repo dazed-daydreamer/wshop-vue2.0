@@ -57,7 +57,7 @@ export default {
 .l-dialog-warpper {
   .el-dialog {
     width: 908px;
-    height: 600px;
+    height: 590px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -73,7 +73,7 @@ export default {
     }
     .el-dialog__body {
       padding: 0px;
-      height: 483px;
+      height: 473px;
       flex-shrink: 0;
     }
     .el-dialog__footer {

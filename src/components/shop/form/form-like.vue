@@ -105,28 +105,6 @@ export default {
 <style lang="scss">
 @import "@/styles/theme.scss";
 .form-like-warpper {
-  .component-style {
-    .style-warpper {
-      margin-top: 20px;
-      border-radius: 5px;
-      background: #f6f7f9;
-      border: 1px solid #eee;
-      text-align: center;
-      position: relative;
-      .style-change {
-        position: absolute;
-        cursor: pointer;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 35px;
-        line-height: 35px;
-        background-color: rgba($color: #000000, $alpha: 0.4);
-        color: #fff;
-        font-size: 14px;
-      }
-    }
-  }
   .title-style {
     .style-warpper {
       margin-top: 20px;
@@ -167,54 +145,6 @@ export default {
         line-height: 26px;
         border-radius: 5px;
         font-size: 12px;
-      }
-    }
-  }
-
-  .stype-dialog-warpper {
-    padding: 16px;
-    padding-bottom: 0px;
-    .cu-list {
-      display: flex;
-      flex-wrap: wrap;
-      .cu-item {
-        cursor: pointer;
-        width: 33%;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 16px;
-        &.current {
-          .img-warpper {
-            border-color: $theme-color;
-            .el-icon-success {
-              display: block;
-            }
-          }
-        }
-        .img-warpper {
-          border-radius: 5px;
-          margin: 0px 20px;
-          margin-bottom: 10px;
-          border: 1px solid $border-color;
-          background-color: #f7f8fa;
-          position: relative;
-          img {
-            width: 100%;
-          }
-          .el-icon-success {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            font-size: 17px;
-            transform: translate(50%, 50%);
-            color: $theme-color;
-            display: none;
-          }
-        }
-        & > span {
-          font-size: 13px;
-        }
       }
     }
   }

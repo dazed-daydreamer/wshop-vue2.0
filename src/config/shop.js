@@ -362,3 +362,11 @@ export const shopComponentsPicturesInit = {
         }
     ]
 }
+
+
+//魔方初始化数据
+export const shopComponentsCubeInit = {
+    chunks: [],
+    clearance: 0,
+    style: 0,
+}

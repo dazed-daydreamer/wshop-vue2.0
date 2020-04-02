@@ -46,6 +46,7 @@ import CustomizeSlider from "./customize/customize-slider.vue";
 import CustomizePicture from "./customize/customize-picture.vue";
 import CustomizeHot from "./customize/customize-hot.vue";
 import CustomizePictures from "./customize/customize-pictures.vue";
+import CustomizeCube from "./customize/customize-cube.vue";
 import {
   shopComponentsProductInit,
   shopComponentsTabInit,
@@ -56,7 +57,8 @@ import {
   shopComponentsSliderInit,
   shopComponentsPictureInit,
   shopComponentsHotInit,
-  shopComponentsPicturesInit
+  shopComponentsPicturesInit,
+  shopComponentsCubeInit
 } from "@/config/shop.js";
 export default {
   mixins: [shopMixins],
@@ -151,6 +153,10 @@ export default {
         case "pictures":
           introduce = CustomizePictures;
           form = shopComponentsPicturesInit;
+          break;
+        case "cube":
+          introduce = CustomizeCube;
+          form = shopComponentsCubeInit;
           break;
       }
       this.$set(item, "introduce", introduce);
