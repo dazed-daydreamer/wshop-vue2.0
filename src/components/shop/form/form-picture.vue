@@ -28,7 +28,7 @@
               <span v-if="item.url">{{item.url}}</span>
               <span v-else>请选择链接</span>
             </div>
-            <el-popconfirm title="确定删除吗？" @onConfirm="delConfirm(index)">
+            <el-popconfirm title="确定删除吗？" @onConfirm="delList(index)">
               <span class="el-icon-close" slot="reference"></span>
             </el-popconfirm>
           </li>
@@ -101,6 +101,12 @@ export default {
         url: "",
         img: ""
       });
+    },
+    //删除新图片
+    delList(index) {
+      setTimeout(() => {
+        this.localForm.picture.splice(index, 1);
+      }, 200);
     }
   },
   components: {
@@ -221,16 +227,6 @@ export default {
             cursor: pointer;
           }
         }
-      }
-      .add-list {
-        cursor: pointer;
-        display: flex;
-        font-size: 13px;
-        align-items: center;
-        justify-content: center;
-        border: 1px dashed #6b7685;
-        padding: 7px;
-        border-radius: 4px;
       }
     }
   }

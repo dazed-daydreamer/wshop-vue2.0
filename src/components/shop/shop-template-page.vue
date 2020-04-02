@@ -45,6 +45,7 @@ import CustomizeSearch from "./customize/customize-search.vue";
 import CustomizeSlider from "./customize/customize-slider.vue";
 import CustomizePicture from "./customize/customize-picture.vue";
 import CustomizeHot from "./customize/customize-hot.vue";
+import CustomizePictures from "./customize/customize-pictures.vue";
 import {
   shopComponentsProductInit,
   shopComponentsTabInit,
@@ -54,7 +55,8 @@ import {
   shopComponentsSearchInit,
   shopComponentsSliderInit,
   shopComponentsPictureInit,
-  shopComponentsHotInit
+  shopComponentsHotInit,
+  shopComponentsPicturesInit
 } from "@/config/shop.js";
 export default {
   mixins: [shopMixins],
@@ -146,10 +148,17 @@ export default {
           introduce = CustomizeHot;
           form = shopComponentsHotInit;
           break;
+        case "pictures":
+          introduce = CustomizePictures;
+          form = shopComponentsPicturesInit;
+          break;
       }
       this.$set(item, "introduce", introduce);
       this.$set(item, "form", JSON.parse(JSON.stringify(form)));
       this.componentsList.splice(index, 1, item);
+      if (this.getCurrentComponentIndex === index) {
+        this.setCurrentComponentIndex(index + 1);
+      }
     },
     //当拖拽排序时候触发
     sortChange(evt) {

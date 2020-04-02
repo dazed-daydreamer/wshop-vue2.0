@@ -334,3 +334,31 @@ export const shopComponentsHotInit = {
     img: '',
     list: []
 }
+
+
+//图片展播初始化数据
+export const shopComponentsPicturesInit = {
+    title: true,
+    subtitle: true,
+    alignmentStyle: 0,
+    pictureList: [
+        {
+            title: "这里是主标题",
+            subtitle: "这里是副标题",
+            url: '',
+            img: '',
+        },
+        {
+            title: "这里是主标题",
+            subtitle: "这里是副标题",
+            url: '',
+            img: '',
+        },
+        {
+            title: "这里是主标题",
+            subtitle: "这里是副标题",
+            url: '',
+            img: '',
+        }
+    ]
+}

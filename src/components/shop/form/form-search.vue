@@ -112,7 +112,7 @@ export default {
       & > div {
         display: flex;
         align-items: center;
-        margin-top: 10px;
+        margin-top: 20px;
         & > span:nth-of-type(1) {
           font-size: 13px;
           width: 50px;
@@ -136,7 +136,7 @@ export default {
   }
   .radius-style {
     .radius-change {
-      margin-top: 10px;
+      margin-top: 20px;
       ul {
         margin: 0;
         display: flex;
@@ -159,7 +159,7 @@ export default {
 
   .title-style {
     .title-change {
-      margin-top: 10px;
+      margin-top: 20px;
       ul {
         margin: 0;
         display: flex;

@@ -46,4 +46,15 @@ ul {
     font-size: 12px;
     margin-bottom: 20px;
   }
+
+  .add-list {
+    cursor: pointer;
+    display: flex;
+    font-size: 13px;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #6b7685;
+    padding: 7px;
+    border-radius: 4px;
+  }
 }

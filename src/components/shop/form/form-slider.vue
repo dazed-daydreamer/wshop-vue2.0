@@ -121,7 +121,7 @@ export default {
 .form-slider-warpper {
   .dot-style {
     .dot-change {
-      margin-top: 10px;
+      margin-top: 20px;
       ul {
         margin: 0;
         display: flex;
@@ -144,7 +144,7 @@ export default {
 
   .dot-position {
     .position-change {
-      margin-top: 10px;
+      margin-top: 20px;
       ul {
         margin: 0;
         display: flex;
@@ -252,16 +252,6 @@ export default {
             cursor: pointer;
           }
         }
-      }
-      .add-list {
-        cursor: pointer;
-        display: flex;
-        font-size: 13px;
-        align-items: center;
-        justify-content: center;
-        border: 1px dashed #6b7685;
-        padding: 7px;
-        border-radius: 4px;
       }
     }
   }
