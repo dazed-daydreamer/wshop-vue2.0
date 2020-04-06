@@ -28,7 +28,56 @@
           </li>
         </ul>
 
-        <div class="locking-item" v-for="(item,index) in layoutArr" :key="index">{{item}}</div>
+        <div
+          class="locking-item"
+          v-for="(item,index) in layoutArr"
+          :key="`locking-${index}`"
+          :style="{top:`${item.top}px`,left:`${item.left}px`,width:`${item.width}px`,height:`${item.height}px`}"
+          @click.stop="layoutItemSelect(index)"
+          :class="{select:layoutItemSelectIndex === index}"
+        >
+          <div class="size">
+            <span>{{item.markWidth}}</span>
+            <span>*</span>
+            <span>{{item.markHeight}}</span>
+          </div>
+          <div class="close" @click.stop="layoutItemDelete(index)">
+            <span class="el-icon-close"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cube-image">
+      <div class="image-warpper">
+        <div>
+          <span>图片</span>
+          <div class="image-box">
+            <!-- <el-image :src="require('@/assets/images/pic.png')" fit="cover"></el-image> -->
+            <div class="blank">
+              <span class="el-icon-plus"></span>
+            </div>
+            <div class="close">
+              <span class="el-icon-close"></span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span>链接</span>
+          <div class="link">
+            <span class="el-icon-link"></span>
+            <!-- <span v-if="item.url">{{item.url}}</span> -->
+            <span>请选择链接</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="padding-warpper">
+      <div class="title">图片间隔</div>
+      <div class="change-padding">
+        <el-slider v-model="localForm.clearance" :max="48"></el-slider>
+        <span>{{localForm.clearance}}px</span>
       </div>
     </div>
 
@@ -87,12 +136,14 @@ export default {
       styleIndex: 0,
       //点击状态
       clickState: false,
+      //魔方布局多维数组
+      cubeLayoutArr: [],
       //开始坐标
       startCoordinate: {},
       //布局数组
       layoutArr: [],
-      //魔方布局多维数组
-      cubeLayoutArr: []
+      //布局模块被点击
+      layoutItemSelectIndex: -1
     };
   },
   props: {
@@ -115,12 +166,79 @@ export default {
         this.$set(item, "select", true);
         this.startCoordinate = JSON.parse(JSON.stringify(item));
       } else {
+        let topCoordinate = {};
+        let bottomCoordinate = {};
         this.cubeLayoutArr.forEach(rowItem => {
           rowItem.forEach(cubeItem => {
+            if (cubeItem.select) {
+              this.$set(cubeItem, "lock", true);
+              if (Object.values(bottomCoordinate).length) {
+                if (cubeItem.x > bottomCoordinate.x) {
+                  bottomCoordinate = {
+                    x: cubeItem.x,
+                    y: cubeItem.y
+                  };
+                }
+                if (
+                  cubeItem.x === bottomCoordinate.x &&
+                  cubeItem.y > bottomCoordinate.y
+                ) {
+                  bottomCoordinate = {
+                    x: cubeItem.x,
+                    y: cubeItem.y
+                  };
+                }
+              } else {
+                bottomCoordinate = {
+                  x: cubeItem.x,
+                  y: cubeItem.y
+                };
+              }
+
+              if (Object.values(topCoordinate).length) {
+                if (cubeItem.x < bottomCoordinate.x) {
+                  bottomCoordinate = {
+                    x: cubeItem.x,
+                    y: cubeItem.y
+                  };
+                }
+                if (
+                  cubeItem.x === bottomCoordinate.x &&
+                  cubeItem.y < bottomCoordinate.y
+                ) {
+                  bottomCoordinate = {
+                    x: cubeItem.x,
+                    y: cubeItem.y
+                  };
+                }
+              } else {
+                topCoordinate = {
+                  x: cubeItem.x,
+                  y: cubeItem.y
+                };
+              }
+            }
             this.$set(cubeItem, "select", false);
           });
         });
-        console.log(this.startCoordinate, item);
+        const x = Math.abs(bottomCoordinate.x - topCoordinate.x) + 1;
+        const y = Math.abs(bottomCoordinate.y - topCoordinate.y) + 1;
+        const height = y * 77;
+        const width = x * 77;
+        const markWidth = x * 174;
+        const markHeight = y * 174;
+        const top = topCoordinate.y;
+        const left = topCoordinate.x;
+        this.layoutArr.push({
+          height,
+          width,
+          top: top * 77,
+          left: left * 77,
+          markHeight,
+          markWidth
+        });
+        const len = this.layoutArr.length;
+        this.layoutItemSelectIndex = len - 1;
       }
     },
     //鼠标移入方块
@@ -128,37 +246,22 @@ export default {
       if (!this.clickState) {
         return;
       }
-      if (cubeItem.x === this.startCoordinate.x) {
+      const current = this.checkHasLayou(this.startCoordinate, cubeItem);
+      if (current) {
         this.cubeLayoutArr.forEach((rowItem, rowIndex) => {
-          if (rowIndex == cubeItem.x) {
-            rowItem.forEach(item => {
-              if (item.y <= cubeItem.y && item.y >= this.startCoordinate.y) {
-                this.$set(item, "select", true);
-              } else {
-                this.$set(item, "select", false);
-              }
-            });
-          } else {
-            rowItem.forEach(item => {
+          rowItem.forEach(item => {
+            const inside = this.checkIntervalInside(
+              item.x,
+              item.y,
+              this.startCoordinate,
+              cubeItem
+            );
+            if (inside) {
+              this.$set(item, "select", true);
+            } else {
               this.$set(item, "select", false);
-            });
-          }
-        });
-      } else {
-        this.cubeLayoutArr.forEach((rowItem, rowIndex) => {
-          if (rowIndex <= cubeItem.x && rowIndex >= this.startCoordinate.x) {
-            rowItem.forEach(item => {
-              if (item.y <= cubeItem.y && item.y >= this.startCoordinate.y) {
-                this.$set(item, "select", true);
-              } else {
-                this.$set(item, "select", false);
-              }
-            });
-          } else {
-            rowItem.forEach(item => {
-              this.$set(item, "select", false);
-            });
-          }
+            }
+          });
         });
       }
     },
@@ -170,12 +273,55 @@ export default {
           let item = {
             x: i,
             y: j,
-            select: false
+            select: false,
+            lock: false
           };
           arr.push(item);
         }
         this.cubeLayoutArr.push(arr);
       }
+    },
+    //布局模块点击
+    layoutItemSelect(index) {
+      this.layoutItemSelectIndex = index;
+    },
+    //布局模块删除
+    layoutItemDelete(index) {
+      this.layoutArr.splice(index, 1);
+    },
+    //判断是否在该区间里面
+    checkIntervalInside(x, y, start, last) {
+      const minX = start.x >= last.x ? last.x : start.x;
+      const maxX = minX === start.x ? last.x : start.x;
+      const minY = start.y >= last.y ? last.y : start.y;
+      const maxY = minY === start.y ? last.y : start.y;
+      if (minX <= x && maxX >= x && minY <= y && maxY >= y) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    //判断将要形成的魔方是否可以通行
+    checkHasLayou(start, last) {
+      const minX = start.x >= last.x ? last.x : start.x;
+      const maxX = minX === start.x ? last.x : start.x;
+      const minY = start.y >= last.y ? last.y : start.y;
+      const maxY = minY === start.y ? last.y : start.y;
+      let current = true;
+      this.cubeLayoutArr.forEach((rowItem, rowIndex) => {
+        rowItem.forEach(item => {
+          if (
+            minX <= item.x &&
+            maxX >= item.x &&
+            minY <= item.y &&
+            maxY >= item.y &&
+            item.lock
+          ) {
+            current = false;
+          }
+        });
+      });
+      return current;
     }
   },
   components: {
@@ -192,12 +338,12 @@ export default {
       display: flex;
       align-items: center;
       position: relative;
+      margin-top: 20px;
       .cube-row {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin: 0;
-        margin-top: 20px;
         &:nth-last-of-type(1) {
           .cube-item {
             border-right: 1px solid #e5e5e5;
@@ -210,6 +356,7 @@ export default {
           border-left: 1px solid #e5e5e5;
           border-bottom: 1px solid #e5e5e5;
           line-height: 77px;
+          box-sizing: border-box;
           text-align: center;
           cursor: pointer;
           &.item-selected {
@@ -224,6 +371,123 @@ export default {
           span {
             font-size: 20px;
             color: #bbb;
+          }
+        }
+      }
+      .locking-item {
+        position: absolute;
+        border: 1px solid #bdf;
+        z-index: 2;
+        background-color: #e8f7fd;
+        color: #88c4dc;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        &.select {
+          z-index: 10;
+          border: 1px solid #38f;
+          .close {
+            display: block;
+          }
+        }
+        .close {
+          z-index: 10;
+          display: none;
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          background-color: rgba($color: #000000, $alpha: 0.5);
+          border-radius: 50%;
+          line-height: 20px;
+          text-align: center;
+          top: 0;
+          right: 0;
+          transform: translate(50%, -50%);
+          cursor: pointer;
+          span {
+            color: #fff;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+
+  .cube-image {
+    .image-warpper {
+      margin-top: 20px;
+      background: #f6f7f9;
+      padding: 15px 20px;
+      border: 1px solid #eee;
+      color: #999;
+      position: relative;
+      div {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        span {
+          font-size: 12px;
+        }
+        .link {
+          border-radius: 4px;
+          background-color: #e8effc;
+          cursor: pointer;
+          padding: 8px 12px;
+          width: 210px;
+          margin-left: 20px;
+          span:nth-of-type(1) {
+            margin-right: 10px;
+          }
+        }
+        .image-box {
+          margin-left: 20px;
+          width: 50px;
+          height: 50px;
+          position: relative;
+          border: 1px dashed #ededed;
+          .el-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+          }
+          .blank {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            background-color: #fff;
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            span {
+              font-size: 17px;
+            }
+          }
+          &:hover {
+            .close {
+              display: block;
+            }
+          }
+          .close {
+            z-index: 10;
+            display: none;
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: rgba($color: #000000, $alpha: 0.5);
+            border-radius: 50%;
+            line-height: 15px;
+            text-align: center;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            transform: scale(0.9) translate(60%, -60%);
+            span {
+              color: #fff;
+              font-size: 12px;
+            }
           }
         }
       }

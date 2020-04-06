@@ -93,28 +93,5 @@ export default {
       margin-top: 20px;
     }
   }
-
-  .padding-warpper {
-    .change-padding {
-      display: flex;
-      align-items: center;
-      margin-top: 10px;
-      .el-slider {
-        margin-left: 10px;
-        width: 200px;
-        flex-shrink: 0;
-      }
-      span {
-        width: 56px;
-        margin-left: 20px;
-        background: #f6f7f9;
-        text-align: center;
-        height: 26px;
-        line-height: 26px;
-        border-radius: 5px;
-        font-size: 12px;
-      }
-    }
-  }
 }
 </style>
