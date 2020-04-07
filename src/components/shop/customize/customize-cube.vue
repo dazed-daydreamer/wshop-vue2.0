@@ -79,7 +79,7 @@ export default {
         span {
           font-size: 12px;
         }
-        .el-image{
+        .el-image {
           width: 100%;
           height: 100%;
         }
