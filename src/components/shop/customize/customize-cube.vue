@@ -43,6 +43,7 @@ export default {
     }
   },
   computed: {
+    //每个份额的尺寸
     cubeItemSize() {
       return this.cubeSize / this.form.share;
     }
