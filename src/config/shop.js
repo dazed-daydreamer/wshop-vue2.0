@@ -369,4 +369,5 @@ export const shopComponentsCubeInit = {
     chunks: [],
     clearance: 0,
     style: 0,
+    share: 4
 }

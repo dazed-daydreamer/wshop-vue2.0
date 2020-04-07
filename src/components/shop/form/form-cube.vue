@@ -23,6 +23,7 @@
             @click="lockingCube(item)"
             @mouseenter="hoverCube(item)"
             :class="{'item-selected':item.select}"
+            :style="{width:`${cubeItemSize}px`,height:`${cubeItemSize}px`}"
           >
             <span>+</span>
           </li>
@@ -32,32 +33,41 @@
           class="locking-item"
           v-for="(item,index) in layoutArr"
           :key="`locking-${index}`"
-          :style="{top:`${item.top}px`,left:`${item.left}px`,width:`${item.width}px`,height:`${item.height}px`}"
+          :style="{top:`${item.top*cubeItemSize}px`,left:`${item.left*cubeItemSize}px`,width:`${item.width*cubeItemSize}px`,height:`${item.height*cubeItemSize}px`}"
           @click.stop="layoutItemSelect(index)"
           :class="{select:layoutItemSelectIndex === index}"
         >
-          <div class="size">
+          <el-image :src="item.img" fit="cover" v-if="item.img"></el-image>
+          <div class="size" v-else>
             <span>{{item.markWidth}}</span>
             <span>*</span>
             <span>{{item.markHeight}}</span>
           </div>
-          <div class="close" @click.stop="layoutItemDelete(index)">
+          <div class="close" @click.stop="layoutItemDelete(index)" v-if="localForm.style === 0">
             <span class="el-icon-close"></span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="cube-image">
+    <div class="cube-image" v-if="layoutItemSelectIndex != -1">
       <div class="image-warpper">
         <div>
           <span>图片</span>
           <div class="image-box">
-            <!-- <el-image :src="require('@/assets/images/pic.png')" fit="cover"></el-image> -->
-            <div class="blank">
+            <el-image
+              :src="layoutArr[layoutItemSelectIndex].img"
+              fit="cover"
+              v-if="layoutArr.length&&layoutArr[layoutItemSelectIndex]&&layoutArr[layoutItemSelectIndex].img"
+            ></el-image>
+            <div class="blank" @click="addPictures" v-else>
               <span class="el-icon-plus"></span>
             </div>
-            <div class="close">
+            <div
+              class="close"
+              v-if="layoutArr.length&&layoutArr[layoutItemSelectIndex]&&layoutArr[layoutItemSelectIndex].img"
+              @click="delPictures"
+            >
               <span class="el-icon-close"></span>
             </div>
           </div>
@@ -158,6 +168,10 @@ export default {
     _initForm() {
       this.getStyleImg();
       this._initCubeLayoutArr();
+      if (this.localForm.chunks) {
+        this.layoutArr = JSON.parse(JSON.stringify(this.localForm.chunks));
+        this.layoutItemSelectIndex = 0;
+      }
     },
     //方块被点击
     lockingCube(item) {
@@ -223,17 +237,15 @@ export default {
         });
         const x = Math.abs(bottomCoordinate.x - topCoordinate.x) + 1;
         const y = Math.abs(bottomCoordinate.y - topCoordinate.y) + 1;
-        const height = y * 77;
-        const width = x * 77;
         const markWidth = x * 174;
         const markHeight = y * 174;
         const top = topCoordinate.y;
         const left = topCoordinate.x;
         this.layoutArr.push({
-          height,
-          width,
-          top: top * 77,
-          left: left * 77,
+          height: y,
+          width: x,
+          top: top,
+          left: left,
           markHeight,
           markWidth
         });
@@ -267,9 +279,10 @@ export default {
     },
     //初始化魔方布局多维数组
     _initCubeLayoutArr() {
-      for (let i = 0; i < 4; i++) {
+      let cubeArr = [];
+      for (let i = 0; i < this.localForm.share; i++) {
         let arr = [];
-        for (let j = 0; j < 4; j++) {
+        for (let j = 0; j < this.localForm.share; j++) {
           let item = {
             x: i,
             y: j,
@@ -278,8 +291,9 @@ export default {
           };
           arr.push(item);
         }
-        this.cubeLayoutArr.push(arr);
+        cubeArr.push(arr);
       }
+      this.cubeLayoutArr = cubeArr;
     },
     //布局模块点击
     layoutItemSelect(index) {
@@ -288,6 +302,7 @@ export default {
     //布局模块删除
     layoutItemDelete(index) {
       this.layoutArr.splice(index, 1);
+      this.layoutItemSelectIndex = index - 1;
     },
     //判断是否在该区间里面
     checkIntervalInside(x, y, start, last) {
@@ -322,10 +337,371 @@ export default {
         });
       });
       return current;
+    },
+    //根据不用风格初始化布局模块
+    checkstyleIndex() {
+      this.layoutArr = [];
+      if (this.localForm.style === 0) {
+        this.layoutItemSelectIndex = -1;
+      } else {
+        this.layoutItemSelectIndex = 0;
+      }
+      if (this.localForm.style === 3 || this.localForm.style === 9) {
+        if (this.localForm.share != 6) {
+          this.localForm.share = 6;
+          this._initCubeLayoutArr();
+        }
+      } else {
+        if (this.localForm.share != 4) {
+          this.localForm.share = 4;
+          this._initCubeLayoutArr();
+        }
+      }
+      switch (this.localForm.style) {
+        case 1:
+          this.layoutArr = [
+            {
+              markHeight: 351,
+              markWidth: 700,
+              width: 4,
+              height: 2,
+              top: 0,
+              left: 0
+            },
+            {
+              markHeight: 351,
+              markWidth: 700,
+              width: 4,
+              height: 2,
+              top: 2,
+              left: 0
+            }
+          ];
+          break;
+        case 2:
+          this.layoutArr = [
+            {
+              markHeight: 700,
+              markWidth: 351,
+              width: 2,
+              height: 4,
+              top: 0,
+              left: 0
+            },
+            {
+              markHeight: 700,
+              markWidth: 351,
+              width: 2,
+              height: 4,
+              top: 0,
+              left: 2
+            }
+          ];
+          break;
+        case 3:
+          this.layoutArr = [
+            {
+              markHeight: 702,
+              markWidth: 234,
+              width: 2,
+              height: 6,
+              top: 0,
+              left: 0
+            },
+            {
+              markHeight: 702,
+              markWidth: 234,
+              width: 2,
+              height: 6,
+              top: 0,
+              left: 2
+            },
+            {
+              markHeight: 702,
+              markWidth: 234,
+              width: 2,
+              height: 6,
+              top: 0,
+              left: 4
+            }
+          ];
+          break;
+        case 4:
+          this.layoutArr = [
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 0,
+              left: 0
+            },
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 0,
+              left: 2
+            },
+            {
+              markHeight: 351,
+              markWidth: 700,
+              width: 4,
+              height: 2,
+              top: 2,
+              left: 0
+            }
+          ];
+          break;
+        case 5:
+          this.layoutArr = [
+            {
+              markHeight: 351,
+              markWidth: 700,
+              width: 4,
+              height: 2,
+              top: 0,
+              left: 0
+            },
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 2,
+              left: 0
+            },
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 2,
+              left: 2
+            }
+          ];
+          break;
+        case 6:
+          this.layoutArr = [
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 0,
+              left: 0
+            },
+            {
+              markHeight: 700,
+              markWidth: 351,
+              width: 2,
+              height: 4,
+              top: 0,
+              left: 2
+            },
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 2,
+              left: 0
+            }
+          ];
+          break;
+
+        case 7:
+          this.layoutArr = [
+            {
+              markHeight: 700,
+              markWidth: 351,
+              width: 2,
+              height: 4,
+              top: 0,
+              left: 0
+            },
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 0,
+              left: 2
+            },
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 2,
+              left: 2
+            }
+          ];
+          break;
+
+        case 8:
+          this.layoutArr = [
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 0,
+              left: 0
+            },
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 0,
+              left: 2
+            },
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 2,
+              left: 0
+            },
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 2,
+              left: 2
+            }
+          ];
+          break;
+
+        case 9:
+          this.layoutArr = [
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 3,
+              height: 3,
+              top: 0,
+              left: 0
+            },
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 3,
+              height: 3,
+              top: 0,
+              left: 3
+            },
+            {
+              markHeight: 351,
+              markWidth: 234,
+              width: 2,
+              height: 3,
+              top: 3,
+              left: 0
+            },
+            {
+              markHeight: 351,
+              markWidth: 234,
+              width: 2,
+              height: 3,
+              top: 3,
+              left: 2
+            },
+            {
+              markHeight: 351,
+              markWidth: 234,
+              width: 2,
+              height: 3,
+              top: 3,
+              left: 4
+            }
+          ];
+          break;
+
+        case 10:
+          this.layoutArr = [
+            {
+              markHeight: 702,
+              markWidth: 351,
+              width: 2,
+              height: 4,
+              top: 0,
+              left: 0
+            },
+            {
+              markHeight: 351,
+              markWidth: 351,
+              width: 2,
+              height: 2,
+              top: 0,
+              left: 2
+            },
+            {
+              markHeight: 351,
+              markWidth: 176,
+              width: 1,
+              height: 2,
+              top: 2,
+              left: 2
+            },
+            {
+              markHeight: 351,
+              markWidth: 176,
+              width: 1,
+              height: 2,
+              top: 2,
+              left: 3
+            }
+          ];
+          break;
+      }
+    },
+    //确认风格
+    styleConfirm() {
+      this.localForm.style = this.styleIndex;
+      this.getStyleImg();
+      this.checkstyleIndex();
+    },
+    //模块添加图片
+    addPictures() {
+      const img = require("@/assets/images/picture,style1.png");
+      this.$set(this.layoutArr[this.layoutItemSelectIndex], "img", img);
+    },
+    //模块删除图片
+    delPictures() {
+      this.$set(this.layoutArr[this.layoutItemSelectIndex], "img", "");
     }
   },
   components: {
     LDialog
+  },
+  computed: {
+    cubeItemSize() {
+      return this.localForm.share === 4 ? 77 : 51;
+    }
+  },
+  watch: {
+    layoutArr: {
+      deep: true,
+      handler(val) {
+        const arr = [];
+        val.forEach(item => {
+          arr.push({
+            height: item.height,
+            width: item.width,
+            top: item.top,
+            left: item.left,
+            link: item.link ? item.link : "",
+            img: item.img ? item.img : ""
+          });
+        });
+        this.localForm.chunks = arr;
+      }
+    }
   }
 };
 </script>
@@ -350,14 +726,13 @@ export default {
           }
         }
         .cube-item {
-          width: 77px;
-          height: 77px;
           background: #f8f8f8;
           border-left: 1px solid #e5e5e5;
           border-bottom: 1px solid #e5e5e5;
-          line-height: 77px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           box-sizing: border-box;
-          text-align: center;
           cursor: pointer;
           &.item-selected {
             background-color: #e8f7fd;
@@ -391,6 +766,10 @@ export default {
           .close {
             display: block;
           }
+        }
+        .el-image {
+          width: 100%;
+          height: 100%;
         }
         .close {
           z-index: 10;

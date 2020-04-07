@@ -25,7 +25,7 @@
                 <span class="el-icon-close" slot="reference"></span>
               </el-popconfirm>
             </div>
-            <component v-bind:is="item.introduce" :form="item.form"></component>
+            <component v-bind:is="item.introduce" :form="item.form" class="item-component"></component>
           </li>
         </draggable>
       </el-scrollbar>
@@ -212,6 +212,7 @@ export default {
       .el-scrollbar__view {
         & > .cu-list {
           & > .cu-item {
+            display: flex;
             margin-right: 1px;
             list-style: none;
             cursor: pointer;
@@ -267,6 +268,9 @@ export default {
               img {
                 display: none;
               }
+            }
+            .item-component{
+              width: 100%;
             }
           }
           height: 598px;
