@@ -30,6 +30,7 @@ import FormPicture from "./form/form-picture.vue";
 import FormHot from "./form/form-hot.vue";
 import FormPictures from "./form/form-pictures.vue";
 import FormCube from "./form/form-cube.vue";
+import FormListNav from "./form/form-list-nav.vue";
 export default {
   mixins: [shopMixins],
   data() {
@@ -81,6 +82,9 @@ export default {
           break;
         case "cube":
           hasComponent = FormCube;
+          break;
+        case "listNav":
+          hasComponent = FormListNav;
           break;
         default:
           hasComponent = null;

@@ -371,3 +371,23 @@ export const shopComponentsCubeInit = {
     style: 0,
     share: 4
 }
+
+
+
+//列表导航初始化数据
+export const shopComponentsListNavInit = {
+    iconShow:true,
+    list:[{
+        icon:'icon-B',
+        title:'文字',
+        url:''
+    },{
+        icon:'icon-B',
+        title:'文字',
+        url:''
+    },{
+        icon:'icon-B',
+        title:'文字',
+        url:''
+    }]
+}
