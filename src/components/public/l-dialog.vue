@@ -24,10 +24,12 @@ export default {
     };
   },
   props: {
+    //标题
     title: {
       type: String,
       default: ""
     },
+    //是否自定义按钮
     hasCustomFooter: {
       type: Boolean,
       default: false
@@ -81,7 +83,9 @@ export default {
       flex-shrink: 0;
       padding: 0px 20px;
       height: 60px;
-      line-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
     }
   }
 }

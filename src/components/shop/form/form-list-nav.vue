@@ -15,7 +15,7 @@
           </el-popconfirm>
           <div class="item-icon">
             <span>图标</span>
-            <div>
+            <div @click="iconSelectShow(item,index)">
               <span class="iconfont" :class="item.icon"></span>
               <span class="replace">替换</span>
             </div>
@@ -40,18 +40,22 @@
         <span>+添加</span>
       </div>
     </div>
+    <icon-select ref="iconSelect" @confirm="iconConfirm"></icon-select>
   </div>
 </template>
 
 <script>
 import { shopComponentsListNavInit } from "@/config/shop.js";
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
+import IconSelect from "../../public/icon-select.vue";
 export default {
   mixins: [shopFormMixins],
   data() {
     return {
       //本地表单
-      localForm: JSON.parse(JSON.stringify(shopComponentsListNavInit))
+      localForm: JSON.parse(JSON.stringify(shopComponentsListNavInit)),
+      //当前图标索引
+      iconActiveIndex: -1
     };
   },
   props: {
@@ -73,7 +77,19 @@ export default {
     //删除导航列表
     delList(index) {
       this.localForm.list.splice(index, 1);
+    },
+    //图标选择器显示
+    iconSelectShow(item, index) {
+      this.iconActiveIndex = index;
+      this.$refs.iconSelect.show(item.icon);
+    },
+    //图标确认
+    iconConfirm(icon) {
+      this.$set(this.localForm.list[this.iconActiveIndex], "icon", icon);
     }
+  },
+  components: {
+    IconSelect
   }
 };
 </script>
@@ -137,11 +153,11 @@ export default {
           }
         }
 
-        .item-title{
-            display: flex;
-            div{
-                flex:1;
-            }
+        .item-title {
+          display: flex;
+          div {
+            flex: 1;
+          }
         }
 
         .item-icon {
