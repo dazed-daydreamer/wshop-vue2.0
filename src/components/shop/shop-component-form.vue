@@ -31,6 +31,8 @@ import FormHot from "./form/form-hot.vue";
 import FormPictures from "./form/form-pictures.vue";
 import FormCube from "./form/form-cube.vue";
 import FormListNav from "./form/form-list-nav.vue";
+import FormLine from "./form/form-line.vue";
+import FormTitle from "./form/form-title.vue";
 export default {
   mixins: [shopMixins],
   data() {
@@ -86,8 +88,15 @@ export default {
         case "listNav":
           hasComponent = FormListNav;
           break;
+        case "line":
+          hasComponent = FormLine;
+          break;
+        case "title":
+          hasComponent = FormTitle;
+          break;
         default:
           hasComponent = null;
+          break;
       }
       if (this.hasComponent == hasComponent) {
         this.hasComponent = null;

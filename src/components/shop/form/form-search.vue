@@ -78,12 +78,6 @@ export default {
     };
   },
   methods: {
-    //颜色改变的时候，清空变白色
-    colorChange(evt, key) {
-      if (evt == null) {
-        this.localForm[key] = "#FFFFFF";
-      }
-    },
     //边角样式改变
     radiusChange(index) {
       this.localForm.radiusStyle = index;
@@ -107,33 +101,6 @@ export default {
 <style lang="scss">
 @import "@/styles/theme.scss";
 .form-search-warpper {
-  .color-style {
-    .color-select {
-      & > div {
-        display: flex;
-        align-items: center;
-        margin-top: 20px;
-        & > span:nth-of-type(1) {
-          font-size: 13px;
-          width: 50px;
-          text-align: center;
-          margin-left: 20px;
-        }
-        & > .el-color-picker {
-          height: 30px;
-          .el-color-picker__trigger {
-            height: 30px;
-            width: 56px;
-          }
-        }
-        & > span:nth-of-type(2) {
-          font-size: 13px;
-          width: 70px;
-          text-align: center;
-        }
-      }
-    }
-  }
   .radius-style {
     .radius-change {
       margin-top: 20px;

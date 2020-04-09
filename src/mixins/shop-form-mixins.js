@@ -34,7 +34,13 @@ export const shopFormMixins = {
         styleConfirm() {
             this.localForm.style = this.styleIndex;
             this.getStyleImg();
-        }
+        },
+        //颜色改变的时候，清空变白色
+        colorChange(evt, key) {
+            if (evt == null) {
+                this.localForm[key] = "#FFFFFF";
+            }
+        },
     },
     watch: {
         //监听本地表单，如果有修改返回到自定义组件页面

@@ -48,6 +48,8 @@ import CustomizeHot from "./customize/customize-hot.vue";
 import CustomizePictures from "./customize/customize-pictures.vue";
 import CustomizeCube from "./customize/customize-cube.vue";
 import CustomizeListNav from "./customize/customize-list-nav.vue";
+import CustomizeLine from "./customize/customize-line.vue";
+import CustomizeTitle from "./customize/customize-title.vue";
 import {
   shopComponentsProductInit,
   shopComponentsTabInit,
@@ -60,7 +62,9 @@ import {
   shopComponentsHotInit,
   shopComponentsPicturesInit,
   shopComponentsCubeInit,
-  shopComponentsListNavInit
+  shopComponentsListNavInit,
+  shopComponentsLineInit,
+  shopComponentsTitleInit
 } from "@/config/shop.js";
 export default {
   mixins: [shopMixins],
@@ -163,6 +167,14 @@ export default {
         case "listNav":
           introduce = CustomizeListNav;
           form = shopComponentsListNavInit;
+          break;
+        case "line":
+          introduce = CustomizeLine;
+          form = shopComponentsLineInit;
+          break;
+        case "title":
+          introduce = CustomizeTitle;
+          form = shopComponentsTitleInit;
           break;
       }
       this.$set(item, "introduce", introduce);

@@ -376,18 +376,40 @@ export const shopComponentsCubeInit = {
 
 //列表导航初始化数据
 export const shopComponentsListNavInit = {
-    iconShow:true,
-    list:[{
-        icon:'icon-B',
-        title:'文字',
-        url:''
-    },{
-        icon:'icon-B',
-        title:'文字',
-        url:''
-    },{
-        icon:'icon-B',
-        title:'文字',
-        url:''
+    iconShow: true,
+    list: [{
+        icon: 'icon-B',
+        title: '文字',
+        url: ''
+    }, {
+        icon: 'icon-B',
+        title: '文字',
+        url: ''
+    }, {
+        icon: 'icon-B',
+        title: '文字',
+        url: ''
     }]
+}
+
+
+//辅助线初始化数据
+export const shopComponentsLineInit = {
+    color: '#ededed',
+    margin: 5,
+    style: 0
+}
+
+
+//标题栏初始化数据
+export const shopComponentsTitleInit = {
+    style: 4,
+    maintitle: {
+        color: '#333333',
+        title: '标题栏'
+    },
+    subtitle: {
+    },
+    more: {},
+    margin: 5
 }
