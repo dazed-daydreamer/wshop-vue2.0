@@ -27,6 +27,78 @@
         </div>
       </div>
     </div>
+    <div
+      v-else
+      :class="listClass"
+      class="new"
+      :style="{'margin-top':`${form.margin}px`,'margin-bottom':`${form.margin}px`}"
+    >
+      <div v-if="form.style === 0">
+        <img src="../../../assets/images/bubble.png" alt />
+        <span
+          :style="{color:form.maintitle.color,fontSize:`${form.maintitle.fontSize}px`,fontWeight:boldStyle,fontStyle:tiltStyle}"
+        >{{form.maintitle.title}}</span>
+        <img src="../../../assets/images/bubble.png" alt />
+      </div>
+
+      <div v-else-if="form.style === 1">
+        <div class="mainTitle">
+          <img src="../../../assets/images/t1_bg.png" alt />
+          <span
+            :style="{color:form.maintitle.color,fontSize:`${form.maintitle.fontSize}px`,fontWeight:boldStyle,fontStyle:tiltStyle}"
+          >{{form.maintitle.title}}</span>
+          <img src="../../../assets/images/t1_bg2.png" alt />
+        </div>
+        <div class="subtitle" v-if="form.subtitle.show">
+          <span
+            :style="{color:form.subtitle.color,fontSize:`${form.subtitle.fontSize}px`}"
+          >{{form.subtitle.title}}</span>
+        </div>
+        <div class="more" v-if="form.more.show">
+          <span>{{form.more.title}}</span>
+          <span class="el-icon-arrow-right"></span>
+        </div>
+      </div>
+
+      <div v-else-if="form.style === 2">
+        <div class="mainTitle">
+          <img src="../../../assets/images/t2_bg2.png" alt />
+          <span
+            :style="{color:form.maintitle.color,fontSize:`${form.maintitle.fontSize}px`,fontWeight:boldStyle,fontStyle:tiltStyle}"
+          >{{form.maintitle.title}}</span>
+          <img src="../../../assets/images/t2_bg3.png" alt />
+          <img src="../../../assets/images/t2_bg1.png" alt class="bottom-pic" />
+        </div>
+        <div class="subtitle" v-if="form.subtitle.show">
+          <span
+            :style="{color:form.subtitle.color,fontSize:`${form.subtitle.fontSize}px`}"
+          >{{form.subtitle.title}}</span>
+        </div>
+        <div class="more" v-if="form.more.show">
+          <span>{{form.more.title}}</span>
+          <span class="el-icon-arrow-right"></span>
+        </div>
+      </div>
+
+      <div v-else-if="form.style === 3">
+        <img src="../../../assets/images/t3_bg2.png" class="top-img" alt />
+        <img src="../../../assets/images/t3_bg1.png" class="bottom-img" alt />
+        <div class="mainTitle">
+          <span
+            :style="{color:form.maintitle.color,fontSize:`${form.maintitle.fontSize}px`,fontWeight:boldStyle,fontStyle:tiltStyle}"
+          >{{form.maintitle.title}}</span>
+        </div>
+        <div class="subtitle" v-if="form.subtitle.show">
+          <span
+            :style="{color:form.subtitle.color,fontSize:`${form.subtitle.fontSize}px`}"
+          >{{form.subtitle.title}}</span>
+        </div>
+        <div class="more" v-if="form.more.show">
+          <span>{{form.more.title}}</span>
+          <span class="el-icon-arrow-right"></span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -53,6 +125,14 @@ export default {
       return this.form.style + 1 >= 10
         ? `1px solid ${this.form.maintitle.color}`
         : "none";
+    },
+    //加粗样式
+    boldStyle() {
+      return this.form.maintitle.bold ? "700" : "normal";
+    },
+    //倾斜样式
+    tiltStyle() {
+      return this.form.maintitle.tilt ? "Oblique" : "normal";
     }
   }
 };
@@ -239,6 +319,126 @@ export default {
           top: -5px;
           left: -5px;
           color: #fff;
+        }
+      }
+    }
+  }
+  .new {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & > div {
+      display: flex;
+      align-items: center;
+    }
+    &.listtyle-1 {
+      height: 60px;
+      img {
+        width: 39px;
+      }
+      span {
+        margin: 0px 15px;
+      }
+      img:nth-of-type(2) {
+        transform: scaleX(-1);
+      }
+    }
+    &.listtyle-2,
+    &.listtyle-3 {
+      height: 60px;
+      & > div {
+        flex-direction: column;
+        position: relative;
+        width: 100%;
+        .mainTitle {
+          display: flex;
+          align-items: center;
+          margin-bottom: 5px;
+          img {
+            width: 20px;
+          }
+          span {
+            margin: 0px 15px;
+          }
+        }
+        .subtitle {
+          letter-spacing: 8px;
+        }
+        .more {
+          position: absolute;
+          top: 0;
+          right: 10px;
+          span {
+            font-size: 13px;
+            color: #b0b3bf;
+          }
+          .el-icon-arrow-right {
+            font-size: 14px;
+            margin-left: 3px;
+          }
+        }
+      }
+    }
+
+    &.listtyle-3 {
+      .mainTitle {
+        position: relative;
+        padding-bottom: 2px;
+        span {
+          z-index: 10;
+        }
+        .bottom-pic {
+          width: 99px;
+          position: absolute;
+          bottom: 0px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+
+    &.listtyle-4 {
+      height: 60px;
+      & > div {
+        position: relative;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        img {
+          position: absolute;
+        }
+        .top-img {
+          width: 17.5px;
+          top: -7px;
+          left: 95px;
+        }
+        .bottom-img {
+          width: 30.5px;
+          bottom: -9px;
+          left: 4px;
+        }
+        .mainTitle {
+          margin-left: 25px;
+          z-index: 10;
+        }
+        .subtitle {
+          margin-left: 25px;
+          margin-top: 5px;
+          z-index: 10;
+        }
+        .more {
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          transform: translateY(-50%);
+          span {
+            font-size: 13px;
+            color: #b0b3bf;
+          }
+          .el-icon-arrow-right {
+            font-size: 14px;
+            margin-left: 3px;
+          }
         }
       }
     }

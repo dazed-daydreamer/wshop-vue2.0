@@ -20,7 +20,7 @@
         </div>
         <div>
           <span>字号</span>
-          <el-slider v-model="localForm.maintitle.fontSize" :max="40" :min="28"></el-slider>
+          <el-slider v-model="localForm.maintitle.fontSize" :max="20" :min="14"></el-slider>
           <span>{{localForm.maintitle.fontSize}}px</span>
         </div>
         <div>
@@ -50,7 +50,7 @@
         </div>
         <div>
           <span>字号</span>
-          <el-slider v-model="localForm.subtitle.fontSize" :max="26" :min="20"></el-slider>
+          <el-slider v-model="localForm.subtitle.fontSize" :max="14" :min="12"></el-slider>
           <span>{{localForm.subtitle.fontSize}}px</span>
         </div>
         <div>
@@ -197,7 +197,7 @@ export default {
               color: "#f1ff9a",
               title: "夏日纳凉精选",
               bold: true,
-              fontSize: 38,
+              fontSize: 19,
               tilt: false
             },
             margin: 5
@@ -210,14 +210,14 @@ export default {
               color: "#3b2be7",
               title: "为您推荐",
               bold: true,
-              fontSize: 38,
+              fontSize: 19,
               tilt: false
             },
             subtitle: {
               show: true,
               color: "#b7bcd2",
               title: "夏日清爽出行必备",
-              fontSize: 26
+              fontSize: 14
             },
             more: {
               show: true,
@@ -234,14 +234,14 @@ export default {
               color: "#ff95ac",
               title: "为您推荐",
               bold: true,
-              fontSize: 38,
+              fontSize: 19,
               tilt: false
             },
             subtitle: {
               show: true,
               color: "#b7bcd2",
               title: "夏日清爽出行必备",
-              fontSize: 26
+              fontSize: 14
             },
             more: {
               show: true,
@@ -258,14 +258,14 @@ export default {
               color: "#ff3b3b",
               title: "为您推荐",
               bold: true,
-              fontSize: 38,
+              fontSize: 19,
               tilt: false
             },
             subtitle: {
               show: true,
               color: "#ffb2b2",
               title: "夏日清爽出行必备",
-              fontSize: 26
+              fontSize: 14
             },
             more: {
               show: true,
