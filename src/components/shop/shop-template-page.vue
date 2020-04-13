@@ -64,7 +64,8 @@ import {
   shopComponentsCubeInit,
   shopComponentsListNavInit,
   shopComponentsLineInit,
-  shopComponentsTitleInit
+  shopComponentsTitleInit,
+  shopComponentsRichTextInit
 } from "@/config/shop.js";
 export default {
   mixins: [shopMixins],

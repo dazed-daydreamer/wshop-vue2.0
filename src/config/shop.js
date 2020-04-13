@@ -413,3 +413,10 @@ export const shopComponentsTitleInit = {
     more: {},
     margin: 5
 }
+
+//富文本初始化数据
+export const shopComponentsRichTextInit = {
+    margin: 5,
+    backgroundColor: '#ffffff',
+    content: ''
+}
