@@ -33,6 +33,7 @@ import FormCube from "./form/form-cube.vue";
 import FormListNav from "./form/form-list-nav.vue";
 import FormLine from "./form/form-line.vue";
 import FormTitle from "./form/form-title.vue";
+import FormRichText from "./form/form-rich-text.vue";
 export default {
   mixins: [shopMixins],
   data() {
@@ -93,6 +94,9 @@ export default {
           break;
         case "title":
           hasComponent = FormTitle;
+          break;
+        case "richText":
+          hasComponent = FormRichText;
           break;
         default:
           hasComponent = null;

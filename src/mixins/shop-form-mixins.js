@@ -47,6 +47,7 @@ export const shopFormMixins = {
         localForm: {
             deep: true,
             handler(val) {
+                console.log(val);
                 this.bus.$emit('formChange', val);
             }
         }

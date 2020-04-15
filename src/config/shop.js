@@ -418,5 +418,11 @@ export const shopComponentsTitleInit = {
 export const shopComponentsRichTextInit = {
     margin: 5,
     backgroundColor: '#ffffff',
-    content: ''
+    content: '富文本'
+}
+
+//辅助空白初始化数据
+export const shopComponentsBlankInit = {
+    height: 20,
+    backgroundColor: '#ffffff',
 }

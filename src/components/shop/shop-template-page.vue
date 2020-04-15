@@ -50,6 +50,7 @@ import CustomizeCube from "./customize/customize-cube.vue";
 import CustomizeListNav from "./customize/customize-list-nav.vue";
 import CustomizeLine from "./customize/customize-line.vue";
 import CustomizeTitle from "./customize/customize-title.vue";
+import CustomizeRichText from "./customize/customize-rich-text.vue";
 import {
   shopComponentsProductInit,
   shopComponentsTabInit,
@@ -176,6 +177,10 @@ export default {
         case "title":
           introduce = CustomizeTitle;
           form = shopComponentsTitleInit;
+          break;
+        case "richText":
+          introduce = CustomizeRichText;
+          form = shopComponentsRichTextInit;
           break;
       }
       this.$set(item, "introduce", introduce);
