@@ -24,7 +24,7 @@
     </div>
     <div class="text-warpper">
       <div class="ckeditor5-box">
-        <ckeditor :editor="editor" v-model="localForm.content" :config="editorConfig"></ckeditor>
+        <l-ckeditor :listShow="false"></l-ckeditor>
       </div>
     </div>
   </div>
@@ -33,34 +33,13 @@
 <script>
 import { shopComponentsRichTextInit } from "@/config/shop.js";
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import CKEditor from "@ckeditor/ckeditor5-vue";
-import "@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js";
+import LCkeditor from 'components/public/l-ckeditor.vue';
 export default {
   mixins: [shopFormMixins],
   data() {
     return {
       //本地表单
       localForm: JSON.parse(JSON.stringify(shopComponentsRichTextInit)),
-      // 编辑器组件需要获取编辑器实例
-      editor: ClassicEditor,
-      //编辑器配置
-      editorConfig: {
-        language: "zh-cn",
-        toolbar: [
-          "heading", //段落
-          "|", //分隔
-          "alignment",
-          "bold", //加粗
-          "italic", //倾斜
-          "bulletedList", //项目列表
-          "numberedList", //编号列表
-          "blockQuote", //块引用
-          "undo", //撤销
-          "redo", //重做
-          "imageUpload" //插入图像
-        ] //工具栏显示
-      }
     };
   },
   props: {
@@ -71,7 +50,7 @@ export default {
     }
   },
   components: {
-    ckeditor: CKEditor.component
+    LCkeditor
   }
 };
 </script>
