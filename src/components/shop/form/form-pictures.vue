@@ -6,7 +6,7 @@
       </div>
       <div class="has-title">
         <el-switch v-model="localForm.title"></el-switch>
-        <span>{{localForm.title === true ?'开启' :'关闭'}}</span>
+        <span>{{ localForm.title === true ? "开启" : "关闭" }}</span>
       </div>
     </div>
 
@@ -16,7 +16,7 @@
       </div>
       <div class="has-subtitle">
         <el-switch v-model="localForm.subtitle"></el-switch>
-        <span>{{localForm.subtitle === true ?'开启' :'关闭'}}</span>
+        <span>{{ localForm.subtitle === true ? "开启" : "关闭" }}</span>
       </div>
     </div>
 
@@ -25,9 +25,9 @@
       <div class="title-change">
         <ul>
           <li
-            v-for="(item,index) in titleArr"
+            v-for="(item, index) in titleArr"
             :key="index"
-            :class="{active:index === localForm.alignmentStyle}"
+            :class="{ active: index === localForm.alignmentStyle }"
             @click="titleChange(index)"
           >
             <img :src="require(`assets/images/${item}`)" alt />
@@ -42,13 +42,17 @@
       </div>
       <div class="list-warpper">
         <ul>
-          <li v-for="(item,index) in localForm.pictureList" :key="index">
+          <li v-for="(item, index) in localForm.pictureList" :key="index">
             <el-popconfirm title="确定删除吗？" @onConfirm="delList(index)">
               <span class="el-icon-close" slot="reference"></span>
             </el-popconfirm>
             <div class="item-main">
               <div>
-                <el-image :src="item.img" fit="cover" v-if="item.img"></el-image>
+                <el-image
+                  :src="item.img"
+                  fit="cover"
+                  v-if="item.img"
+                ></el-image>
                 <el-image
                   :src="require('../../../assets/images/default_picture.png')"
                   fit="cover"
@@ -87,7 +91,6 @@
   </div>
 </template>
 
-
 <script>
 import { shopComponentsPicturesInit } from "@/config/shop.js";
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
@@ -105,7 +108,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   methods: {
@@ -131,8 +134,6 @@ export default {
   }
 };
 </script>
-
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

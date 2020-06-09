@@ -15,13 +15,20 @@
       <div class="style-content">
         <div>
           <span>颜色</span>
-          <el-color-picker v-model="localForm.maintitle.color" @change="colorChange($event,'main')"></el-color-picker>
-          <span>{{localForm.maintitle.color}}</span>
+          <el-color-picker
+            v-model="localForm.maintitle.color"
+            @change="colorChange($event, 'main')"
+          ></el-color-picker>
+          <span>{{ localForm.maintitle.color }}</span>
         </div>
         <div>
           <span>字号</span>
-          <el-slider v-model="localForm.maintitle.fontSize" :max="20" :min="14"></el-slider>
-          <span>{{localForm.maintitle.fontSize}}px</span>
+          <el-slider
+            v-model="localForm.maintitle.fontSize"
+            :max="20"
+            :min="14"
+          ></el-slider>
+          <span>{{ localForm.maintitle.fontSize }}px</span>
         </div>
         <div>
           <span>其他</span>
@@ -40,18 +47,29 @@
       <div class="style-content">
         <div>
           <span>启用</span>
-          <el-radio v-model="localForm.subtitle.show" :label="true">是</el-radio>
-          <el-radio v-model="localForm.subtitle.show" :label="false">否</el-radio>
+          <el-radio v-model="localForm.subtitle.show" :label="true"
+            >是</el-radio
+          >
+          <el-radio v-model="localForm.subtitle.show" :label="false"
+            >否</el-radio
+          >
         </div>
         <div>
           <span>颜色</span>
-          <el-color-picker v-model="localForm.subtitle.color" @change="colorChange($event,'main')"></el-color-picker>
-          <span>{{localForm.subtitle.color}}</span>
+          <el-color-picker
+            v-model="localForm.subtitle.color"
+            @change="colorChange($event, 'main')"
+          ></el-color-picker>
+          <span>{{ localForm.subtitle.color }}</span>
         </div>
         <div>
           <span>字号</span>
-          <el-slider v-model="localForm.subtitle.fontSize" :max="14" :min="12"></el-slider>
-          <span>{{localForm.subtitle.fontSize}}px</span>
+          <el-slider
+            v-model="localForm.subtitle.fontSize"
+            :max="14"
+            :min="12"
+          ></el-slider>
+          <span>{{ localForm.subtitle.fontSize }}px</span>
         </div>
         <div>
           <span>内容</span>
@@ -70,13 +88,18 @@
         </div>
         <div>
           <span>内容</span>
-          <el-input v-model="localForm.more.title" size="small" maxlength="4" show-word-limit></el-input>
+          <el-input
+            v-model="localForm.more.title"
+            size="small"
+            maxlength="4"
+            show-word-limit
+          ></el-input>
         </div>
         <div>
           <span>链接</span>
           <div class="link">
             <span class="el-icon-link"></span>
-            <span v-if="localForm.more.url">{{localForm.more.url}}</span>
+            <span v-if="localForm.more.url">{{ localForm.more.url }}</span>
             <span v-else>请选择链接</span>
           </div>
         </div>
@@ -90,8 +113,11 @@
       <div class="color-select">
         <div>
           <span>标题</span>
-          <el-color-picker v-model="localForm.maintitle.color" @change="colorChange($event,'main')"></el-color-picker>
-          <span>{{localForm.maintitle.color}}</span>
+          <el-color-picker
+            v-model="localForm.maintitle.color"
+            @change="colorChange($event, 'main')"
+          ></el-color-picker>
+          <span>{{ localForm.maintitle.color }}</span>
         </div>
       </div>
     </div>
@@ -100,7 +126,7 @@
       <div class="title">上下边距</div>
       <div class="change-padding">
         <el-slider v-model="localForm.margin" :max="50"></el-slider>
-        <span>{{localForm.margin}}px</span>
+        <span>{{ localForm.margin }}px</span>
       </div>
     </div>
 
@@ -108,34 +134,41 @@
       <div class="title">标题文字</div>
       <div class="text-warpper">
         <span>文字</span>
-        <el-input v-model="localForm.maintitle.title" size="small" maxlength="8" show-word-limit></el-input>
+        <el-input
+          v-model="localForm.maintitle.title"
+          size="small"
+          maxlength="8"
+          show-word-limit
+        ></el-input>
       </div>
     </div>
 
-    <l-dialog ref="stypeDialog" title="风格选择器" @confirm="styleConfirm" class="dialog">
+    <l-dialog
+      ref="stypeDialog"
+      title="风格选择器"
+      @confirm="styleConfirm"
+      class="dialog"
+    >
       <div class="stype-dialog-warpper">
         <ul class="cu-list">
           <li
-            v-for="(item,index) in stypeImgArr"
+            v-for="(item, index) in stypeImgArr"
             :key="index"
             class="cu-item"
-            :class="{current:styleIndex === index}"
+            :class="{ current: styleIndex === index }"
             @click="styleChange(index)"
           >
             <div class="img-warpper">
               <span class="el-icon-success"></span>
-              <img :src="require(`assets/images/${
-              item
-      }`)" alt />
+              <img :src="require(`assets/images/${item}`)" alt />
             </div>
-            <span>风格{{index+1}}</span>
+            <span>风格{{ index + 1 }}</span>
           </li>
         </ul>
       </div>
     </l-dialog>
   </div>
 </template>
-
 
 <script>
 import { shopComponentsTitleInit } from "@/config/shop.js";
@@ -172,7 +205,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   methods: {
@@ -313,7 +346,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 .form-title-warpper {

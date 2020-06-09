@@ -4,26 +4,43 @@
       <div class="tips">建议图片宽度750，高度200-950，支持jpg、png。</div>
       <div class="hot-img" ref="listWarpper">
         <img :src="localForm.img" alt v-if="localForm.img" @load="loadEnd" />
-        <img src="../../../assets/images/default_banner.png" alt v-else @load="loadEnd" />
+        <img
+          src="../../../assets/images/default_banner.png"
+          alt
+          v-else
+          @load="loadEnd"
+        />
         <div class="hot-change">替换</div>
         <ul v-if="listWarpper">
           <li
-            v-for="(item,index) in localForm.list"
+            v-for="(item, index) in localForm.list"
             :key="index"
-            :style="{height:`${getFormHeight(item.height)}px`,width:`${getFormWidth(item.width)}px`,top:`${getFormHeight(item.y)}px`,left:`${getFormWidth(item.x)}px`}"
-          >双击选择链接</li>
+            :style="{
+              height: `${getFormHeight(item.height)}px`,
+              width: `${getFormWidth(item.width)}px`,
+              top: `${getFormHeight(item.y)}px`,
+              left: `${getFormWidth(item.x)}px`
+            }"
+          >
+            双击选择链接
+          </li>
         </ul>
       </div>
       <div class="set-hot" @click="setHot">设置热区</div>
     </div>
 
-    <l-dialog ref="hotDialog" title="热区编辑器" class="dialog" :hasCustomFooter="true">
+    <l-dialog
+      ref="hotDialog"
+      title="热区编辑器"
+      class="dialog"
+      :hasCustomFooter="true"
+    >
       <div class="hot-dialog-warpper">
         <div class="introduce">
           <ul>
-            <li v-for="(item,index) in introduceArr" :key="index">
-              <span>{{index + 1}}</span>
-              <span>{{item}}</span>
+            <li v-for="(item, index) in introduceArr" :key="index">
+              <span>{{ index + 1 }}</span>
+              <span>{{ item }}</span>
             </li>
           </ul>
         </div>
@@ -36,7 +53,7 @@
               @resizing="onResize"
               @activated="onActivated(index)"
               :parent="true"
-              v-for="(item,index) in temporaryList"
+              v-for="(item, index) in temporaryList"
               :key="index"
               :w="item.width"
               :h="item.height"
@@ -56,13 +73,14 @@
         </div>
       </div>
       <div slot="footer">
-        <el-button type="primary" size="medium" @click="addHot">添加热区</el-button>
+        <el-button type="primary" size="medium" @click="addHot"
+          >添加热区</el-button
+        >
         <el-button size="medium" @click="saveHot">保存</el-button>
       </div>
     </l-dialog>
   </div>
 </template>
-
 
 <script>
 import { shopComponentsHotInit } from "@/config/shop.js";
@@ -90,7 +108,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   methods: {
@@ -204,7 +222,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

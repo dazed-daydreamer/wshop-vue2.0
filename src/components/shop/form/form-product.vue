@@ -23,7 +23,11 @@
       <div class="product-warpper">
         <el-button
           type="primary"
-          :icon=" localForm.product === 0 ?'el-icon-circle-plus-outline' :'el-icon-connection'"
+          :icon="
+            localForm.product === 0
+              ? 'el-icon-circle-plus-outline'
+              : 'el-icon-connection'
+          "
         >
           <span v-show="localForm.product === 0">添加</span>
           <span v-show="localForm.product != 0">关联</span>
@@ -41,10 +45,17 @@
         </el-radio-group>
       </div>
       <div class="sort-introduce">
-        <div v-show="localForm.sort === 0">根据会员特征千人千面展现，可大幅提升点击和成交转化率</div>
+        <div v-show="localForm.sort === 0">
+          根据会员特征千人千面展现，可大幅提升点击和成交转化率
+        </div>
         <div v-show="localForm.sort === 1">
           <el-select v-model="localForm.sortType" placeholder="请选择">
-            <el-option v-for="(item,index) in sortArr" :key="index" :label="item" :value="index"></el-option>
+            <el-option
+              v-for="(item, index) in sortArr"
+              :key="index"
+              :label="item"
+              :value="index"
+            ></el-option>
           </el-select>
         </div>
       </div>
@@ -58,11 +69,11 @@
         <el-checkbox-group v-model="checkList" @change="showChange">
           <el-checkbox
             :label="item.key"
-            v-for="(item,index) in showArr"
+            v-for="(item, index) in showArr"
             :key="index"
             v-show="checkShow(item)"
           >
-            <span>{{item.title}}</span>
+            <span>{{ item.title }}</span>
           </el-checkbox>
         </el-checkbox-group>
       </div>
@@ -102,30 +113,32 @@
         </el-input>
       </div>
     </div>
-    <l-dialog ref="stypeDialog" title="风格选择器" @confirm="styleConfirm" class="dialog">
+    <l-dialog
+      ref="stypeDialog"
+      title="风格选择器"
+      @confirm="styleConfirm"
+      class="dialog"
+    >
       <div class="stype-dialog-warpper">
         <ul class="cu-list">
           <li
-            v-for="(item,index) in stypeImgArr"
+            v-for="(item, index) in stypeImgArr"
             :key="index"
             class="cu-item"
-            :class="{current:styleIndex === index}"
+            :class="{ current: styleIndex === index }"
             @click="styleChange(index)"
           >
             <div class="img-warpper">
               <span class="el-icon-success"></span>
-              <img :src="require(`assets/images/${
-              item
-      }`)" alt />
+              <img :src="require(`assets/images/${item}`)" alt />
             </div>
-            <span>风格{{index+1}}</span>
+            <span>风格{{ index + 1 }}</span>
           </li>
         </ul>
       </div>
     </l-dialog>
   </div>
 </template>
-
 
 <script>
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
@@ -194,7 +207,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   methods: {
@@ -247,8 +260,6 @@ export default {
   }
 };
 </script>
-
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";
@@ -312,6 +323,5 @@ export default {
       margin-top: 20px;
     }
   }
-
 }
 </style>

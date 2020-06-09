@@ -15,15 +15,19 @@
         <span>魔方布局</span>
       </div>
       <div class="setting-layout">
-        <ul class="cube-row" v-for="(row,rowIndex) in this.cubeLayoutArr" :key="rowIndex">
+        <ul
+          class="cube-row"
+          v-for="(row, rowIndex) in this.cubeLayoutArr"
+          :key="rowIndex"
+        >
           <li
             class="cube-item"
-            v-for="(item,itemIndex) in row"
+            v-for="(item, itemIndex) in row"
             :key="itemIndex"
             @click="lockingCube(item)"
             @mouseenter="hoverCube(item)"
-            :class="{'item-selected':item.select}"
-            :style="{width:`${cubeItemSize}px`,height:`${cubeItemSize}px`}"
+            :class="{ 'item-selected': item.select }"
+            :style="{ width: `${cubeItemSize}px`, height: `${cubeItemSize}px` }"
           >
             <span>+</span>
           </li>
@@ -31,19 +35,28 @@
 
         <div
           class="locking-item"
-          v-for="(item,index) in layoutArr"
+          v-for="(item, index) in layoutArr"
           :key="`locking-${index}`"
-          :style="{top:`${item.top*cubeItemSize}px`,left:`${item.left*cubeItemSize}px`,width:`${item.width*cubeItemSize}px`,height:`${item.height*cubeItemSize}px`}"
+          :style="{
+            top: `${item.top * cubeItemSize}px`,
+            left: `${item.left * cubeItemSize}px`,
+            width: `${item.width * cubeItemSize}px`,
+            height: `${item.height * cubeItemSize}px`
+          }"
           @click.stop="layoutItemSelect(index)"
-          :class="{select:layoutItemSelectIndex === index}"
+          :class="{ select: layoutItemSelectIndex === index }"
         >
           <el-image :src="item.img" fit="cover" v-if="item.img"></el-image>
           <div class="size" v-else>
-            <span>{{item.markWidth}}</span>
+            <span>{{ item.markWidth }}</span>
             <span>*</span>
-            <span>{{item.markHeight}}</span>
+            <span>{{ item.markHeight }}</span>
           </div>
-          <div class="close" @click.stop="layoutItemDelete(index)" v-if="localForm.style === 0">
+          <div
+            class="close"
+            @click.stop="layoutItemDelete(index)"
+            v-if="localForm.style === 0"
+          >
             <span class="el-icon-close"></span>
           </div>
         </div>
@@ -58,14 +71,22 @@
             <el-image
               :src="layoutArr[layoutItemSelectIndex].img"
               fit="cover"
-              v-if="layoutArr.length&&layoutArr[layoutItemSelectIndex]&&layoutArr[layoutItemSelectIndex].img"
+              v-if="
+                layoutArr.length &&
+                  layoutArr[layoutItemSelectIndex] &&
+                  layoutArr[layoutItemSelectIndex].img
+              "
             ></el-image>
             <div class="blank" @click="addPictures" v-else>
               <span class="el-icon-plus"></span>
             </div>
             <div
               class="close"
-              v-if="layoutArr.length&&layoutArr[layoutItemSelectIndex]&&layoutArr[layoutItemSelectIndex].img"
+              v-if="
+                layoutArr.length &&
+                  layoutArr[layoutItemSelectIndex] &&
+                  layoutArr[layoutItemSelectIndex].img
+              "
               @click="delPictures"
             >
               <span class="el-icon-close"></span>
@@ -87,34 +108,36 @@
       <div class="title">图片间隔</div>
       <div class="change-padding">
         <el-slider v-model="localForm.clearance" :max="48"></el-slider>
-        <span>{{localForm.clearance}}px</span>
+        <span>{{ localForm.clearance }}px</span>
       </div>
     </div>
 
-    <l-dialog ref="stypeDialog" title="风格选择器" @confirm="styleConfirm" class="dialog">
+    <l-dialog
+      ref="stypeDialog"
+      title="风格选择器"
+      @confirm="styleConfirm"
+      class="dialog"
+    >
       <div class="stype-dialog-warpper">
         <ul class="cu-list">
           <li
-            v-for="(item,index) in stypeImgArr"
+            v-for="(item, index) in stypeImgArr"
             :key="index"
             class="cu-item"
-            :class="{current:styleIndex === index}"
+            :class="{ current: styleIndex === index }"
             @click="styleChange(index)"
           >
             <div class="img-warpper">
               <span class="el-icon-success"></span>
-              <img :src="require(`assets/images/${
-              item
-      }`)" alt />
+              <img :src="require(`assets/images/${item}`)" alt />
             </div>
-            <span>风格{{index+1}}</span>
+            <span>风格{{ index + 1 }}</span>
           </li>
         </ul>
       </div>
     </l-dialog>
   </div>
 </template>
-
 
 <script>
 import { shopComponentsCubeInit } from "@/config/shop.js";
@@ -160,7 +183,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   methods: {
@@ -260,7 +283,7 @@ export default {
       }
       const current = this.checkHasLayou(this.startCoordinate, cubeItem);
       if (current) {
-        this.cubeLayoutArr.forEach((rowItem, rowIndex) => {
+        this.cubeLayoutArr.forEach(rowItem => {
           rowItem.forEach(item => {
             const inside = this.checkIntervalInside(
               item.x,
@@ -323,7 +346,7 @@ export default {
       const minY = start.y >= last.y ? last.y : start.y;
       const maxY = minY === start.y ? last.y : start.y;
       let current = true;
-      this.cubeLayoutArr.forEach((rowItem, rowIndex) => {
+      this.cubeLayoutArr.forEach(rowItem => {
         rowItem.forEach(item => {
           if (
             minX <= item.x &&
@@ -705,7 +728,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 .form-cube-warpper {

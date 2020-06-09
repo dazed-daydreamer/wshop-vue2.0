@@ -9,9 +9,9 @@
           <span>背景</span>
           <el-color-picker
             v-model="localForm.backgroundColor"
-            @change="colorChange($event,'backgroundColor')"
+            @change="colorChange($event, 'backgroundColor')"
           ></el-color-picker>
-          <span>{{localForm.backgroundColor}}</span>
+          <span>{{ localForm.backgroundColor }}</span>
         </div>
       </div>
     </div>
@@ -19,7 +19,7 @@
       <div class="title">上下边距</div>
       <div class="change-padding">
         <el-slider v-model="localForm.margin" :max="50"></el-slider>
-        <span>{{localForm.margin}}px</span>
+        <span>{{ localForm.margin }}px</span>
       </div>
     </div>
     <div class="text-warpper">
@@ -33,20 +33,20 @@
 <script>
 import { shopComponentsRichTextInit } from "@/config/shop.js";
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
-import LCkeditor from 'components/public/l-ckeditor.vue';
+import LCkeditor from "components/public/l-ckeditor.vue";
 export default {
   mixins: [shopFormMixins],
   data() {
     return {
       //本地表单
-      localForm: JSON.parse(JSON.stringify(shopComponentsRichTextInit)),
+      localForm: JSON.parse(JSON.stringify(shopComponentsRichTextInit))
     };
   },
   props: {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   components: {
@@ -54,7 +54,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 .form-rich-text-warpper {

@@ -9,13 +9,13 @@
     </div>
     <div class="list-warpper">
       <ul>
-        <li v-for="(item,index) in localForm.list" :key="index">
+        <li v-for="(item, index) in localForm.list" :key="index">
           <el-popconfirm title="确定删除吗？" @onConfirm="delList(index)">
             <span class="el-icon-close" slot="reference"></span>
           </el-popconfirm>
           <div class="item-icon">
             <span>图标</span>
-            <div @click="iconSelectShow(item,index)">
+            <div @click="iconSelectShow(item, index)">
               <span class="iconfont" :class="item.icon"></span>
               <span class="replace">替换</span>
             </div>
@@ -62,7 +62,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   methods: {
@@ -93,7 +93,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 .form-list-nav-warpper {

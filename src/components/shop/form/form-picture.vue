@@ -17,15 +17,15 @@
       <div class="tips">建议图片宽度750，高度200-950。</div>
       <div class="list">
         <ul>
-          <li v-for="(item,index) in localForm.picture" :key="index">
+          <li v-for="(item, index) in localForm.picture" :key="index">
             <div class="img-warpper">
               <img :src="item.img" alt v-if="item.img" />
               <img src="../../../assets/images/default_banner.png" alt v-else />
               <span>替换</span>
             </div>
-            <div class="link-warpper" :class="{'has-url':item.url}">
+            <div class="link-warpper" :class="{ 'has-url': item.url }">
               <span class="el-icon-link"></span>
-              <span v-if="item.url">{{item.url}}</span>
+              <span v-if="item.url">{{ item.url }}</span>
               <span v-else>请选择链接</span>
             </div>
             <el-popconfirm title="确定删除吗？" @onConfirm="delList(index)">
@@ -40,30 +40,32 @@
       </div>
     </div>
 
-    <l-dialog ref="stypeDialog" title="风格选择器" @confirm="styleConfirm" class="dialog">
+    <l-dialog
+      ref="stypeDialog"
+      title="风格选择器"
+      @confirm="styleConfirm"
+      class="dialog"
+    >
       <div class="stype-dialog-warpper">
         <ul class="cu-list">
           <li
-            v-for="(item,index) in stypeImgArr"
+            v-for="(item, index) in stypeImgArr"
             :key="index"
             class="cu-item"
-            :class="{current:styleIndex === index}"
+            :class="{ current: styleIndex === index }"
             @click="styleChange(index)"
           >
             <div class="img-warpper">
               <span class="el-icon-success"></span>
-              <img :src="require(`assets/images/${
-              item
-      }`)" alt />
+              <img :src="require(`assets/images/${item}`)" alt />
             </div>
-            <span>风格{{index+1}}</span>
+            <span>风格{{ index + 1 }}</span>
           </li>
         </ul>
       </div>
     </l-dialog>
   </div>
 </template>
-
 
 <script>
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
@@ -87,7 +89,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   methods: {
@@ -114,7 +116,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

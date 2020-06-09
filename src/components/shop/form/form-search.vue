@@ -7,16 +7,19 @@
       <div class="color-select">
         <div>
           <span>图标</span>
-          <el-color-picker v-model="localForm.iconColor" @change="colorChange($event,'iconColor')"></el-color-picker>
-          <span>{{localForm.iconColor}}</span>
+          <el-color-picker
+            v-model="localForm.iconColor"
+            @change="colorChange($event, 'iconColor')"
+          ></el-color-picker>
+          <span>{{ localForm.iconColor }}</span>
         </div>
         <div>
           <span>文字</span>
           <el-color-picker
             v-model="localForm.titleColor"
-            @change="colorChange($event,'titleColor')"
+            @change="colorChange($event, 'titleColor')"
           ></el-color-picker>
-          <span>{{localForm.titleColor}}</span>
+          <span>{{ localForm.titleColor }}</span>
         </div>
       </div>
     </div>
@@ -27,9 +30,9 @@
       <div class="radius-change">
         <ul>
           <li
-            v-for="(item,index) in radiusArr"
+            v-for="(item, index) in radiusArr"
             :key="index"
-            :class="{active:index === localForm.radiusStyle}"
+            :class="{ active: index === localForm.radiusStyle }"
             @click="radiusChange(index)"
           >
             <img :src="require(`assets/images/${item}`)" alt />
@@ -42,9 +45,9 @@
       <div class="title-change">
         <ul>
           <li
-            v-for="(item,index) in titleArr"
+            v-for="(item, index) in titleArr"
             :key="index"
-            :class="{active:index === localForm.placeholderStyle}"
+            :class="{ active: index === localForm.placeholderStyle }"
             @click="titleChange(index)"
           >
             <img :src="require(`assets/images/${item}`)" alt />
@@ -55,12 +58,15 @@
     <div class="title-placeholder">
       <div class="title">默认文字</div>
       <div class="input-placeholder">
-        <el-input v-model="localForm.placeholder" maxlength="15" show-word-limit></el-input>
+        <el-input
+          v-model="localForm.placeholder"
+          maxlength="15"
+          show-word-limit
+        ></el-input>
       </div>
     </div>
   </div>
 </template>
-
 
 <script>
 import { shopComponentsSearchInit } from "@/config/shop.js";
@@ -91,12 +97,11 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

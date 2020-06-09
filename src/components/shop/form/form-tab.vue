@@ -13,13 +13,13 @@
         @sort="sortChange"
       >
         <li
-          v-for="(item,index) in localForm.tabList"
+          v-for="(item, index) in localForm.tabList"
           :key="index"
           class="cu-item"
-          :class="{current:index === localForm.currentTab}"
+          :class="{ current: index === localForm.currentTab }"
           @click="itemChoose(index)"
         >
-          <span>{{item.title}}</span>
+          <span>{{ item.title }}</span>
         </li>
       </draggable>
       <div class="addTab" @click="addTab">+添加</div>
@@ -55,7 +55,11 @@
       <div class="product-warpper">
         <el-button
           type="primary"
-          :icon=" localForm.product === 0 ?'el-icon-circle-plus-outline' :'el-icon-connection'"
+          :icon="
+            localForm.product === 0
+              ? 'el-icon-circle-plus-outline'
+              : 'el-icon-connection'
+          "
         >
           <span v-show="localForm.product === 0">添加</span>
           <span v-show="localForm.product != 0">关联</span>
@@ -70,7 +74,12 @@
           <span>风格</span>
           <div>
             <el-radio-group v-model="localForm.style">
-              <el-radio :label="index" v-for="(item,index) in styleArr" :key="index">{{item}}</el-radio>
+              <el-radio
+                :label="index"
+                v-for="(item, index) in styleArr"
+                :key="index"
+                >{{ item }}</el-radio
+              >
             </el-radio-group>
           </div>
         </div>
@@ -80,11 +89,11 @@
             <el-checkbox-group v-model="checkList" @change="showChange">
               <el-checkbox
                 :label="item.key"
-                v-for="(item,index) in showArr"
+                v-for="(item, index) in showArr"
                 :key="index"
                 v-show="checkShow(item)"
               >
-                <span>{{item.title}}</span>
+                <span>{{ item.title }}</span>
               </el-checkbox>
             </el-checkbox-group>
           </div>
@@ -127,7 +136,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import { shopComponentsTabInit } from "@/config/shop.js";
@@ -184,7 +192,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   created() {
@@ -268,7 +276,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

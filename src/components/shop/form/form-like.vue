@@ -37,26 +37,29 @@
       </div>
       <div class="slider-warpper">
         <el-slider v-model="localForm.count" :min="1" :max="20"></el-slider>
-        <span>{{localForm.count}}</span>
+        <span>{{ localForm.count }}</span>
       </div>
     </div>
-    <l-dialog ref="stypeDialog" title="风格选择器" @confirm="styleConfirm" class="dialog">
+    <l-dialog
+      ref="stypeDialog"
+      title="风格选择器"
+      @confirm="styleConfirm"
+      class="dialog"
+    >
       <div class="stype-dialog-warpper">
         <ul class="cu-list">
           <li
-            v-for="(item,index) in stypeImgArr"
+            v-for="(item, index) in stypeImgArr"
             :key="index"
             class="cu-item"
-            :class="{current:styleIndex === index}"
+            :class="{ current: styleIndex === index }"
             @click="styleChange(index)"
           >
             <div class="img-warpper">
               <span class="el-icon-success"></span>
-              <img :src="require(`assets/images/${
-              item
-      }`)" alt />
+              <img :src="require(`assets/images/${item}`)" alt />
             </div>
-            <span>风格{{index+1}}</span>
+            <span>风格{{ index + 1 }}</span>
           </li>
         </ul>
       </div>
@@ -86,21 +89,20 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   methods: {
     //初始化表单
     _initForm() {
       this.getStyleImg();
-    },
+    }
   },
   components: {
     LDialog
   }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

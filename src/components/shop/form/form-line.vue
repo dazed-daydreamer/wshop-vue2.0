@@ -7,8 +7,11 @@
       <div class="color-select">
         <div>
           <span>线条</span>
-          <el-color-picker v-model="localForm.color" @change="colorChange($event,'color')"></el-color-picker>
-          <span>{{localForm.color}}</span>
+          <el-color-picker
+            v-model="localForm.color"
+            @change="colorChange($event, 'color')"
+          ></el-color-picker>
+          <span>{{ localForm.color }}</span>
         </div>
       </div>
     </div>
@@ -16,7 +19,7 @@
       <div class="title">上下边距</div>
       <div class="change-padding">
         <el-slider v-model="localForm.margin" :max="50"></el-slider>
-        <span>{{localForm.margin}}px</span>
+        <span>{{ localForm.margin }}px</span>
       </div>
     </div>
     <div class="line-style">
@@ -24,22 +27,21 @@
       <div class="style-warpper">
         <ul>
           <li
-            v-for="(item,index) in 3"
+            v-for="(item, index) in 3"
             :key="index"
-            :class="{active:localForm.style === index}"
+            :class="{ active: localForm.style === index }"
             @click="styleChange(index)"
           >
             <div class="line-warpper">
               <div class="line"></div>
             </div>
-            <span>风格{{item}}</span>
+            <span>风格{{ item }}</span>
           </li>
         </ul>
       </div>
     </div>
   </div>
 </template>
-
 
 <script>
 import { shopComponentsLineInit } from "@/config/shop.js";
@@ -56,7 +58,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   methods: {
@@ -67,7 +69,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

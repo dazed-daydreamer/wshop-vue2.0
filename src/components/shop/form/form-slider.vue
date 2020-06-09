@@ -7,9 +7,9 @@
       <div class="dot-change">
         <ul>
           <li
-            v-for="(item,index) in radiusArr"
+            v-for="(item, index) in radiusArr"
             :key="index"
-            :class="{active:index === localForm.dotStyle}"
+            :class="{ active: index === localForm.dotStyle }"
             @click="radiusChange(index)"
           >
             <img :src="require(`assets/images/${item}`)" alt />
@@ -22,9 +22,9 @@
       <div class="position-change">
         <ul>
           <li
-            v-for="(item,index) in titleArr"
+            v-for="(item, index) in titleArr"
             :key="index"
-            :class="{active:index === localForm.positionStyle}"
+            :class="{ active: index === localForm.positionStyle }"
             @click="titleChange(index)"
           >
             <img :src="require(`assets/images/${item}`)" alt />
@@ -34,18 +34,20 @@
     </div>
     <div class="slidet-list">
       <div class="title">轮播图片</div>
-      <div class="tips">建议图片宽度750，高度420。要求一组内图片高度必须完全一致</div>
+      <div class="tips">
+        建议图片宽度750，高度420。要求一组内图片高度必须完全一致
+      </div>
       <div class="list">
         <ul>
-          <li v-for="(item,index) in localForm.slider" :key="index">
+          <li v-for="(item, index) in localForm.slider" :key="index">
             <div class="img-warpper">
               <img :src="item.img" alt v-if="item.img" />
               <img src="../../../assets/images/default_banner.png" alt v-else />
               <span>替换</span>
             </div>
-            <div class="link-warpper" :class="{'has-url':item.url}">
+            <div class="link-warpper" :class="{ 'has-url': item.url }">
               <span class="el-icon-link"></span>
-              <span v-if="item.url">{{item.url}}</span>
+              <span v-if="item.url">{{ item.url }}</span>
               <span v-else>请选择链接</span>
             </div>
             <el-popconfirm title="确定删除吗？" @onConfirm="delConfirm(index)">
@@ -55,13 +57,12 @@
         </ul>
 
         <div class="add-list" @click="addList">
-          <span>+添加 {{localForm.slider.length}}/8</span>
+          <span>+添加 {{ localForm.slider.length }}/8</span>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 
 <script>
 import { shopComponentsSliderInit } from "@/config/shop.js";
@@ -82,7 +83,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   methods: {
@@ -114,7 +115,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

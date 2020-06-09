@@ -12,40 +12,42 @@
     <div class="notice-warpper">
       <div class="title">公告信息</div>
       <div class="notice-input">
-        <el-input v-model="localForm.notice" ></el-input>
+        <el-input v-model="localForm.notice"></el-input>
       </div>
     </div>
     <div class="padding-warpper">
       <div class="title">上下边距</div>
       <div class="change-padding">
         <el-slider v-model="localForm.padding" :max="50"></el-slider>
-        <span>{{localForm.padding}}px</span>
+        <span>{{ localForm.padding }}px</span>
       </div>
     </div>
-    <l-dialog ref="stypeDialog" title="风格选择器" @confirm="styleConfirm" class="dialog">
+    <l-dialog
+      ref="stypeDialog"
+      title="风格选择器"
+      @confirm="styleConfirm"
+      class="dialog"
+    >
       <div class="stype-dialog-warpper">
         <ul class="cu-list">
           <li
-            v-for="(item,index) in stypeImgArr"
+            v-for="(item, index) in stypeImgArr"
             :key="index"
             class="cu-item"
-            :class="{current:styleIndex === index}"
+            :class="{ current: styleIndex === index }"
             @click="styleChange(index)"
           >
             <div class="img-warpper">
               <span class="el-icon-success"></span>
-              <img :src="require(`assets/images/${
-              item
-      }`)" alt />
+              <img :src="require(`assets/images/${item}`)" alt />
             </div>
-            <span>风格{{index+1}}</span>
+            <span>风格{{ index + 1 }}</span>
           </li>
         </ul>
       </div>
     </l-dialog>
   </div>
 </template>
-
 
 <script>
 import { shopComponentsNoticeInit } from "@/config/shop.js";
@@ -75,7 +77,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   components: {
@@ -83,7 +85,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";
