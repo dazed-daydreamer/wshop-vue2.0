@@ -1,11 +1,21 @@
 <template>
-  <div class="customize-cube-warpper" ref="cube" :style="{height:`${cubeSize}px`}">
+  <div
+    class="customize-cube-warpper"
+    ref="cube"
+    :style="{ height: `${cubeSize}px` }"
+  >
     <div class="cube-chunks" v-if="form.chunks.length">
       <ul>
         <li
-          v-for="(item,index) in form.chunks"
+          v-for="(item, index) in form.chunks"
           :key="index"
-          :style="{top:`${item.top*cubeItemSize}px`,left:`${item.left*cubeItemSize}px`,width:`${item.width*cubeItemSize}px`,height:`${item.height*cubeItemSize}px`,padding:`${form.clearance}px`}"
+          :style="{
+            top: `${item.top * cubeItemSize}px`,
+            left: `${item.left * cubeItemSize}px`,
+            width: `${item.width * cubeItemSize}px`,
+            height: `${item.height * cubeItemSize}px`,
+            padding: `${form.clearance}px`
+          }"
         >
           <el-image :src="item.img" fit="cover" v-if="item.img"></el-image>
           <span v-else>请插入图片</span>
@@ -15,7 +25,6 @@
     <div class="cube-blank" v-else>请开始布局</div>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -28,7 +37,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   mounted() {
@@ -50,7 +59,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 .customize-cube-warpper {

@@ -7,12 +7,24 @@
     <div class="component-library-list">
       <el-scrollbar>
         <ul class="group-list">
-          <li v-for="(item,index) in shopComponentsList" :key="index" class="group-item">
-            <div class="group-title">{{item.group}}</div>
-            <draggable v-model="item.list" :options="draggableOptions" class="cu-list">
-              <li v-for="(listItem,listIndex) in item.list" :key="listIndex" class="cu-item">
+          <li
+            v-for="(item, index) in shopComponentsList"
+            :key="index"
+            class="group-item"
+          >
+            <div class="group-title">{{ item.group }}</div>
+            <draggable
+              v-model="item.list"
+              :options="draggableOptions"
+              class="cu-list"
+            >
+              <li
+                v-for="(listItem, listIndex) in item.list"
+                :key="listIndex"
+                class="cu-item"
+              >
                 <span class="iconfont" :class="listItem.icon"></span>
-                <span>{{listItem.title}}</span>
+                <span>{{ listItem.title }}</span>
               </li>
             </draggable>
           </li>
@@ -38,7 +50,7 @@ export default {
           put: false,
           pull: "clone"
         }
-      },
+      }
     };
   },
   created() {
@@ -68,9 +80,6 @@ export default {
   }
 };
 </script>
-
-
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

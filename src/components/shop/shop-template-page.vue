@@ -14,18 +14,22 @@
           @sort="sortChange"
         >
           <li
-            v-for="(item,index) in componentsList"
+            v-for="(item, index) in componentsList"
             :key="index"
             class="cu-item"
             @click="itemChoose(index)"
-            :class="{crrent:index === getCurrentComponentIndex}"
+            :class="{ crrent: index === getCurrentComponentIndex }"
           >
             <div class="delete">
               <el-popconfirm title="是否删除组件吗" @onConfirm="delItem(index)">
                 <span class="el-icon-close" slot="reference"></span>
               </el-popconfirm>
             </div>
-            <component v-bind:is="item.introduce" :form="item.form" class="item-component"></component>
+            <component
+              v-bind:is="item.introduce"
+              :form="item.form"
+              class="item-component"
+            ></component>
           </li>
         </draggable>
       </el-scrollbar>
@@ -134,6 +138,7 @@ export default {
         case "like":
           introduce = CustomizeLike;
           form = shopComponentsLikeInit;
+          break;
         case "ranking":
           introduce = CustomizeRanking;
           form = shopComponentsRankingInit;
@@ -182,6 +187,7 @@ export default {
           introduce = CustomizeRichText;
           form = shopComponentsRichTextInit;
           break;
+        default:
       }
       this.$set(item, "introduce", introduce);
       this.$set(item, "form", JSON.parse(JSON.stringify(form)));
@@ -211,8 +217,6 @@ export default {
   }
 };
 </script>
-
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

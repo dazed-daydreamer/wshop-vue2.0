@@ -1,16 +1,18 @@
 <template>
   <div
     class="customize-notice-warpper"
-    :style="{'padding-top':`${form.padding}px`,'padding-bottom':`${form.padding}px`}"
+    :style="{
+      'padding-top': `${form.padding}px`,
+      'padding-bottom': `${form.padding}px`
+    }"
   >
     <div>
       <span class="icon-gonggao1 iconfont" v-if="form.style === 0"></span>
       <span class="sign" v-else>公告</span>
-      <span>{{form.notice}}</span>
+      <span>{{ form.notice }}</span>
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -18,12 +20,11 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

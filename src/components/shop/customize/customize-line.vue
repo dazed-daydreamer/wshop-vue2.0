@@ -1,6 +1,9 @@
 <template>
   <div class="customize-line-warpper">
-    <div class="line" :style="{margin:`${form.margin}px 0px`,borderTop:borderStyle}"></div>
+    <div
+      class="line"
+      :style="{ margin: `${form.margin}px 0px`, borderTop: borderStyle }"
+    ></div>
   </div>
 </template>
 
@@ -10,7 +13,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   computed: {

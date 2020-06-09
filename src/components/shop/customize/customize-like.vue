@@ -2,23 +2,26 @@
   <div class="customize-like-warpper">
     <div class="title" v-if="form.titleShow">
       <div class="line"></div>
-      <span>{{form.title}}</span>
+      <span>{{ form.title }}</span>
       <div class="line"></div>
     </div>
     <div class="product-list">
       <ul class="cu-list" :class="listClass">
         <li class="cu-item" v-for="item in form.count" :key="item">
-          <el-image :src="require('../../../assets/images/default_picture.png')" fit="cover"></el-image>
+          <el-image
+            :src="require('../../../assets/images/default_picture.png')"
+            fit="cover"
+          ></el-image>
           <div class="data-warpper">
-            <div class="title">{{productItem.title}}</div>
+            <div class="title">{{ productItem.title }}</div>
             <div class="price">
-              <span>￥{{productItem.price}}</span>
-              <span v-if="form.style === 0">￥{{productItem.original}}</span>
+              <span>￥{{ productItem.price }}</span>
+              <span v-if="form.style === 0">￥{{ productItem.original }}</span>
             </div>
             <div class="buy" v-if="form.style === 0">
               <div>
                 <span>已售</span>
-                <span>{{productItem.sales}}</span>
+                <span>{{ productItem.sales }}</span>
               </div>
               <span>购买</span>
             </div>
@@ -29,15 +32,13 @@
   </div>
 </template>
 
-
-
 <script>
 export default {
   props: {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   data() {
@@ -125,17 +126,17 @@ export default {
   .cu-list.listtyle-2 {
     .cu-item {
       display: flex;
-      .el-image{
+      .el-image {
         width: 80px;
         height: 80px;
       }
-      .data-warpper{
+      .data-warpper {
         margin-left: 10px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        .title{
-          margin:0;
+        .title {
+          margin: 0;
         }
       }
     }

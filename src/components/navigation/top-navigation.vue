@@ -4,12 +4,11 @@
     <div class="right">
       <div class="notifier">
         <span class="el-icon-bell"></span>
-        <span class="dot" :class="{new:hasNew}"></span>
+        <span class="dot" :class="{ new: hasNew }"></span>
       </div>
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -21,7 +20,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss" scoped>
 .top-navigation-warpper {

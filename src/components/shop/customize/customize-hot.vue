@@ -11,12 +11,11 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   }
 };
 </script>
-
 
 <style lang="scss">
 .customize-hot-warpper {

@@ -11,7 +11,11 @@
           <el-input v-model="form.title"></el-input>
         </el-form-item>
         <el-form-item label="背景颜色">
-          <el-color-picker v-model="form.color" size="small" @change="colorChange"></el-color-picker>
+          <el-color-picker
+            v-model="form.color"
+            size="small"
+            @change="colorChange"
+          ></el-color-picker>
         </el-form-item>
         <el-form-item label="页面分享描述">
           <el-input v-model="form.share"></el-input>

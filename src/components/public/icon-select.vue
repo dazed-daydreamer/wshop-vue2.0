@@ -5,18 +5,20 @@
         <div class="category-box">
           <ul>
             <li
-              v-for="(item,index) in categoryArr"
+              v-for="(item, index) in categoryArr"
               :key="index"
-              :class="{active:index === categoryActive}"
-            >{{item}}</li>
+              :class="{ active: index === categoryActive }"
+            >
+              {{ item }}
+            </li>
           </ul>
         </div>
         <div class="preview-operate">
           <ul>
             <li
-              v-for="(item,index) in iconList"
+              v-for="(item, index) in iconList"
               :key="index"
-              :class="{active:iconActive === item.icon}"
+              :class="{ active: iconActive === item.icon }"
               @click="changeIcon(item)"
             >
               <span class="iconfont" :class="item.icon"></span>
@@ -93,7 +95,6 @@ export default {
   components: { LDialog }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

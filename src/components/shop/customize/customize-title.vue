@@ -3,27 +3,47 @@
     <div
       v-if="ordinaryTitleShow"
       class="ordinary"
-      :style="{'margin-top':`${form.margin}px`,'margin-bottom':`${form.margin}px`}"
+      :style="{
+        'margin-top': `${form.margin}px`,
+        'margin-bottom': `${form.margin}px`
+      }"
       :class="listClass"
     >
-      <div :class="listClass" :style="{border:listBoder}">
-        <span class="line" :style="{'background-color':form.maintitle.color}"></span>
+      <div :class="listClass" :style="{ border: listBoder }">
         <span
-          :style="{color:form.maintitle.color,border:listBoder}"
+          class="line"
+          :style="{ 'background-color': form.maintitle.color }"
+        ></span>
+        <span
+          :style="{ color: form.maintitle.color, border: listBoder }"
           class="title"
-          v-if="(form.style + 1) != 12"
-        >{{form.maintitle.title}}</span>
+          v-if="form.style + 1 != 12"
+          >{{ form.maintitle.title }}</span
+        >
         <span
-          :style="{'background-color':form.maintitle.color,border:listBoder}"
+          :style="{
+            'background-color': form.maintitle.color,
+            border: listBoder
+          }"
           class="title"
           v-else
-        >{{form.maintitle.title}}</span>
-        <span class="line" :style="{'background-color':form.maintitle.color}"></span>
+          >{{ form.maintitle.title }}</span
+        >
+        <span
+          class="line"
+          :style="{ 'background-color': form.maintitle.color }"
+        ></span>
         <div class="inner-line">
-          <span :style="{'background-color':form.maintitle.color}"></span>
-          <span :style="{'border-top': `8px solid ${form.maintitle.color}`}" class="triangle"></span>
-          <div :style="{'border': `1px solid ${form.maintitle.color}`}" class="diamond"></div>
-          <span :style="{'background-color':form.maintitle.color}"></span>
+          <span :style="{ 'background-color': form.maintitle.color }"></span>
+          <span
+            :style="{ 'border-top': `8px solid ${form.maintitle.color}` }"
+            class="triangle"
+          ></span>
+          <div
+            :style="{ border: `1px solid ${form.maintitle.color}` }"
+            class="diamond"
+          ></div>
+          <span :style="{ 'background-color': form.maintitle.color }"></span>
         </div>
       </div>
     </div>
@@ -31,13 +51,22 @@
       v-else
       :class="listClass"
       class="new"
-      :style="{'margin-top':`${form.margin}px`,'margin-bottom':`${form.margin}px`}"
+      :style="{
+        'margin-top': `${form.margin}px`,
+        'margin-bottom': `${form.margin}px`
+      }"
     >
       <div v-if="form.style === 0">
         <img src="../../../assets/images/bubble.png" alt />
         <span
-          :style="{color:form.maintitle.color,fontSize:`${form.maintitle.fontSize}px`,fontWeight:boldStyle,fontStyle:tiltStyle}"
-        >{{form.maintitle.title}}</span>
+          :style="{
+            color: form.maintitle.color,
+            fontSize: `${form.maintitle.fontSize}px`,
+            fontWeight: boldStyle,
+            fontStyle: tiltStyle
+          }"
+          >{{ form.maintitle.title }}</span
+        >
         <img src="../../../assets/images/bubble.png" alt />
       </div>
 
@@ -45,17 +74,27 @@
         <div class="mainTitle">
           <img src="../../../assets/images/t1_bg.png" alt />
           <span
-            :style="{color:form.maintitle.color,fontSize:`${form.maintitle.fontSize}px`,fontWeight:boldStyle,fontStyle:tiltStyle}"
-          >{{form.maintitle.title}}</span>
+            :style="{
+              color: form.maintitle.color,
+              fontSize: `${form.maintitle.fontSize}px`,
+              fontWeight: boldStyle,
+              fontStyle: tiltStyle
+            }"
+            >{{ form.maintitle.title }}</span
+          >
           <img src="../../../assets/images/t1_bg2.png" alt />
         </div>
         <div class="subtitle" v-if="form.subtitle.show">
           <span
-            :style="{color:form.subtitle.color,fontSize:`${form.subtitle.fontSize}px`}"
-          >{{form.subtitle.title}}</span>
+            :style="{
+              color: form.subtitle.color,
+              fontSize: `${form.subtitle.fontSize}px`
+            }"
+            >{{ form.subtitle.title }}</span
+          >
         </div>
         <div class="more" v-if="form.more.show">
-          <span>{{form.more.title}}</span>
+          <span>{{ form.more.title }}</span>
           <span class="el-icon-arrow-right"></span>
         </div>
       </div>
@@ -64,18 +103,28 @@
         <div class="mainTitle">
           <img src="../../../assets/images/t2_bg2.png" alt />
           <span
-            :style="{color:form.maintitle.color,fontSize:`${form.maintitle.fontSize}px`,fontWeight:boldStyle,fontStyle:tiltStyle}"
-          >{{form.maintitle.title}}</span>
+            :style="{
+              color: form.maintitle.color,
+              fontSize: `${form.maintitle.fontSize}px`,
+              fontWeight: boldStyle,
+              fontStyle: tiltStyle
+            }"
+            >{{ form.maintitle.title }}</span
+          >
           <img src="../../../assets/images/t2_bg3.png" alt />
           <img src="../../../assets/images/t2_bg1.png" alt class="bottom-pic" />
         </div>
         <div class="subtitle" v-if="form.subtitle.show">
           <span
-            :style="{color:form.subtitle.color,fontSize:`${form.subtitle.fontSize}px`}"
-          >{{form.subtitle.title}}</span>
+            :style="{
+              color: form.subtitle.color,
+              fontSize: `${form.subtitle.fontSize}px`
+            }"
+            >{{ form.subtitle.title }}</span
+          >
         </div>
         <div class="more" v-if="form.more.show">
-          <span>{{form.more.title}}</span>
+          <span>{{ form.more.title }}</span>
           <span class="el-icon-arrow-right"></span>
         </div>
       </div>
@@ -85,16 +134,26 @@
         <img src="../../../assets/images/t3_bg1.png" class="bottom-img" alt />
         <div class="mainTitle">
           <span
-            :style="{color:form.maintitle.color,fontSize:`${form.maintitle.fontSize}px`,fontWeight:boldStyle,fontStyle:tiltStyle}"
-          >{{form.maintitle.title}}</span>
+            :style="{
+              color: form.maintitle.color,
+              fontSize: `${form.maintitle.fontSize}px`,
+              fontWeight: boldStyle,
+              fontStyle: tiltStyle
+            }"
+            >{{ form.maintitle.title }}</span
+          >
         </div>
         <div class="subtitle" v-if="form.subtitle.show">
           <span
-            :style="{color:form.subtitle.color,fontSize:`${form.subtitle.fontSize}px`}"
-          >{{form.subtitle.title}}</span>
+            :style="{
+              color: form.subtitle.color,
+              fontSize: `${form.subtitle.fontSize}px`
+            }"
+            >{{ form.subtitle.title }}</span
+          >
         </div>
         <div class="more" v-if="form.more.show">
-          <span>{{form.more.title}}</span>
+          <span>{{ form.more.title }}</span>
           <span class="el-icon-arrow-right"></span>
         </div>
       </div>
@@ -108,7 +167,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   computed: {

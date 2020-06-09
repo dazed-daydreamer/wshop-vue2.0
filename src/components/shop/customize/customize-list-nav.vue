@@ -1,10 +1,10 @@
 <template>
   <div class="customize-list-nav-warpper">
     <ul>
-      <li v-for="(item,index) in form.list" :key="index">
+      <li v-for="(item, index) in form.list" :key="index">
         <div>
           <span class="iconfont" :class="item.icon" v-if="form.iconShow"></span>
-          <span class="title">{{item.title}}</span>
+          <span class="title">{{ item.title }}</span>
         </div>
         <span class="el-icon-arrow-right"></span>
       </li>
@@ -18,12 +18,11 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
-  },
+  }
 };
 </script>
-
 
 <style lang="scss">
 .customize-list-nav-warpper {

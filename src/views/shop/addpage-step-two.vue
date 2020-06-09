@@ -57,7 +57,6 @@ export default {
 };
 </script>
 
-
 <style lang="scss">
 @import "@/styles/theme.scss";
 .addpage-step-two-warpper {

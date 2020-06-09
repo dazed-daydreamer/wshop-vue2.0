@@ -12,17 +12,16 @@
         <img src="https://s1.ax1x.com/2020/03/15/81p2Sf.jpg" alt />
       </div>
       <el-scrollbar>
-        <div v-for="(item,index) in routers" :key="index" class="menu-warpper">
+        <div v-for="(item, index) in routers" :key="index" class="menu-warpper">
           <el-menu-item :index="item.path">
             <i :class="item.meta.icon" class="iconfont"></i>
-            <span slot="title">{{item.meta.title}}</span>
+            <span slot="title">{{ item.meta.title }}</span>
           </el-menu-item>
         </div>
       </el-scrollbar>
     </el-menu>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -34,7 +33,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 .left-navigation-warpper {

@@ -4,45 +4,54 @@
       <ul class="cu-list">
         <li
           class="cu-item"
-          v-for="(item,index) in form.tabList"
+          v-for="(item, index) in form.tabList"
           :key="index"
-          :class="{current:index === form.currentTab}"
+          :class="{ current: index === form.currentTab }"
         >
-          <span>{{item.title}}</span>
+          <span>{{ item.title }}</span>
         </li>
       </ul>
     </div>
     <div class="product-warpper" :class="listClass">
       <ul class="cu-list">
-        <li class="cu-item" v-for="(item,index) in productList" :key="index">
+        <li class="cu-item" v-for="(item, index) in productList" :key="index">
           <div class="sign-warpper" v-if="form.sign">
             <img src="../../../assets/images/common_label2.png" alt />
-            <span>{{form.signTitle}}</span>
+            <span>{{ form.signTitle }}</span>
           </div>
-          <el-image :src="require('../../../assets/images/default_banner.png')" fit="cover"></el-image>
+          <el-image
+            :src="require('../../../assets/images/default_banner.png')"
+            fit="cover"
+          ></el-image>
           <div class="data-warpper">
-            <span class="title" v-if="form.title">{{item.title}}</span>
-            <span class="subtitle" v-if="hasSubtitle">{{item.subtitle}}</span>
+            <span class="title" v-if="form.title">{{ item.title }}</span>
+            <span class="subtitle" v-if="hasSubtitle">{{ item.subtitle }}</span>
             <div class="price-buy">
               <div class="price-warpper">
                 <div>
-                  <span class="price" v-if="form.price">￥{{item.price.toFixed(2)}}</span>
+                  <span class="price" v-if="form.price"
+                    >￥{{ item.price.toFixed(2) }}</span
+                  >
                   <span
                     class="original"
-                    v-if="form.original&&!form.member&&hasPartial"
-                  >￥{{item.original.toFixed(2)}}</span>
-                  <div v-if="form.member&&hasPartial">
+                    v-if="form.original && !form.member && hasPartial"
+                    >￥{{ item.original.toFixed(2) }}</span
+                  >
+                  <div v-if="form.member && hasPartial">
                     <span class="iconfont icon-huiyuan"></span>
                     <span>会员价</span>
                   </div>
                 </div>
-                <div v-if="form.sales&&hasPartial">
-                  <span>已售{{item.sales}}</span>
+                <div v-if="form.sales && hasPartial">
+                  <span>已售{{ item.sales }}</span>
                 </div>
               </div>
-              <div class="buy-warpper" v-if="form.buyStyle != -1&&hasBuy">
+              <div class="buy-warpper" v-if="form.buyStyle != -1 && hasBuy">
                 <span v-if="form.buyStyle === 0" class="style-1">购买</span>
-                <span v-else-if="form.buyStyle === 1" class="el-icon-circle-plus style-2"></span>
+                <span
+                  v-else-if="form.buyStyle === 1"
+                  class="el-icon-circle-plus style-2"
+                ></span>
                 <span v-else class="iconfont style-3 icon-gouwuche"></span>
               </div>
             </div>
@@ -59,7 +68,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   computed: {
@@ -88,7 +97,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

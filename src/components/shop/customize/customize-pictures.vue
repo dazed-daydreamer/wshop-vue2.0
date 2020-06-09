@@ -1,16 +1,24 @@
 <template>
   <div class="customize-pictures-warpper">
     <ul>
-      <li v-for="(item,index) in form.pictureList" :key="index" :class="alignmentClass">
+      <li
+        v-for="(item, index) in form.pictureList"
+        :key="index"
+        :class="alignmentClass"
+      >
         <div class="item-main">
           <el-image :src="item.img" fit="cover" v-if="item.img"></el-image>
-          <el-image :src="require('../../../assets/images/default_picture.png')" fit="cover" v-else></el-image>
+          <el-image
+            :src="require('../../../assets/images/default_picture.png')"
+            fit="cover"
+            v-else
+          ></el-image>
           <div class="title" v-if="form.title">
-            <span>{{item.title}}</span>
+            <span>{{ item.title }}</span>
           </div>
         </div>
         <div class="subtitle" v-if="form.subtitle">
-          <span>{{item.subtitle}}</span>
+          <span>{{ item.subtitle }}</span>
         </div>
       </li>
     </ul>
@@ -23,7 +31,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   computed: {
@@ -34,8 +42,6 @@ export default {
   }
 };
 </script>
-
-
 
 <style lang="scss">
 .customize-pictures-warpper {

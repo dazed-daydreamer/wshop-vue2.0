@@ -3,19 +3,22 @@
     <el-scrollbar>
       <div class="top-title">
         <span class="iconfont" :class="icon"></span>
-        <span>{{title}}</span>
+        <span>{{ title }}</span>
       </div>
-      <div class="empty-component" v-if="getCurrentComponentIndex === -1">请先选择组件</div>
+      <div class="empty-component" v-if="getCurrentComponentIndex === -1">
+        请先选择组件
+      </div>
       <div class="has-component" v-else>
         <component
           v-bind:is="hasComponent"
-          :form="getCurrentComponentItem.form ?getCurrentComponentItem.form :{}"
+          :form="
+            getCurrentComponentItem.form ? getCurrentComponentItem.form : {}
+          "
         ></component>
       </div>
     </el-scrollbar>
   </div>
 </template>
-
 
 <script>
 import { shopMixins } from "@/mixins/shop-mixins.js";
@@ -112,8 +115,6 @@ export default {
   }
 };
 </script>
-
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

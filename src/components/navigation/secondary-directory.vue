@@ -2,19 +2,21 @@
   <div class="secondary-directory" v-if="listLength > 1">
     <el-scrollbar>
       <ul class="cu-list">
-        <li class="cu-item" v-for="(item,index) in secondaryList" :key="index">
-          <div class="group-title">{{item.title}}</div>
+        <li class="cu-item" v-for="(item, index) in secondaryList" :key="index">
+          <div class="group-title">{{ item.title }}</div>
           <ul class="cu-list">
             <li
-              v-for="(listItem,listIndex) in item.list"
-              :class="{active:listItem.path === activeRoute}"
+              v-for="(listItem, listIndex) in item.list"
+              :class="{ active: listItem.path === activeRoute }"
               @click="jumpRoute(listItem.path)"
               :key="listIndex"
               class="cu-item"
             >
-              <span class="title">{{listItem.meta.title}}</span>
+              <span class="title">{{ listItem.meta.title }}</span>
               <span
-                :class="{'el-icon-caret-right':listItem.path === activeRoute}"
+                :class="{
+                  'el-icon-caret-right': listItem.path === activeRoute
+                }"
                 class="right-icon"
               ></span>
             </li>
@@ -24,8 +26,6 @@
     </el-scrollbar>
   </div>
 </template>
-
-
 
 <script>
 export default {

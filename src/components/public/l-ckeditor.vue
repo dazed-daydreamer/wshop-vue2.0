@@ -1,6 +1,10 @@
 <template>
   <div class="l-ckeditor-warpper">
-    <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+    <ckeditor
+      :editor="editor"
+      v-model="editorData"
+      :config="editorConfig"
+    ></ckeditor>
   </div>
 </template>
 
@@ -107,6 +111,4 @@ export default {
 };
 </script>
 
-
-<style lang="scss">
-</style>
+<style lang="scss"></style>

@@ -1,8 +1,11 @@
 <template>
   <div class="customize-search-warpper" :class="radiusClass">
-    <div class="search-warpper" :class="{center:form.placeholderStyle === 1}">
-      <span class="el-icon-search" :style="{color:form.iconColor}"></span>
-      <span :style="{color:form.titleColor}">{{form.placeholder}}</span>
+    <div
+      class="search-warpper"
+      :class="{ center: form.placeholderStyle === 1 }"
+    >
+      <span class="el-icon-search" :style="{ color: form.iconColor }"></span>
+      <span :style="{ color: form.titleColor }">{{ form.placeholder }}</span>
     </div>
   </div>
 </template>
@@ -13,7 +16,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   computed: {
@@ -23,7 +26,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 .customize-search-warpper {

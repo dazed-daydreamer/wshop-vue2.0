@@ -2,18 +2,17 @@
   <div class="customize-slider-warpper">
     <div class="slider-list">
       <ul>
-        <li v-for="(item,index) in form.slider" :key="index">
+        <li v-for="(item, index) in form.slider" :key="index">
           <img :src="item.img" alt v-if="item.img" />
           <img src="../../../assets/images/default_banner.png" alt v-else />
         </li>
       </ul>
     </div>
-    <div class="dot-list" :class="[dotClass,positionClass]">
-      <div v-for="(item,index) in form.slider" :key="index"></div>
+    <div class="dot-list" :class="[dotClass, positionClass]">
+      <div v-for="(item, index) in form.slider" :key="index"></div>
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -21,7 +20,7 @@ export default {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   computed: {
@@ -34,7 +33,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 .customize-slider-warpper {

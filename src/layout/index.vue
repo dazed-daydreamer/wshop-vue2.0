@@ -10,7 +10,9 @@
         </el-header>
         <el-main>
           <div class="nav-second" v-show="navSecondShow">
-            <secondary-directory @routeChange="routeChange"></secondary-directory>
+            <secondary-directory
+              @routeChange="routeChange"
+            ></secondary-directory>
           </div>
           <div class="main-content">
             <el-scrollbar>
@@ -26,7 +28,6 @@
     </el-container>
   </div>
 </template>
-
 
 <script>
 import LeftNavigation from "components/navigation/left-navigation.vue";
@@ -57,8 +58,6 @@ export default {
   }
 };
 </script>
-
-
 
 <style lang="scss">
 @import "@/styles/transition.scss";

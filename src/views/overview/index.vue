@@ -3,9 +3,9 @@
     <div class="statistics-warpper">
       <div class="handle">
         <ul class="cu-list">
-          <li v-for="(item,index) in handleArr" :key="index" class="cu-item">
-            <span>{{item.count}}</span>
-            <span>{{item.title}}</span>
+          <li v-for="(item, index) in handleArr" :key="index" class="cu-item">
+            <span>{{ item.count }}</span>
+            <span>{{ item.title }}</span>
           </li>
         </ul>
       </div>
@@ -20,11 +20,11 @@
       <div class="title">常用功能</div>
       <div class="cu-warpper">
         <ul class="cu-list">
-          <li v-for="(item,index) in functionNav" :key="index" class="cu-item">
+          <li v-for="(item, index) in functionNav" :key="index" class="cu-item">
             <div class="icon-warpper">
               <span :class="item.icon" class="iconfont"></span>
             </div>
-            <div class="nav-title">{{item.title}}</div>
+            <div class="nav-title">{{ item.title }}</div>
           </li>
         </ul>
       </div>
@@ -33,13 +33,17 @@
       <div class="title">营销活动</div>
       <div class="cu-warpper">
         <ul class="cu-list">
-          <li v-for="(item,index) in marketingNav" :key="index" class="cu-item">
+          <li
+            v-for="(item, index) in marketingNav"
+            :key="index"
+            class="cu-item"
+          >
             <div class="icon-warpper">
               <span :class="item.icon" class="iconfont"></span>
             </div>
             <div class="nav-title">
-              <span>{{item.title}}</span>
-              <span>{{item.introduce}}</span>
+              <span>{{ item.title }}</span>
+              <span>{{ item.introduce }}</span>
             </div>
           </li>
         </ul>
@@ -47,7 +51,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -316,7 +319,3 @@ export default {
   }
 }
 </style>
-
-
-
-

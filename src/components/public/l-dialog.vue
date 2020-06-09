@@ -1,6 +1,10 @@
 <template>
   <div class="l-dialog-warpper">
-    <el-dialog :title="title" :visible.sync="dialogShow" :close-on-click-modal="false">
+    <el-dialog
+      :title="title"
+      :visible.sync="dialogShow"
+      :close-on-click-modal="false"
+    >
       <el-scrollbar>
         <slot></slot>
       </el-scrollbar>
@@ -9,12 +13,13 @@
       </div>
       <div slot="footer" class="dialog-footer" v-else>
         <el-button @click="hide" size="medium">取消</el-button>
-        <el-button type="primary" @click="confirm" size="medium">确定</el-button>
+        <el-button type="primary" @click="confirm" size="medium"
+          >确定</el-button
+        >
       </div>
     </el-dialog>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -52,7 +57,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 @import "@/styles/theme.scss";

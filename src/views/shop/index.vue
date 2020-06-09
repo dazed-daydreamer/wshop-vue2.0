@@ -41,7 +41,11 @@
         >
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column prop="title" label="页面名称"></el-table-column>
-          <el-table-column prop="state" label="当前状态" width="200"></el-table-column>
+          <el-table-column
+            prop="state"
+            label="当前状态"
+            width="200"
+          ></el-table-column>
           <el-table-column prop="date" label="最后修改时间"></el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
@@ -140,9 +144,7 @@ export default {
 };
 </script>
 
-
-
-<style lang="scss" >
+<style lang="scss">
 @import "@/styles/theme.scss";
 .shop-page-warpper {
   .top {

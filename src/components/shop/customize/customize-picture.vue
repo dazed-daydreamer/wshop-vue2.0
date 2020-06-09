@@ -1,7 +1,7 @@
 <template>
   <div class="customize-picture-warpper">
     <ul :class="listClass">
-      <li v-for="(item,index) in form.picture" :key="index">
+      <li v-for="(item, index) in form.picture" :key="index">
         <img :src="item.img" alt v-if="item.img" />
         <img src="../../../assets/images/default_banner.png" alt v-else />
       </li>
@@ -9,14 +9,13 @@
   </div>
 </template>
 
-
 <script>
 export default {
   props: {
     //父组件传过来的表单
     form: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   },
   computed: {
