@@ -1,7 +1,7 @@
 <template>
-  <div class="icon-select-warpper">
-    <l-dialog ref="dialog" title="图标选择器" @confirm="iconConfirm">
-      <div class="icon-select-dialog">
+  <div class="tab-icon-select-warpper">
+    <l-dialog ref="dialog" title="导航图标选择器" @confirm="iconConfirm">
+      <div class="tab-icon-select-dialog">
         <div class="category-box">
           <ul>
             <li
@@ -43,53 +43,56 @@ export default {
       //图标列表
       iconList: [
         {
-          icon: "icon-pinglun"
+          icon: "icon-fenlei-xianxing"
         },
         {
-          icon: "icon-caidan"
+          icon: "icon-huiyuan2"
         },
         {
-          icon: "icon-youhuiquan2"
+          icon: "icon-huiyuan1"
         },
         {
-          icon: "icon-sousuo"
+          icon: "icon-fenlei-xuanzhong"
         },
         {
-          icon: "icon-pintuan1"
+          icon: "icon-tianchongxing-"
         },
         {
-          icon: "icon-gouwuche1"
+          icon: "icon-zhuye"
         },
         {
-          icon: "icon-lajitong"
+          icon: "icon-shouye"
         },
         {
-          icon: "icon-hb-addrss"
+          icon: "icon-wode"
         },
         {
-          icon: "icon-qiabao-"
-        },
-        {
-          icon: "icon-B"
+          icon: "icon-gouwuche2"
         }
       ],
       //当前图标
-      iconActive: ""
+      iconActive: "",
+      //当前导航
+      tabActive: -1
     };
   },
   methods: {
     //显示弹窗
-    show(icon) {
+    //icon    当前图标
+    //index   当前导航索引值
+    show(icon, index) {
       this.iconActive = icon;
       this.$refs.dialog.show();
+      this.tabActive = index;
     },
     //改变当前图标
+    //item  改变的图标
     changeIcon(item) {
       this.iconActive = item.icon;
     },
     //确认图标
     iconConfirm() {
-      this.$emit("confirm", this.iconActive);
+      this.$emit("confirm", this.iconActive, this.tabActive);
     }
   },
   components: { LDialog }
@@ -98,7 +101,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/styles/theme.scss";
-.icon-select-dialog {
+.tab-icon-select-dialog {
   display: flex;
   height: 100%;
   .category-box {

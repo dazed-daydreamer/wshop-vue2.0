@@ -58,10 +58,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/styles/theme.scss";
 .l-dialog-warpper {
-  .el-dialog {
+  ::v-deep .el-dialog {
     width: 908px;
     height: 590px;
     border-radius: 5px;

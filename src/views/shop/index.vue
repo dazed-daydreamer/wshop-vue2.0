@@ -134,7 +134,7 @@ export default {
     //获取页面列表
     async _getPageList() {
       const res = await getPageList();
-      this.tableData = res.data.array;
+      this.tableData = res.data.list;
     },
     //添加新页面
     jumpAdd() {

@@ -1,11 +1,10 @@
 <template>
   <div class="addpage-step-two-warpper public-warpper">
-    <div class="top">
-      <span @click="back">新建页面</span>
-      <span>-</span>
-      <span>模板页面</span>
-    </div>
     <div class="draggable-warpper gray-bg-warpper">
+      <div class="top">
+        <span>个性化装修</span>
+        <el-button type="primary" @click="confirm" size="small">确定</el-button>
+      </div>
       <div class="draggable-content">
         <div class="template-components-warpper">
           <shop-component-library></shop-component-library>
@@ -16,9 +15,6 @@
         <div class="template-components-data">
           <shop-component-form></shop-component-form>
         </div>
-      </div>
-      <div class="btn-warpper">
-        <el-button type="primary" @click="confirm">确定</el-button>
       </div>
     </div>
   </div>
@@ -47,7 +43,9 @@ export default {
       this.$router.go(-1);
     },
     //确认自定义页面
-    confirm() {}
+    confirm() {
+      this.$router.push({ name: "shopPage" });
+    }
   },
   components: {
     ShopComponentLibrary,
@@ -57,32 +55,41 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/styles/theme.scss";
 .addpage-step-two-warpper {
-  .top {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  .draggable-warpper {
     display: flex;
-    padding: 5px;
-    padding-top: 20px;
-    span {
-      font-size: 14px;
-      margin: 0px 5px;
-    }
-    span:nth-of-type(1) {
-      cursor: pointer;
-      &:hover {
-        color: $theme-color;
+    flex-direction: column;
+    .top {
+      background-color: #1e222b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+      & > span {
+        margin-left: 20px;
+        color: #fff;
+        font-size: 14px;
+      }
+      button {
+        margin-right: 20px;
+        width: 70px;
+        height: 30px;
       }
     }
-    span:nth-of-type(3) {
-      font-weight: bold;
-    }
-  }
-
-  .draggable-warpper {
     .draggable-content {
       padding: 30px 20px;
       display: flex;
+      flex: 1;
       justify-content: space-between;
       .template-components-warpper {
         width: 270px;
@@ -97,9 +104,13 @@ export default {
         flex-shrink: 0;
       }
     }
-    .btn-warpper {
-      margin-top: 20px;
-    }
+  }
+  .gray-bg-warpper {
+    margin: 0px;
+    border-radius: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

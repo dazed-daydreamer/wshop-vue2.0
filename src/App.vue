@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-@import url("//at.alicdn.com/t/font_1674650_7zotoe7j3ur.css");
+@import url("//at.alicdn.com/t/font_1674650_ncmehllsd.css");
 @import "./styles/public.scss";
 body {
   margin: 0;
@@ -18,6 +18,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+ul {
+  margin: 0;
 }
 
 #nav {

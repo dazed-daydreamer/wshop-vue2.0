@@ -72,7 +72,6 @@ export default {
   .el-main {
     padding: 0;
     display: flex;
-    margin-top: 10px;
     & > .nav-second {
       width: 130px;
       flex-shrink: 0;
