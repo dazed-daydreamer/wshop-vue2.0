@@ -23,7 +23,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .customize-rich-text-warpper {
   text-align: left;
   p {

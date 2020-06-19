@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .customize-picture-warpper {
   ul {
     margin: 0;

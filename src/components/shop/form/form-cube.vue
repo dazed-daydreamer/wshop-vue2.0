@@ -324,6 +324,19 @@ export default {
     },
     //布局模块删除
     layoutItemDelete(index) {
+      const cubeItem = this.layoutArr[index];
+      this.cubeLayoutArr.forEach(item => {
+        item.forEach(yItem => {
+          if (
+            yItem.x <= cubeItem.left + (cubeItem.width - 1) &&
+            yItem.x >= cubeItem.left &&
+            yItem.y <= cubeItem.top + (cubeItem.height - 1) &&
+            yItem.y >= cubeItem.top
+          ) {
+            this.$set(yItem, "lock", false);
+          }
+        });
+      });
       this.layoutArr.splice(index, 1);
       this.layoutItemSelectIndex = index - 1;
     },
@@ -729,7 +742,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .form-cube-warpper {
   .cube-layout {
     .setting-layout {

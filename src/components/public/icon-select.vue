@@ -1,18 +1,18 @@
 <template>
   <div class="icon-select-warpper">
     <l-dialog ref="dialog" title="图标选择器" @confirm="iconConfirm">
+      <div class="category-box" slot="category">
+        <ul>
+          <li
+            v-for="(item, index) in categoryArr"
+            :key="index"
+            :class="{ active: index === categoryActive }"
+          >
+            {{ item }}
+          </li>
+        </ul>
+      </div>
       <div class="icon-select-dialog">
-        <div class="category-box">
-          <ul>
-            <li
-              v-for="(item, index) in categoryArr"
-              :key="index"
-              :class="{ active: index === categoryActive }"
-            >
-              {{ item }}
-            </li>
-          </ul>
-        </div>
         <div class="preview-operate">
           <ul>
             <li
@@ -98,33 +98,33 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/styles/theme.scss";
-.icon-select-dialog {
-  display: flex;
+.category-box {
+  width: 180px;
+  border-right: 1px solid #e3e2e5;
   height: 100%;
-  .category-box {
-    width: 180px;
-    border-right: 1px solid #e3e2e5;
-    height: 473px;
-    ul {
-      margin: 0px;
-      width: 100%;
-      margin-top: 20px;
-      li {
-        height: 35px;
-        line-height: 35px;
-        border-radius: 4px;
-        font-size: 12px;
-        padding-left: 10px;
-        margin: 0px 20px;
-        margin-bottom: 20px;
-        cursor: pointer;
-        &.active {
-          color: $theme-color;
-          background-color: rgb(236, 245, 255);
-        }
+  ul {
+    margin: 0px;
+    width: 100%;
+    padding-top: 20px;
+    li {
+      height: 35px;
+      line-height: 35px;
+      border-radius: 4px;
+      font-size: 12px;
+      padding-left: 10px;
+      margin: 0px 20px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      &.active {
+        color: $theme-color;
+        background-color: rgb(236, 245, 255);
       }
     }
   }
+}
+.icon-select-dialog {
+  display: flex;
+  height: 100%;
   .preview-operate {
     flex: 1;
     padding: 20px;

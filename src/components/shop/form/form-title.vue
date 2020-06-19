@@ -347,7 +347,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .form-title-warpper {
   .main-title-style,
   .sub-title-style,

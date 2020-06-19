@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .customize-search-warpper {
   padding: 5px 10px;
   &.radius-style-1 {

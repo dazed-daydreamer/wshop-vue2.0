@@ -223,7 +223,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/styles/theme.scss";
 .form-hot-warpper {
   .hot-warpper {
@@ -277,77 +277,76 @@ export default {
       margin-top: 20px;
     }
   }
-
-  .hot-dialog-warpper {
-    padding: 15px 20px;
-    .introduce {
-      ul {
-        margin: 0;
+}
+.hot-dialog-warpper {
+  padding: 15px 20px;
+  .introduce {
+    ul {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      li {
         display: flex;
         align-items: center;
-        justify-content: center;
-        li {
-          display: flex;
-          align-items: center;
-          font-size: 13px;
-          span:nth-of-type(1) {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: rgb(217, 236, 255);
-            color: $theme-color;
-            text-align: center;
-            margin: 0 10px;
-            line-height: 26px;
-          }
-          span:nth-of-type(2) {
-            margin-right: 10px;
-          }
-          &:not(:nth-last-of-type(1)) {
-            margin-right: 20px;
-          }
+        font-size: 13px;
+        span:nth-of-type(1) {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          background: rgb(217, 236, 255);
+          color: $theme-color;
+          text-align: center;
+          margin: 0 10px;
+          line-height: 26px;
+        }
+        span:nth-of-type(2) {
+          margin-right: 10px;
+        }
+        &:not(:nth-last-of-type(1)) {
+          margin-right: 20px;
         }
       }
     }
+  }
 
-    .operation {
-      margin-top: 20px;
-      border: 1px solid #e5e5e5;
-      display: flex;
-      position: relative;
-      img {
-        width: 100%;
-      }
-      .draggable-warpper {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        .draggable {
-          background-color: rgba(217, 236, 255, 0.6);
-          .draggable-item {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            & > span:nth-of-type(1) {
-              position: absolute;
-              top: 0px;
-              right: 0px;
-              .popconfirm-warpper {
-                background-color: $theme-color;
-                color: #fff;
-                width: 20px;
-                height: 20px;
-                border-radius: 0px 0px 0px 100%;
-                line-height: 19px;
-                text-align: center;
-                font-size: 12px;
-                cursor: pointer;
-                span {
-                  margin-left: 4px;
-                }
+  .operation {
+    margin-top: 20px;
+    border: 1px solid #e5e5e5;
+    display: flex;
+    position: relative;
+    img {
+      width: 100%;
+    }
+    .draggable-warpper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      .draggable {
+        background-color: rgba(217, 236, 255, 0.6);
+        .draggable-item {
+          height: 100%;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          & > span:nth-of-type(1) {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            .popconfirm-warpper {
+              background-color: $theme-color;
+              color: #fff;
+              width: 20px;
+              height: 20px;
+              border-radius: 0px 0px 0px 100%;
+              line-height: 19px;
+              text-align: center;
+              font-size: 12px;
+              cursor: pointer;
+              span {
+                margin-left: 4px;
               }
             }
           }

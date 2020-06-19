@@ -261,7 +261,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/styles/theme.scss";
 .form-product-warpper {
   .radio-warpper {

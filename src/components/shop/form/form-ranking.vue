@@ -155,7 +155,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/styles/theme.scss";
 .form-ranking-warpper {
   .classify-warpper {
@@ -221,6 +221,9 @@ export default {
       display: flex;
       align-items: center;
       margin-top: 20px;
+      .el-input {
+        width: 150px;
+      }
       & > span {
         margin: 0px 10px;
       }

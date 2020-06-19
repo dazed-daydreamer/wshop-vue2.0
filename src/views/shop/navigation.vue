@@ -89,13 +89,13 @@
                     ></el-input>
                   </el-form-item>
                   <el-form-item label="链接">
-                    <div class="select-url-warpper">
+                    <div
+                      class="select-url-warpper"
+                      @click="selectLinkShow(item, index)"
+                    >
                       <span v-if="index === 0">首页</span>
                       <el-button plain size="small" v-else>
-                        <div
-                          class="select-url-button"
-                          @click="selectLinkShow(item, index)"
-                        >
+                        <div class="select-url-button">
                           <span>{{ item.urlTitle }}</span>
                           <span>修改</span>
                         </div>
@@ -145,7 +145,10 @@
       @confirm="selectIconConfirm"
     ></tab-icon-select>
 
-    <page-link-select ref="pageLinkSelect"></page-link-select>
+    <page-link-select
+      ref="pageLinkSelect"
+      @confirm="selectLinkConfirm"
+    ></page-link-select>
   </div>
 </template>
 
@@ -223,8 +226,23 @@ export default {
       this.navIcons[index].icon = icon;
     },
     //页面链接显示
+    //item   导航具体值
+    //index  导航索引值
     selectLinkShow(item, index) {
-      this.$refs.pageLinkSelect.show(item.url, index);
+      this.$refs.pageLinkSelect.show(
+        {
+          url: item.url,
+          urlTitle: item.urlTitle
+        },
+        index
+      );
+    },
+    //链接选择确认
+    //link    链接具体值
+    //index   导航索引值
+    selectLinkConfirm(link, index) {
+      this.navIcons[index].urlTitle = link.urlTitle;
+      this.navIcons[index].url = link.url;
     }
   },
   components: {

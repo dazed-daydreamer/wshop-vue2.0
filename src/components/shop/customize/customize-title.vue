@@ -197,7 +197,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .customize-title-warpper {
   .ordinary {
     margin: 0px 15px;

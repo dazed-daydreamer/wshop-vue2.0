@@ -22,7 +22,7 @@
         </li>
       </ul>
     </div>
-    <div class="cube-blank" v-else>请开始布局</div>
+    <div class="cube-blank" v-else v-show="cubeSize != 0">请开始布局</div>
   </div>
 </template>
 
@@ -60,7 +60,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .customize-cube-warpper {
   .cube-blank {
     width: 100%;

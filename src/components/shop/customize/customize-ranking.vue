@@ -61,7 +61,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/styles/theme.scss";
 .customize-ranking-warpper {
   margin-top: 20px;

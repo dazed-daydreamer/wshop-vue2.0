@@ -109,8 +109,8 @@ ul {
     }
   }
 
-  .component-style {
-    .style-warpper {
+   .component-style {
+     .style-warpper {
       margin-top: 20px;
       border-radius: 5px;
       background: #f6f7f9;
@@ -132,50 +132,52 @@ ul {
     }
   }
 
-  .stype-dialog-warpper {
-    padding: 16px;
-    padding-bottom: 0px;
-    .cu-list {
+}
+
+
+.stype-dialog-warpper {
+  padding: 16px;
+  padding-bottom: 0px;
+  .cu-list {
+    display: flex;
+    flex-wrap: wrap;
+    .cu-item {
+      cursor: pointer;
+      width: 33%;
+      text-align: center;
       display: flex;
-      flex-wrap: wrap;
-      .cu-item {
-        cursor: pointer;
-        width: 33%;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 16px;
-        &.current {
-          .img-warpper {
-            border-color: #2589ff;
-            .el-icon-success {
-              display: block;
-            }
-          }
-        }
+      flex-direction: column;
+      margin-bottom: 16px;
+      &.current {
         .img-warpper {
-          border-radius: 5px;
-          margin: 0px 20px;
-          margin-bottom: 10px;
-          border: 1px solid #e3e2e5;
-          background-color: #f7f8fa;
-          position: relative;
-          img {
-            width: 100%;
-          }
+          border-color: #2589ff;
           .el-icon-success {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            font-size: 17px;
-            transform: translate(50%, 50%);
-            color: #2589ff;
-            display: none;
+            display: block;
           }
         }
-        & > span {
-          font-size: 13px;
+      }
+      .img-warpper {
+        border-radius: 5px;
+        margin: 0px 20px;
+        margin-bottom: 10px;
+        border: 1px solid #e3e2e5;
+        background-color: #f7f8fa;
+        position: relative;
+        img {
+          width: 100%;
         }
+        .el-icon-success {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          font-size: 17px;
+          transform: translate(50%, 50%);
+          color: #2589ff;
+          display: none;
+        }
+      }
+      & > span {
+        font-size: 13px;
       }
     }
   }

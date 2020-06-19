@@ -1,19 +1,19 @@
 <template>
   <div class="page-link-select-warpper">
-    <l-dialog ref="dialog" title="页面链接选择器" @confirm="iconConfirm">
+    <l-dialog ref="dialog" title="页面链接选择器" @confirm="linkConfirm">
+      <div class="category-box" slot="category">
+        <ul>
+          <li
+            v-for="(item, index) in categoryArr"
+            :key="index"
+            :class="{ active: index === categoryActive }"
+            @click="categoryChange(index)"
+          >
+            {{ item }}
+          </li>
+        </ul>
+      </div>
       <div class="page-link-select-dialog">
-        <div class="category-box">
-          <ul>
-            <li
-              v-for="(item, index) in categoryArr"
-              :key="index"
-              :class="{ active: index === categoryActive }"
-              @click="categoryChange(index)"
-            >
-              {{ item }}
-            </li>
-          </ul>
-        </div>
         <div class="preview-operate">
           <div class="header">
             <div class="title">
@@ -25,10 +25,19 @@
           </div>
           <div class="cu-list">
             <ul>
-              <li v-for="(item, index) in pageLinks" :key="index">
+              <li
+                v-for="(item, index) in pageLinks"
+                :key="index"
+                @click="pageLinkSelect(item)"
+              >
                 <div class="title">{{ item.urlTitle }}</div>
                 <div class="operating">
-                  选择链接
+                  <span
+                    class="selecting"
+                    v-if="item.urlTitle === linkActive.urlTitle"
+                    >已选</span
+                  >
+                  <span v-else> 选择链接</span>
                 </div>
               </li>
             </ul>
@@ -50,7 +59,7 @@ export default {
       //分类数组
       categoryArr: ["功能页面", "装修页面"],
       //当前链接
-      linkActive: "",
+      linkActive: {},
       //当前导航
       tabActive: -1,
       //装修页面链接
@@ -74,13 +83,13 @@ export default {
       this.categoryChange(0);
     },
     //显示弹窗
-    show(link, index) {
-      this.linkActive = link;
-      this.$refs.dialog.show();
+    show(linkItem, index) {
+      this.linkActive = linkItem;
       this.tabActive = index;
+      this.$refs.dialog.show();
     },
-    //确认图标
-    iconConfirm() {
+    //确认链接
+    linkConfirm() {
       this.$emit("confirm", this.linkActive, this.tabActive);
     },
     //分类选择
@@ -92,6 +101,11 @@ export default {
       } else {
         this.pageLinks = this.decoration;
       }
+    },
+    //页面链接选择
+    //item  链接具体指
+    pageLinkSelect(item) {
+      this.linkActive = item;
     }
   },
   components: {
@@ -102,33 +116,33 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/styles/theme.scss";
-.page-link-select-dialog {
-  display: flex;
+.category-box {
+  width: 180px;
+  border-right: 1px solid #e3e2e5;
   height: 100%;
-  .category-box {
-    width: 180px;
-    border-right: 1px solid #e3e2e5;
-    height: 473px;
-    ul {
-      margin: 0px;
-      width: 100%;
-      margin-top: 20px;
-      li {
-        height: 35px;
-        line-height: 35px;
-        border-radius: 4px;
-        font-size: 12px;
-        padding-left: 10px;
-        margin: 0px 20px;
-        margin-bottom: 20px;
-        cursor: pointer;
-        &.active {
-          color: $theme-color;
-          background-color: rgb(236, 245, 255);
-        }
+  ul {
+    margin: 0px;
+    width: 100%;
+    padding-top: 20px;
+    li {
+      height: 35px;
+      line-height: 35px;
+      border-radius: 4px;
+      font-size: 12px;
+      padding-left: 10px;
+      margin: 0px 20px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      &.active {
+        color: $theme-color;
+        background-color: rgb(236, 245, 255);
       }
     }
   }
+}
+.page-link-select-dialog {
+  display: flex;
+  height: 100%;
   .preview-operate {
     flex: 1;
     padding: 20px;
@@ -174,6 +188,9 @@ export default {
             text-align: left;
             font-size: 13px;
             cursor: pointer;
+            .selecting {
+              color: $theme-color;
+            }
           }
         }
       }

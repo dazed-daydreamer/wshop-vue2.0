@@ -4,10 +4,19 @@
       :title="title"
       :visible.sync="dialogShow"
       :close-on-click-modal="false"
+      append-to-body
+      class="l-dialog"
     >
-      <el-scrollbar>
-        <slot></slot>
-      </el-scrollbar>
+      <div class="dialog-body">
+        <div class="dialog-category">
+          <slot name="category"></slot>
+        </div>
+        <div class="dialog-scroll">
+          <el-scrollbar>
+            <slot></slot>
+          </el-scrollbar>
+        </div>
+      </div>
       <div slot="footer" class="dialog-footer" v-if="hasCustomFooter">
         <slot name="footer"></slot>
       </div>
@@ -60,7 +69,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/styles/theme.scss";
-.l-dialog-warpper {
+.l-dialog {
   ::v-deep .el-dialog {
     width: 908px;
     height: 590px;
@@ -81,6 +90,24 @@ export default {
       padding: 0px;
       height: 473px;
       flex-shrink: 0;
+      .dialog-body {
+        display: flex;
+        height: 100%;
+        .dialog-category {
+          flex-shrink: 0;
+          height: 100%;
+        }
+        .dialog-scroll {
+          flex: 1;
+          .el-scrollbar {
+            height: 100%;
+            .el-scrollbar__wrap {
+              height: 100%;
+              overflow-x: hidden;
+            }
+          }
+        }
+      }
     }
     .el-dialog__footer {
       border-top: 1px solid $border-color;
