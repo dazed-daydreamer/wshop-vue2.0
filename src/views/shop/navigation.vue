@@ -1,5 +1,5 @@
 <template>
-  <div class="navigation-warpper public-warpper">
+  <div class="shop-navigation-warpper public-warpper">
     <div class="gray-bg-warpper">
       <div class="show-warpper">
         <img src="../../assets/images/phone-top.png" alt />
@@ -140,6 +140,14 @@
         </div>
       </div>
     </div>
+    <div class="footer-btn">
+      <div>
+        <el-button type="primary" size="medium" @click="releaseTab"
+          >发布</el-button
+        >
+        <el-button plain size="medium" @click="saveTab">保存</el-button>
+      </div>
+    </div>
     <tab-icon-select
       ref="tabIconSelect"
       @confirm="selectIconConfirm"
@@ -243,6 +251,20 @@ export default {
     selectLinkConfirm(link, index) {
       this.navIcons[index].urlTitle = link.urlTitle;
       this.navIcons[index].url = link.url;
+    },
+    //发布页面导航
+    releaseTab() {
+      this.$message({
+        message: "发布成功",
+        type: "success"
+      });
+    },
+    //保存页面导航
+    saveTab() {
+      this.$message({
+        message: "保存成功",
+        type: "success"
+      });
     }
   },
   components: {
@@ -254,9 +276,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/styles/theme.scss";
-.navigation-warpper {
+.shop-navigation-warpper {
   .gray-bg-warpper {
     display: flex;
+    padding-bottom: 50px;
     .show-warpper {
       display: flex;
       flex-direction: column;
@@ -460,6 +483,24 @@ export default {
           display: none;
         }
       }
+    }
+  }
+  .footer-btn {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    z-index: 999;
+    & > div {
+      border-radius: 10px 10px 0px 0px;
+      box-shadow: $shadow;
+      overflow: hidden;
+      background-color: #fff;
+      margin: 0px 10px;
+      height: 100%;
     }
   }
 }

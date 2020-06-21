@@ -16,11 +16,7 @@
           </div>
           <div class="main-content">
             <el-scrollbar>
-              <keep-alive>
-                <transition name="fade-transform" mode="out-in">
-                  <router-view />
-                </transition>
-              </keep-alive>
+              <router-view />
             </el-scrollbar>
           </div>
         </el-main>
