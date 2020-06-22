@@ -280,6 +280,8 @@ export default {
   .gray-bg-warpper {
     display: flex;
     padding-bottom: 50px;
+    padding-top: 40px;
+    justify-content: center;
     .show-warpper {
       display: flex;
       flex-direction: column;
@@ -321,7 +323,7 @@ export default {
       }
     }
     .operating-warpper {
-      margin-left: 30px;
+      margin-left: 130px;
       width: 450px;
       display: flex;
       flex-direction: column;
