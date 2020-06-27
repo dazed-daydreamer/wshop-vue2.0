@@ -17,3 +17,15 @@ export async function getPageLinke() {
   const res = await instance.get("/api/shop/link");
   return res;
 }
+
+//获取用户中心数据
+export async function getPageUser() {
+  const res = await instance.get("/api/shop/user");
+  return res;
+}
+
+//获取列表模版数据
+export async function getPagelistStencil() {
+  const res = await instance.get("/api/shop/listStencil");
+  return res;
+}

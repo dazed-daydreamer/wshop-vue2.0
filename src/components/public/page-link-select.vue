@@ -90,7 +90,8 @@ export default {
     },
     //确认链接
     linkConfirm() {
-      this.$emit("confirm", this.linkActive, this.tabActive);
+      const pageCategory = this.categoryArr[this.categoryActive];
+      this.$emit("confirm", this.linkActive, this.tabActive, pageCategory);
     },
     //分类选择
     //index  分类索引值

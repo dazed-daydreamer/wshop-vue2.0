@@ -117,6 +117,9 @@ export default {
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      .dialog-footer {
+        width: 100%;
+      }
     }
   }
 }

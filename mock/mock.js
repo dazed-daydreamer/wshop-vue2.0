@@ -107,3 +107,40 @@ Mock.mock("/api/shop/link", {
     }
   ]
 });
+
+Mock.mock("/api/shop/user", {
+  userHeaderBackgroundColor: "#CCCCCC",
+  userHeadeTextrColor: "#FFFFFF",
+  userHeaderMemberBackgroundColor: "#828282",
+  userHeaderMemberTextColor: "#FFFFFF",
+  userHeaderText: "获取会员专享权益",
+  hasMember: true,
+  hasHeader: true,
+  hasRecording: true,
+  hasOrder: true,
+  hasPicNavOne: false,
+  hasPicNavTwo: false,
+  hasMenu: true,
+  hasDistribution: false,
+  hasMenuDistribution: true,
+  hasMenuGroup: true,
+  hasMenuCoupon: true,
+  hasMenuAddress: true,
+  hasMenuService: true,
+  hasMenuSite: true,
+  picNavOnePic: "",
+  picNavOneLink: "",
+  picNavOneLinkTitle: "",
+  picNavTwoLink: "",
+  picNavTwoPic: "",
+  picNavTwoLinkTitle: "",
+  distributionShowStatus: "0",
+  distributionTitle: "分销中心",
+  distributionCopywriting: "查看结算金额",
+  menuStyle: "0"
+});
+
+Mock.mock("/api/shop/listStencil", {
+  status: "0",
+  sales: "0"
+});

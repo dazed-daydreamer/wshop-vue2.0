@@ -56,9 +56,35 @@
             </ul>
           </div>
         </div>
+        <div class="user-distribution" v-show="form.hasDistribution">
+          <div class="distribution-header">
+            <span>{{ form.distributionTitle }}</span>
+            <div>
+              <span>{{ form.distributionCopywriting }}</span>
+              <span class="el-icon-arrow-right"></span>
+            </div>
+          </div>
+          <div>
+            <ul>
+              <li v-for="(item, index) in distributionList" :key="index">
+                <span>0.00</span>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
         <div class="user-other">
-          <ul>
-            <li v-for="(item, index) in userOthers" :key="index">
+          <ul
+            :class="{
+              vertical: form.menuStyle === '0',
+              horizontal: form.menuStyle === '1'
+            }"
+          >
+            <li
+              v-for="(item, index) in userOthers"
+              :key="index"
+              v-show="form[item.key]"
+            >
               <div>
                 <span class="iconfont" :class="item.icon"></span>
                 <span>{{ item.title }}</span>
@@ -180,44 +206,177 @@
               <el-checkbox v-model="form.hasPicNavOne"></el-checkbox>
               <span class="title">图片导航1</span>
             </template>
-            <div></div>
+            <div class="picNavOne">
+              <div>
+                <div class="title">
+                  <span>图片上传</span>
+                </div>
+                <div>
+                  <img :src="form.picNavOnePic" alt v-if="form.picNavOnePic" />
+                  <img src="../../assets/images/horizontalpic.png" alt v-else />
+                  <el-button plain size="small" @click="imageSelectShow"
+                    >选择图片</el-button
+                  >
+                </div>
+              </div>
+              <div>
+                <div class="title">
+                  <span>选择链接</span>
+                </div>
+                <div>
+                  <el-button plain size="small" @click="selectLinkShow(1)"
+                    >选择链接</el-button
+                  >
+                  <span>{{ form.picNavOneLinkTitle }}</span>
+                </div>
+              </div>
+            </div>
           </el-collapse-item>
           <el-collapse-item name="5">
             <template slot="title">
               <el-checkbox v-model="form.hasDistribution"></el-checkbox>
               <span class="title">分销中心</span>
             </template>
-            <div></div>
+            <div class="distribution">
+              <div>
+                <div class="title">
+                  <span>显示设置</span>
+                </div>
+                <div class="show">
+                  <el-radio v-model="form.distributionShowStatus" label="0">
+                    <span>所有客户可见</span>
+                  </el-radio>
+                  <el-radio v-model="form.distributionShowStatus" label="1">
+                    <span>所有客户不可见</span>
+                  </el-radio>
+                </div>
+              </div>
+              <div>
+                <div class="title">
+                  <span>菜单名称</span>
+                </div>
+                <div>
+                  <el-input
+                    size="small"
+                    type="text"
+                    placeholder="请输入内容"
+                    v-model="form.distributionTitle"
+                    maxlength="10"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
+              <div>
+                <div class="title">
+                  <span>引导文案</span>
+                </div>
+                <div>
+                  <el-input
+                    size="small"
+                    type="text"
+                    placeholder="请输入内容"
+                    v-model="form.distributionCopywriting"
+                    maxlength="10"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
+              <div class="explanation">
+                <span>此处页面展示为固定样式，具体以分销中心为准。</span>
+              </div>
+            </div>
           </el-collapse-item>
           <el-collapse-item name="6">
             <template slot="title">
               <el-checkbox v-model="form.hasMenu" disabled></el-checkbox>
               <span class="title">菜单</span>
             </template>
-            <div></div>
+            <div class="menu">
+              <div>
+                <div class="title">
+                  <span>样式</span>
+                </div>
+                <div class="style">
+                  <el-radio v-model="form.menuStyle" label="0">
+                    <span>列表式</span>
+                  </el-radio>
+                  <el-radio v-model="form.menuStyle" label="1">
+                    <span>宫格式</span>
+                  </el-radio>
+                </div>
+              </div>
+              <div>
+                <div class="title">
+                  <span>设置菜单</span>
+                </div>
+                <div class="list">
+                  <ul>
+                    <li v-for="(item, index) in userOthers" :key="index">
+                      <el-checkbox v-model="form[item.key]"></el-checkbox>
+                      <span>{{ item.title }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </el-collapse-item>
           <el-collapse-item name="7">
             <template slot="title">
               <el-checkbox v-model="form.hasPicNavTwo"></el-checkbox>
               <span class="title">图片导航2</span>
             </template>
-            <div></div>
+            <div class="picNavTwo">
+              <div>
+                <div class="title">
+                  <span>图片上传</span>
+                </div>
+                <div>
+                  <img :src="form.picNavOnePic" alt v-if="form.picNavOnePic" />
+                  <img src="../../assets/images/horizontalpic.png" alt v-else />
+                  <el-button plain size="small" @click="imageSelectShow"
+                    >选择图片</el-button
+                  >
+                </div>
+              </div>
+              <div>
+                <div class="title">
+                  <span>选择链接</span>
+                </div>
+                <div>
+                  <el-button plain size="small" @click="selectLinkShow(2)"
+                    >选择链接</el-button
+                  >
+                  <span>{{ form.picNavTwoLinkTitle }}</span>
+                </div>
+              </div>
+            </div>
           </el-collapse-item>
         </el-collapse>
       </div>
     </div>
     <div class="footer-btn">
       <div>
-        <el-button type="primary" size="medium" @click="releaseTab"
+        <el-button type="primary" size="medium" @click="releaseUser"
           >发布</el-button
         >
-        <el-button plain size="medium" @click="saveTab">保存</el-button>
+        <el-button plain size="medium" @click="saveUser">保存</el-button>
       </div>
     </div>
+    <page-link-select
+      ref="pageLinkSelect"
+      @confirm="selectLinkConfirm"
+    ></page-link-select>
+
+    <image-select ref="imageSelect"></image-select>
   </div>
 </template>
 
 <script>
+import PageLinkSelect from "@/components/public/page-link-select.vue";
+import ImageSelect from "@/components/public/image-select.vue";
+import { getPageUser } from "@/api/http.js";
 export default {
   data() {
     return {
@@ -261,31 +420,39 @@ export default {
       userOthers: [
         {
           icon: "icon-fenxiao",
-          title: "分销中心"
+          title: "分销中心",
+          key: "hasMenuDistribution"
         },
         {
           icon: "icon-pintuan2",
-          title: "拼团"
+          title: "拼团",
+          key: "hasMenuGroup"
         },
         {
           icon: "icon-youhuiquan3",
-          title: "优惠中心"
+          title: "优惠中心",
+          key: "hasMenuCoupon"
         },
         {
           icon: "icon-shouhuodizhi",
-          title: "收货地址"
+          title: "收货地址",
+          key: "hasMenuAddress"
         },
         {
           icon: "icon-kefu1",
-          title: "客服"
+          title: "客服",
+          key: "hasMenuService"
         },
         {
           icon: "icon-chilun",
-          title: "设置"
+          title: "设置",
+          key: "hasMenuSite"
         }
       ],
       //当前折叠板标志符
-      collapseActive: "1"
+      collapseActive: "1",
+      //分销中心列表
+      distributionList: ["今天发放", "今日返还", "待结算"]
     };
   },
   created() {
@@ -293,32 +460,19 @@ export default {
   },
   methods: {
     //获取用户页面信息
-    _getUserInfo() {
-      this.form = {
-        userHeaderBackgroundColor: "#CCCCCC",
-        userHeadeTextrColor: "#FFFFFF",
-        userHeaderMemberBackgroundColor: "#828282",
-        userHeaderMemberTextColor: "#FFFFFF",
-        userHeaderText: "获取会员专享权益",
-        hasMember: true,
-        hasHeader: true,
-        hasRecording: true,
-        hasOrder: true,
-        hasPicNavOne: false,
-        hasPicNavTwo: false,
-        hasMenu: true,
-        hasDistribution: false
-      };
+    async _getUserInfo() {
+      const res = await getPageUser();
+      this.form = res.data;
     },
-    //发布页面导航
-    releaseTab() {
+    //发布用户页面
+    releaseUser() {
       this.$message({
         message: "发布成功",
         type: "success"
       });
     },
-    //保存页面导航
-    saveTab() {
+    //保存用户页面
+    saveUser() {
       this.$message({
         message: "保存成功",
         type: "success"
@@ -338,7 +492,47 @@ export default {
       if (color == null) {
         this.form[key] = "#FFFFFF";
       }
+    },
+
+    //页面链接显示
+    //index  导航索引值
+    selectLinkShow(index) {
+      let navDetail = {};
+      if (index === 1) {
+        navDetail = {
+          url: this.form.picNavOneLink,
+          urlTitle: this.formpicNavOneLinkTitle
+        };
+      } else {
+        navDetail = {
+          url: this.form.picNavTwoLink,
+          urlTitle: this.picNavTwoLinkTitle
+        };
+      }
+      this.$refs.pageLinkSelect.show(navDetail, index);
+    },
+
+    //链接选择确认
+    //link       链接具体值
+    //index      导航索引值
+    //category   页面分类名称
+    selectLinkConfirm(link, index, category) {
+      if (index === 1) {
+        this.form.picNavOneLink = link.url;
+        this.form.picNavOneLinkTitle = `${category} - ${link.urlTitle}`;
+      } else {
+        this.form.picNavTwoLink = link.url;
+        this.form.picNavTwoLinkTitle = `${category} - ${link.urlTitle}`;
+      }
+    },
+    //图片选择器显示
+    imageSelectShow() {
+      this.$refs.imageSelect.show();
     }
+  },
+  components: {
+    PageLinkSelect,
+    ImageSelect
   }
 };
 </script>
@@ -473,12 +667,60 @@ export default {
           }
         }
       }
+      .user-distribution {
+        margin-top: 10px;
+        border-radius: 5px;
+        .distribution-header {
+          background-color: #fff;
+          height: 40px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0px 15px;
+          span {
+            font-size: 13px;
+          }
+          div {
+            display: flex;
+            align-items: center;
+            span:nth-of-type(1) {
+              margin-right: 3px;
+            }
+            span {
+              color: $secondary-text-color;
+            }
+          }
+        }
+        div {
+          ul {
+            border-top: 1px solid #eee;
+            display: flex;
+            background-color: #fff;
+            li {
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+              height: 75px;
+              align-items: center;
+              justify-content: center;
+              span:nth-of-type(1) {
+                font-size: 20px;
+              }
+              span:nth-of-type(2) {
+                margin-top: 5px;
+                font-size: 13px;
+                color: #666666;
+              }
+            }
+          }
+        }
+      }
       .user-other {
         margin-top: 10px;
         background-color: #fff;
         border-radius: 5px;
         overflow: hidden;
-        ul {
+        ul.vertical {
           display: flex;
           flex-direction: column;
           li {
@@ -506,8 +748,34 @@ export default {
             }
           }
         }
+        ul.horizontal {
+          display: flex;
+          flex-wrap: wrap;
+          li {
+            width: 25%;
+            height: 82px;
+            .el-icon-arrow-right {
+              display: none;
+            }
+            & > div {
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              span:nth-of-type(1) {
+                font-size: 20px;
+              }
+              span:nth-of-type(2) {
+                margin-top: 5px;
+                font-size: 13px;
+              }
+            }
+          }
+        }
       }
     }
+
     .operating-warpper {
       margin-left: 130px;
       width: 460px;
@@ -572,26 +840,110 @@ export default {
               }
             }
           }
+
+          .distribution {
+            & > div:nth-of-type(1) {
+              align-items: flex-start;
+              .show {
+                display: flex;
+                flex-direction: column;
+                .el-radio:nth-last-of-type(1) {
+                  margin-top: 10px;
+                }
+                .el-radio {
+                  margin-right: 0px;
+                  .el-radio__label {
+                    font-size: 12px;
+                    width: 100px;
+                    display: inline-block;
+                    text-align: left;
+                  }
+                }
+              }
+            }
+            .el-input {
+              font-size: 12px;
+            }
+            .explanation {
+              font-size: 12px;
+            }
+          }
+
+          .menu {
+            div:nth-of-type(2) {
+              align-items: flex-start;
+              .list {
+                ul {
+                  border: 1px solid #e3e2e5;
+                  border-radius: 5px;
+                  li {
+                    padding: 0 20px;
+                    width: 250px;
+                    height: 50px;
+                    &:not(:nth-last-of-type(1)) {
+                      border-bottom: 1px solid #e3e2e5;
+                    }
+                    display: flex;
+                    align-items: center;
+                    & > span {
+                      margin-left: 10px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .picNavOne,
+          .picNavTwo,
+          .distribution,
+          .menu {
+            padding: 20px 20px;
+            & > div {
+              display: flex;
+              align-items: center;
+              &:not(:nth-of-type(1)) {
+                margin-top: 14px;
+              }
+              & > .title {
+                width: 100px;
+                text-align: left;
+              }
+              & > div:nth-of-type(2) {
+                display: flex;
+                align-items: center;
+                img {
+                  width: 75px;
+                  height: 40px;
+                  margin-right: 15px;
+                }
+                & > span {
+                  font-size: 12px;
+                  margin-left: 15px;
+                }
+              }
+            }
+          }
         }
       }
     }
-    .footer-btn {
-      position: absolute;
-      bottom: 0px;
-      left: 0px;
-      width: 100%;
-      height: 60px;
-      text-align: center;
-      line-height: 60px;
-      z-index: 999;
-      & > div {
-        border-radius: 10px 10px 0px 0px;
-        box-shadow: $shadow;
-        overflow: hidden;
-        background-color: #fff;
-        margin: 0px 10px;
-        height: 100%;
-      }
+  }
+  .footer-btn {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    z-index: 999;
+    & > div {
+      border-radius: 10px 10px 0px 0px;
+      box-shadow: $shadow;
+      overflow: hidden;
+      background-color: #fff;
+      margin: 0px 10px;
+      height: 100%;
     }
   }
 }
