@@ -208,13 +208,13 @@ export default {
       let navDetail = {};
       if (index === 1) {
         navDetail = {
-          url: this.form.picNavOneLink,
-          urlTitle: this.formpicNavOneLinkTitle
+          url: this.form.advertisingOneLink,
+          urlTitle: this.advertisingOneTitle
         };
       } else {
         navDetail = {
-          url: this.form.picNavTwoLink,
-          urlTitle: this.picNavTwoLinkTitle
+          url: this.form.advertisingTwoLink,
+          urlTitle: this.advertisingTwoTitle
         };
       }
       this.$refs.pageLinkSelect.show(navDetail, index);

@@ -140,7 +140,7 @@
 <script>
 import { shopComponentsTabInit } from "@/config/shop.js";
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
-import draggable from "vuedraggable";
+import Draggable from "vuedraggable";
 export default {
   mixins: [shopFormMixins],
   data() {
@@ -272,7 +272,7 @@ export default {
     }
   },
   components: {
-    draggable
+    Draggable
   }
 };
 </script>

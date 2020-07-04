@@ -32,9 +32,7 @@
               >
                 <div class="title">{{ item.urlTitle }}</div>
                 <div class="operating">
-                  <span
-                    class="selecting"
-                    v-if="item.urlTitle === linkActive.urlTitle"
+                  <span class="selecting" v-if="item.url === linkActive.url"
                     >已选</span
                   >
                   <span v-else> 选择链接</span>
