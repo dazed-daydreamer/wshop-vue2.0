@@ -78,7 +78,9 @@ export default {
       box-sizing: border-box;
       .el-scrollbar {
         height: 100%;
+        width: 100%;
         .el-scrollbar__wrap {
+          width: 100%;
           overflow-x: hidden;
         }
       }

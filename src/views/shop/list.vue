@@ -102,23 +102,5 @@ export default {
       }
     }
   }
-  .footer-btn {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    height: 60px;
-    text-align: center;
-    line-height: 60px;
-    z-index: 999;
-    & > div {
-      border-radius: 10px 10px 0px 0px;
-      box-shadow: $shadow;
-      overflow: hidden;
-      background-color: #fff;
-      margin: 0px 10px;
-      height: 100%;
-    }
-  }
 }
 </style>

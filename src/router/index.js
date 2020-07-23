@@ -112,68 +112,83 @@ const routes = [
     ]
   },
   {
-    path: "/product",
-    name: "product",
+    path: "/goods",
+    name: "goods",
     component: Layout,
-    redirect: "/product/index",
+    redirect: "/goods/index",
     meta: {
       title: "商品",
       icon: "icon-shangpin"
     },
     children: [
       {
-        path: "/product/index",
+        path: "/goods/index",
         meta: {
           title: "全部商品",
           group: "商品管理"
         },
         name: "productAll",
-        component: () => import("@/views/product/index.vue")
+        component: () => import("@/views/goods/index.vue")
       },
       {
-        path: "/product/group",
+        path: "/goods/group",
         meta: {
           title: "商品分组",
           group: "商品管理"
         },
-        name: "productGroup",
-        component: () => import("@/views/product/group.vue")
+        name: "goodsGroup",
+        component: () => import("@/views/goods/group.vue")
       },
       {
-        path: "/product/label",
+        path: "/goods/label",
         meta: {
           title: "商品标签",
           group: "商品管理"
         },
-        name: "productLabel",
-        component: () => import("@/views/product/label.vue")
+        name: "goodsLabel",
+        component: () => import("@/views/goods/label.vue")
       },
       {
-        path: "/product/template",
+        path: "/goods/template",
         meta: {
           title: "商详模板",
           group: "商品管理"
         },
-        name: "productTemplate",
-        component: () => import("@/views/product/template.vue")
+        name: "goodsTemplate",
+        component: () => import("@/views/goods/template.vue")
       },
       {
-        path: "/product/property",
+        path: "/goods/property",
         meta: {
           title: "商品属性",
           group: "商品管理"
         },
-        name: "productProperty",
-        component: () => import("@/views/product/property.vue")
+        name: "goodsProperty",
+        component: () => import("@/views/goods/property.vue")
       },
       {
-        path: "/product/comment",
+        path: "/goods/comment",
         meta: {
           title: "商详评论",
           group: "商品管理"
         },
-        name: "productComment",
-        component: () => import("@/views/product/comment.vue")
+        name: "goodsComment",
+        component: () => import("@/views/goods/comment.vue")
+      },
+      {
+        path: "/goods/info",
+        name: "goodsInfo",
+        component: () => import("@/views/goods/info.vue")
+      },
+      {
+        path: "/goods/expand",
+        name: "goodsExpand",
+        component: () => import("@/views/goods/expand.vue")
+      },
+      {
+        path: "/goods/detail",
+        name: "goodsDetail",
+        component: () => import("@/views/goods/detail.vue")
       }
     ]
   },
