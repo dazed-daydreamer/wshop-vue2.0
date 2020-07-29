@@ -1,146 +1,157 @@
 <template>
-  <div class="shop-navigation-warpper public-warpper">
-    <div class="gray-bg-warpper">
-      <div class="show-warpper">
-        <img src="../../assets/images/phone-top.png" alt />
-        <div class="blank-warpper"></div>
-        <div class="tab-list-warpper">
-          <ul>
-            <li v-for="(item, index) in navIcons" :key="index">
-              <span class="iconfont" :class="item.icon"></span>
-              <span class="title">{{ item.title }}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="operating-warpper">
-        <div class="tab-color-warpper">
-          <span>导航配色</span>
-          <div class="color-dot-warpper">
-            <div :style="{ 'background-color': activeColor }"></div>
-            <div :style="{ 'background-color': unactiveColor }"></div>
+  <main-scroll>
+    <div class="shop-navigation-warpper public-warpper">
+      <div class="gray-bg-warpper">
+        <div class="show-warpper">
+          <img src="../../assets/images/phone-top.png" alt />
+          <div class="blank-warpper"></div>
+          <div class="tab-list-warpper">
+            <ul>
+              <li v-for="(item, index) in navIcons" :key="index">
+                <span class="iconfont" :class="item.icon"></span>
+                <span class="title">{{ item.title }}</span>
+              </li>
+            </ul>
           </div>
-          <el-popover placement="bottom" v-model="popoverVisible">
-            <div class="color-popover-warpper">
-              <div class="title">图标选中状态</div>
-              <div class="color-select-warpper">
-                <span>未选中</span>
-                <ul>
-                  <li
-                    v-for="(item, index) in activeColorList"
-                    :key="index"
-                    @click="colorChange(item, 'activeColor')"
-                  >
-                    <div
-                      :style="{ 'background-color': item }"
-                      :class="{ selecting: activeColor === item }"
-                    >
-                      <span class="el-icon-check"></span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="color-select-warpper">
-                <span>选中</span>
-                <ul>
-                  <li
-                    v-for="(item, index) in unactiveColorList"
-                    :key="index"
-                    @click="colorChange(item, 'unactiveColor')"
-                  >
-                    <div
-                      :style="{ 'background-color': item }"
-                      :class="{ selecting: unactiveColor === item }"
-                    >
-                      <span class="el-icon-check"></span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+        </div>
+        <div class="operating-warpper">
+          <div class="tab-color-warpper">
+            <span>导航配色</span>
+            <div class="color-dot-warpper">
+              <div :style="{ 'background-color': activeColor }"></div>
+              <div :style="{ 'background-color': unactiveColor }"></div>
             </div>
-            <el-button type="text" slot="reference">修改</el-button>
-          </el-popover>
-        </div>
-        <div class="tab-list-warpeer">
-          <ul>
-            <li v-for="(item, index) in navIcons" :key="index">
-              <div>
-                <span>导航{{ index + 1 }}</span>
-                <span class="el-icon-close" @click="delTabItem(index)"></span>
+            <el-popover placement="bottom" v-model="popoverVisible">
+              <div class="color-popover-warpper">
+                <div class="title">图标选中状态</div>
+                <div class="color-select-warpper">
+                  <span>未选中</span>
+                  <ul>
+                    <li
+                      v-for="(item, index) in activeColorList"
+                      :key="index"
+                      @click="colorChange(item, 'activeColor')"
+                    >
+                      <div
+                        :style="{ 'background-color': item }"
+                        :class="{ selecting: activeColor === item }"
+                      >
+                        <span class="el-icon-check"></span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="color-select-warpper">
+                  <span>选中</span>
+                  <ul>
+                    <li
+                      v-for="(item, index) in unactiveColorList"
+                      :key="index"
+                      @click="colorChange(item, 'unactiveColor')"
+                    >
+                      <div
+                        :style="{ 'background-color': item }"
+                        :class="{ selecting: unactiveColor === item }"
+                      >
+                        <span class="el-icon-check"></span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div>
-                <el-form
-                  ref="form"
-                  :model="item"
-                  label-width="60px"
-                  :rules="rules"
-                >
-                  <el-form-item
-                    label="名称"
-                    hide-required-asterisk
-                    prop="title"
+              <el-button type="text" slot="reference">修改</el-button>
+            </el-popover>
+          </div>
+          <div class="tab-list-warpeer">
+            <ul>
+              <li v-for="(item, index) in navIcons" :key="index">
+                <div>
+                  <span>导航{{ index + 1 }}</span>
+                  <span class="el-icon-close" @click="delTabItem(index)"></span>
+                </div>
+                <div>
+                  <el-form
+                    ref="form"
+                    :model="item"
+                    label-width="60px"
+                    :rules="rules"
                   >
-                    <el-input
-                      v-model="item.title"
-                      placeholder="请输入内容"
-                      size="small"
-                      maxlength="4"
-                      show-word-limit
-                    ></el-input>
-                  </el-form-item>
-                  <el-form-item label="链接">
-                    <div
-                      class="select-url-warpper"
-                      @click="selectLinkShow(item, index)"
+                    <el-form-item
+                      label="名称"
+                      hide-required-asterisk
+                      prop="title"
                     >
-                      <span v-if="index === 0">首页</span>
-                      <el-button plain size="small" v-else>
-                        <div class="select-url-button">
-                          <span>{{ item.urlTitle }}</span>
-                          <span>修改</span>
-                        </div>
-                      </el-button>
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="图标">
+                      <el-input
+                        v-model="item.title"
+                        placeholder="请输入内容"
+                        size="small"
+                        maxlength="4"
+                        show-word-limit
+                      ></el-input>
+                    </el-form-item>
+                    <el-form-item label="链接">
+                      <div
+                        class="select-url-warpper"
+                        @click="selectLinkShow(item, index)"
+                      >
+                        <span v-if="index === 0">首页</span>
+                        <el-button plain size="small" v-else>
+                          <div class="select-url-button">
+                            <span>{{ item.urlTitle }}</span>
+                            <span>修改</span>
+                          </div>
+                        </el-button>
+                      </div>
+                    </el-form-item>
+                    <el-form-item label="图标">
+                      <span
+                        class="select-icon-btn"
+                        @click="selectIconShow(item, index)"
+                        >选择图标</span
+                      >
+                    </el-form-item>
+                  </el-form>
+                </div>
+                <div>
+                  <div>
                     <span
-                      class="select-icon-btn"
-                      @click="selectIconShow(item, index)"
-                      >选择图标</span
-                    >
-                  </el-form-item>
-                </el-form>
-              </div>
-              <div>
-                <div>
-                  <span
-                    class="iconfont"
-                    :class="item.icon"
-                    :style="{ color: unactiveColor }"
-                  ></span>
+                      class="iconfont"
+                      :class="item.icon"
+                      :style="{ color: unactiveColor }"
+                    ></span>
+                  </div>
+                  <div>
+                    <span
+                      class="iconfont"
+                      :class="item.icon"
+                      :style="{ color: activeColor }"
+                    ></span>
+                  </div>
                 </div>
-                <div>
-                  <span
-                    class="iconfont"
-                    :class="item.icon"
-                    :style="{ color: activeColor }"
-                  ></span>
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
 
-          <div
-            class="add-tab-button"
-            @click="addTabItem"
-            :class="{ hide: navIcons.length >= 5 }"
-          >
-            <span>添加导航</span>
+            <div
+              class="add-tab-button"
+              @click="addTabItem"
+              :class="{ hide: navIcons.length >= 5 }"
+            >
+              <span>添加导航</span>
+            </div>
           </div>
         </div>
       </div>
+      <tab-icon-select
+        ref="tabIconSelect"
+        @confirm="selectIconConfirm"
+      ></tab-icon-select>
+
+      <page-link-select
+        ref="pageLinkSelect"
+        @confirm="selectLinkConfirm"
+      ></page-link-select>
     </div>
-    <div class="footer-btn">
+    <div class="footer-btn" slot="footer">
       <div>
         <el-button type="primary" size="medium" @click="releaseTab"
           >发布</el-button
@@ -148,21 +159,13 @@
         <el-button plain size="medium" @click="saveTab">保存</el-button>
       </div>
     </div>
-    <tab-icon-select
-      ref="tabIconSelect"
-      @confirm="selectIconConfirm"
-    ></tab-icon-select>
-
-    <page-link-select
-      ref="pageLinkSelect"
-      @confirm="selectLinkConfirm"
-    ></page-link-select>
-  </div>
+  </main-scroll>
 </template>
 
 <script>
 import TabIconSelect from "@/components/public/tab-icon-select.vue";
 import PageLinkSelect from "@/components/public/page-link-select.vue";
+import MainScroll from "components/public/main-scroll.vue";
 import { getPageTabbar } from "@/api/http.js";
 export default {
   data() {
@@ -269,7 +272,8 @@ export default {
   },
   components: {
     TabIconSelect,
-    PageLinkSelect
+    PageLinkSelect,
+    MainScroll
   }
 };
 </script>

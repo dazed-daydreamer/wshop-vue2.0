@@ -4,35 +4,33 @@
       <img src="../../assets/images/phone-top.png" alt />
     </div>
     <div class="component-library-list">
-      <el-scrollbar ref="scrollbar">
-        <draggable
-          v-model="componentsList"
-          :options="draggableOptions"
-          class="cu-list"
-          :scrollSensitivity="300"
-          @add="addList"
-          @sort="sortChange"
+      <draggable
+        v-model="componentsList"
+        :options="draggableOptions"
+        class="cu-list"
+        :scrollSensitivity="300"
+        @add="addList"
+        @sort="sortChange"
+      >
+        <li
+          v-for="(item, index) in componentsList"
+          :key="index"
+          class="cu-item"
+          @click="itemChoose(index)"
+          :class="{ crrent: index === getCurrentComponentIndex }"
         >
-          <li
-            v-for="(item, index) in componentsList"
-            :key="index"
-            class="cu-item"
-            @click="itemChoose(index)"
-            :class="{ crrent: index === getCurrentComponentIndex }"
-          >
-            <div class="delete">
-              <el-popconfirm title="是否删除组件吗" @onConfirm="delItem(index)">
-                <span class="el-icon-close" slot="reference"></span>
-              </el-popconfirm>
-            </div>
-            <component
-              v-bind:is="item.introduce"
-              :form="item.form"
-              class="item-component"
-            ></component>
-          </li>
-        </draggable>
-      </el-scrollbar>
+          <div class="delete">
+            <el-popconfirm title="是否删除组件吗" @onConfirm="delItem(index)">
+              <span class="el-icon-close" slot="reference"></span>
+            </el-popconfirm>
+          </div>
+          <component
+            v-bind:is="item.introduce"
+            :form="item.form"
+            class="item-component"
+          ></component>
+        </li>
+      </draggable>
     </div>
   </div>
 </template>
@@ -222,10 +220,9 @@ export default {
 @import "@/styles/theme.scss";
 .shop-template-page-warpper {
   width: 385px;
-  height: 665px;
-  background-color: #fff;
   display: flex;
   flex-direction: column;
+  background-color: #fff;
   .top-title {
     height: 67px;
     flex-shrink: 0;
@@ -234,78 +231,147 @@ export default {
     }
   }
   .component-library-list {
-    flex: 1;
-    .el-scrollbar__wrap {
-      overflow-x: hidden;
-      .el-scrollbar__view {
-        & > .cu-list {
-          & > .cu-item {
-            display: flex;
-            margin-right: 1px;
-            list-style: none;
-            cursor: pointer;
-            position: relative;
-            border: 1px solid transparent;
-            &:hover {
-              border-color: $theme-color;
-            }
-            & > .delete {
-              position: absolute;
-              top: 0;
-              z-index: 10;
-              right: 0;
-              width: 20px;
-              height: 20px;
-              border-radius: 0px 0px 0px 100%;
-              background-color: $theme-color;
-              font-size: 12px;
-              display: none;
-              span {
-                margin-top: 2px;
-                margin-left: 2px;
-                color: #fff;
-                width: 100%;
-                height: 100%;
-              }
-            }
-            &.crrent {
-              border: 1px solid $theme-color;
-              .delete {
-                display: block;
-              }
-            }
-            &.sortable-ghost {
-              position: relative;
-              &::before {
-                content: "放这里";
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-              }
-              height: 80px;
-              width: 100%;
-              line-height: 60px;
-              border: 1px dashed $theme-color;
-              box-sizing: border-box;
-              color: $theme-color;
-              background-color: rgba(37, 137, 255, 0.3);
-              span {
-                display: none;
-              }
-              img {
-                display: none;
-              }
-            }
-            .item-component {
-              width: 100%;
-            }
+    & > .cu-list {
+      & > .cu-item {
+        &:nth-last-of-type(1) {
+          margin-bottom: 30px;
+        }
+        display: flex;
+        background-color: #fff;
+        margin-right: 1px;
+        list-style: none;
+        cursor: pointer;
+        position: relative;
+        border: 1px solid transparent;
+        &:hover {
+          border-color: $theme-color;
+        }
+        & > .delete {
+          position: absolute;
+          top: 0;
+          z-index: 10;
+          right: 0;
+          width: 20px;
+          height: 20px;
+          border-radius: 0px 0px 0px 100%;
+          background-color: $theme-color;
+          font-size: 12px;
+          display: none;
+          span {
+            margin-top: 2px;
+            margin-left: 2px;
+            color: #fff;
+            width: 100%;
+            height: 100%;
           }
-          height: 598px;
-          margin: 0;
+        }
+        &.crrent {
+          border: 1px solid $theme-color;
+          .delete {
+            display: block;
+          }
+        }
+        &.sortable-ghost {
+          position: relative;
+          &::before {
+            content: "放这里";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          height: 80px;
+          width: 100%;
+          line-height: 60px;
+          border: 1px dashed $theme-color;
+          box-sizing: border-box;
+          color: $theme-color;
+          background-color: rgba(37, 137, 255, 0.3);
+          span {
+            display: none;
+          }
+          img {
+            display: none;
+          }
+        }
+        .item-component {
+          width: 100%;
         }
       }
+      height: 598px;
+      margin: 0;
     }
+    // .el-scrollbar__wrap {
+    //   overflow-x: hidden;
+    //   .el-scrollbar__view {
+    //     & > .cu-list {
+    //       & > .cu-item {
+    //         display: flex;
+    //         margin-right: 1px;
+    //         list-style: none;
+    //         cursor: pointer;
+    //         position: relative;
+    //         border: 1px solid transparent;
+    //         &:hover {
+    //           border-color: $theme-color;
+    //         }
+    //         & > .delete {
+    //           position: absolute;
+    //           top: 0;
+    //           z-index: 10;
+    //           right: 0;
+    //           width: 20px;
+    //           height: 20px;
+    //           border-radius: 0px 0px 0px 100%;
+    //           background-color: $theme-color;
+    //           font-size: 12px;
+    //           display: none;
+    //           span {
+    //             margin-top: 2px;
+    //             margin-left: 2px;
+    //             color: #fff;
+    //             width: 100%;
+    //             height: 100%;
+    //           }
+    //         }
+    //         &.crrent {
+    //           border: 1px solid $theme-color;
+    //           .delete {
+    //             display: block;
+    //           }
+    //         }
+    //         &.sortable-ghost {
+    //           position: relative;
+    //           &::before {
+    //             content: "放这里";
+    //             position: absolute;
+    //             top: 50%;
+    //             left: 50%;
+    //             transform: translate(-50%, -50%);
+    //           }
+    //           height: 80px;
+    //           width: 100%;
+    //           line-height: 60px;
+    //           border: 1px dashed $theme-color;
+    //           box-sizing: border-box;
+    //           color: $theme-color;
+    //           background-color: rgba(37, 137, 255, 0.3);
+    //           span {
+    //             display: none;
+    //           }
+    //           img {
+    //             display: none;
+    //           }
+    //         }
+    //         .item-component {
+    //           width: 100%;
+    //         }
+    //       }
+    //       height: 598px;
+    //       margin: 0;
+    //     }
+    //   }
+    // }
   }
 }
 </style>

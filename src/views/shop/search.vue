@@ -1,110 +1,116 @@
 <template>
-  <div class="shop-search-warpper public-warpper">
-    <div class="gray-bg-warpper">
-      <div class="header">
-        <span>搜素热词</span>
-        <el-button plain size="small" @click="show(-1)">添加热词</el-button>
-        <span>热词数量上限为10个，可拖动排序</span>
-      </div>
-      <div class="search-list">
-        <div class="list-header">
-          <div>关键词</div>
-          <div>类型</div>
-          <div>操作</div>
+  <main-scroll>
+    <div class="shop-search-warpper public-warpper">
+      <div class="gray-bg-warpper">
+        <div class="header">
+          <span>搜素热词</span>
+          <el-button plain size="small" @click="show(-1)">添加热词</el-button>
+          <span>热词数量上限为10个，可拖动排序</span>
         </div>
-        <draggable class="list-group" element="ul" v-model="keyList">
-          <transition-group type="transition" :name="'flip-list'">
-            <li
-              class="list-group-item"
-              v-for="(item, index) in keyList"
-              :key="item.keyWork"
-            >
-              <div>{{ item.keyWork }}</div>
-              <div>{{ item.type === "0" ? "关键词搜索商品" : "链接页面" }}</div>
-              <div>
-                <el-button type="text" size="small" @click="show(index)"
-                  >编辑</el-button
-                >
-                <el-popconfirm
-                  :title="`是否删除热词: ${item.keyWork}?`"
-                  @onConfirm="deleteHotKey(index)"
-                >
-                  <el-button type="text" size="small" slot="reference"
-                    >删除</el-button
+        <div class="search-list">
+          <div class="list-header">
+            <div>关键词</div>
+            <div>类型</div>
+            <div>操作</div>
+          </div>
+          <draggable class="list-group" element="ul" v-model="keyList">
+            <transition-group type="transition" :name="'flip-list'">
+              <li
+                class="list-group-item"
+                v-for="(item, index) in keyList"
+                :key="item.keyWork"
+              >
+                <div>{{ item.keyWork }}</div>
+                <div>
+                  {{ item.type === "0" ? "关键词搜索商品" : "链接页面" }}
+                </div>
+                <div>
+                  <el-button type="text" size="small" @click="show(index)"
+                    >编辑</el-button
                   >
-                </el-popconfirm>
-              </div>
-            </li>
-          </transition-group>
-        </draggable>
+                  <el-popconfirm
+                    :title="`是否删除热词: ${item.keyWork}?`"
+                    @onConfirm="deleteHotKey(index)"
+                  >
+                    <el-button type="text" size="small" slot="reference"
+                      >删除</el-button
+                    >
+                  </el-popconfirm>
+                </div>
+              </li>
+            </transition-group>
+          </draggable>
+        </div>
       </div>
+
+      <el-dialog
+        :visible.sync="dialogVisible"
+        width="400px"
+        :before-close="hide"
+        class="add-hot-dialog"
+        append-to-body
+      >
+        <div slot="title">
+          <span>添加热词</span>
+        </div>
+        <div>
+          <el-form
+            :model="addHotForm"
+            label-width="100px"
+            :rules="rules"
+            ref="keyForm"
+          >
+            <el-form-item label="关键词" prop="keyWork">
+              <el-input
+                v-model="addHotForm.keyWork"
+                size="small"
+                maxlength="10"
+                show-word-limit
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="热词类型">
+              <el-radio-group v-model="addHotForm.type">
+                <el-radio label="0">
+                  <span>关键词搜索商品</span>
+                </el-radio>
+                <el-radio label="1">
+                  <span>链接页面</span>
+                </el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item v-show="addHotForm.type === '1'">
+              <el-button plain size="small" @click="selectLinkShow"
+                >选择链接</el-button
+              >
+              <span>{{ addHotForm.linkTitle }}</span>
+            </el-form-item>
+          </el-form>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="hide">取 消</el-button>
+          <el-button type="primary" @click="saveHotkey">确 定</el-button>
+        </span>
+      </el-dialog>
+      <page-link-select
+        ref="pageLinkSelect"
+        @confirm="selectLinkConfirm"
+      ></page-link-select>
     </div>
-    <div class="footer-btn">
+
+    <div class="footer-btn" slot="footer">
       <div>
         <el-button size="medium" @click="saveSearch" type="primary"
           >保存</el-button
         >
       </div>
     </div>
-
-    <el-dialog
-      :visible.sync="dialogVisible"
-      width="400px"
-      :before-close="hide"
-      class="add-hot-dialog"
-      append-to-body
-    >
-      <div slot="title">
-        <span>添加热词</span>
-      </div>
-      <div>
-        <el-form
-          :model="addHotForm"
-          label-width="100px"
-          :rules="rules"
-          ref="keyForm"
-        >
-          <el-form-item label="关键词" prop="keyWork">
-            <el-input
-              v-model="addHotForm.keyWork"
-              size="small"
-              maxlength="10"
-              show-word-limit
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="热词类型">
-            <el-radio-group v-model="addHotForm.type">
-              <el-radio label="0">
-                <span>关键词搜索商品</span>
-              </el-radio>
-              <el-radio label="1">
-                <span>链接页面</span>
-              </el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item v-show="addHotForm.type === '1'">
-            <el-button plain size="small" @click="selectLinkShow"
-              >选择链接</el-button
-            >
-            <span>{{ addHotForm.linkTitle }}</span>
-          </el-form-item>
-        </el-form>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="hide">取 消</el-button>
-        <el-button type="primary" @click="saveHotkey">确 定</el-button>
-      </span>
-    </el-dialog>
-    <page-link-select
-      ref="pageLinkSelect"
-      @confirm="selectLinkConfirm"
-    ></page-link-select>
-  </div>
+  </main-scroll>
 </template>
 
 <script>
 import PageLinkSelect from "@/components/public/page-link-select.vue";
 import Draggable from "vuedraggable";
+import MainScroll from "components/public/main-scroll.vue";
 export default {
   data() {
     return {
@@ -206,7 +212,8 @@ export default {
   },
   components: {
     PageLinkSelect,
-    Draggable
+    Draggable,
+    MainScroll
   }
 };
 </script>

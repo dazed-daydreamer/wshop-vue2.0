@@ -1,362 +1,386 @@
 <template>
-  <div class="shop-user-warpper public-warpper">
-    <div class="gray-bg-warpper">
-      <div class="show-warpper">
-        <div
-          class="user-header"
-          :style="{ backgroundColor: form.userHeaderBackgroundColor }"
-        >
-          <div class="user-info">
-            <img src="../../assets/images/avatar.jpg" alt="" />
-            <span :style="{ color: form.userHeadeTextrColor }">用户名称</span>
-          </div>
+  <main-scroll>
+    <div class="shop-user-warpper public-warpper">
+      <div class="gray-bg-warpper">
+        <div class="show-warpper">
           <div
-            class="user-member"
-            :style="{ backgroundColor: form.userHeaderMemberBackgroundColor }"
-            v-show="form.hasMember"
+            class="user-header"
+            :style="{ backgroundColor: form.userHeaderBackgroundColor }"
           >
-            <div>
-              <span
-                class="icon-huiyuanvip iconfont"
-                :style="{ color: form.userHeaderMemberTextColor }"
-              ></span>
-              <span :style="{ color: form.userHeaderMemberTextColor }">{{
-                form.userHeaderText
-              }}</span>
+            <div class="user-info">
+              <img src="../../assets/images/avatar.jpg" alt="" />
+              <span :style="{ color: form.userHeadeTextrColor }">用户名称</span>
             </div>
-            <div>
-              <span :style="{ color: form.userHeaderMemberTextColor }"
-                >立即领卡</span
-              >
-            </div>
-          </div>
-        </div>
-        <div class="user-recording" v-show="form.hasRecording">
-          <ul>
-            <li v-for="(item, index) in userRecordings" :key="index">
-              <span :class="item.icon" class="iconfont"></span>
-              <span>{{ item.title }}</span>
-            </li>
-          </ul>
-        </div>
-        <div class="user-order">
-          <div class="order-header">
-            <span>我的订单</span>
-            <div>
-              <span>查看全部</span>
-              <span class="el-icon-arrow-right"></span>
-            </div>
-          </div>
-          <div class="order-list">
-            <ul>
-              <li v-for="(item, index) in userOrders" :key="index">
-                <span class="iconfont" :class="item.icon"></span>
-                <span>{{ item.title }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="user-distribution" v-show="form.hasDistribution">
-          <div class="distribution-header">
-            <span>{{ form.distributionTitle }}</span>
-            <div>
-              <span>{{ form.distributionCopywriting }}</span>
-              <span class="el-icon-arrow-right"></span>
-            </div>
-          </div>
-          <div>
-            <ul>
-              <li v-for="(item, index) in distributionList" :key="index">
-                <span>0.00</span>
-                <span>{{ item }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="user-other">
-          <ul
-            :class="{
-              vertical: form.menuStyle === '0',
-              horizontal: form.menuStyle === '1'
-            }"
-          >
-            <li
-              v-for="(item, index) in userOthers"
-              :key="index"
-              v-show="form[item.key]"
+            <div
+              class="user-member"
+              :style="{ backgroundColor: form.userHeaderMemberBackgroundColor }"
+              v-show="form.hasMember"
             >
               <div>
-                <span class="iconfont" :class="item.icon"></span>
-                <span>{{ item.title }}</span>
+                <span
+                  class="icon-huiyuanvip iconfont"
+                  :style="{ color: form.userHeaderMemberTextColor }"
+                ></span>
+                <span :style="{ color: form.userHeaderMemberTextColor }">{{
+                  form.userHeaderText
+                }}</span>
               </div>
-              <span class="el-icon-arrow-right"></span>
-            </li>
-          </ul>
+              <div>
+                <span :style="{ color: form.userHeaderMemberTextColor }"
+                  >立即领卡</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="user-recording" v-show="form.hasRecording">
+            <ul>
+              <li v-for="(item, index) in userRecordings" :key="index">
+                <span :class="item.icon" class="iconfont"></span>
+                <span>{{ item.title }}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="user-order">
+            <div class="order-header">
+              <span>我的订单</span>
+              <div>
+                <span>查看全部</span>
+                <span class="el-icon-arrow-right"></span>
+              </div>
+            </div>
+            <div class="order-list">
+              <ul>
+                <li v-for="(item, index) in userOrders" :key="index">
+                  <span class="iconfont" :class="item.icon"></span>
+                  <span>{{ item.title }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="user-distribution" v-show="form.hasDistribution">
+            <div class="distribution-header">
+              <span>{{ form.distributionTitle }}</span>
+              <div>
+                <span>{{ form.distributionCopywriting }}</span>
+                <span class="el-icon-arrow-right"></span>
+              </div>
+            </div>
+            <div>
+              <ul>
+                <li v-for="(item, index) in distributionList" :key="index">
+                  <span>0.00</span>
+                  <span>{{ item }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="user-other">
+            <ul
+              :class="{
+                vertical: form.menuStyle === '0',
+                horizontal: form.menuStyle === '1'
+              }"
+            >
+              <li
+                v-for="(item, index) in userOthers"
+                :key="index"
+                v-show="form[item.key]"
+              >
+                <div>
+                  <span class="iconfont" :class="item.icon"></span>
+                  <span>{{ item.title }}</span>
+                </div>
+                <span class="el-icon-arrow-right"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="operating-warpper">
+          <el-collapse
+            accordion
+            v-model="collapseActive"
+            @change="collapseChange"
+          >
+            <el-collapse-item name="1">
+              <template slot="title">
+                <el-checkbox v-model="form.hasHeader" disabled></el-checkbox>
+                <span class="title">用户头部</span>
+              </template>
+              <div class="header">
+                <div>
+                  <div class="title">
+                    <span>头部背景</span>
+                  </div>
+                  <div>
+                    <el-color-picker
+                      v-model="form.userHeaderBackgroundColor"
+                      @change="colorSelect($event, 'userHeaderBackgroundColor')"
+                    ></el-color-picker>
+                    <span>{{ form.userHeaderBackgroundColor }}</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>头部文字</span>
+                  </div>
+                  <div>
+                    <el-color-picker
+                      v-model="form.userHeadeTextrColor"
+                      @change="colorSelect($event, 'userHeadeTextrColor')"
+                    ></el-color-picker>
+                    <span>{{ form.userHeadeTextrColor }}</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>会员卡文案</span>
+                  </div>
+                  <div>
+                    <el-input
+                      type="text"
+                      placeholder="请输入内容"
+                      v-model="form.userHeaderText"
+                      size="small"
+                      maxlength="10"
+                      show-word-limit
+                    >
+                    </el-input>
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>会员卡背景</span>
+                  </div>
+                  <div>
+                    <el-color-picker
+                      v-model="form.userHeaderMemberBackgroundColor"
+                      @change="
+                        colorSelect($event, 'userHeaderMemberBackgroundColor')
+                      "
+                    ></el-color-picker>
+                    <span>{{ form.userHeaderMemberBackgroundColor }}</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>会员卡文字</span>
+                  </div>
+                  <div>
+                    <el-color-picker
+                      v-model="form.userHeaderMemberTextColor"
+                      @change="colorSelect($event, 'userHeaderMemberTextColor')"
+                    ></el-color-picker>
+                    <span>{{ form.userHeaderMemberTextColor }}</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>会员卡显示</span>
+                  </div>
+                  <div>
+                    <el-checkbox v-model="form.hasMember"></el-checkbox>
+                    <span>是否显示会员卡</span>
+                  </div>
+                </div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item name="2">
+              <template slot="title">
+                <el-checkbox v-model="form.hasRecording"></el-checkbox>
+                <span class="title">用户记录</span>
+              </template>
+              <div class="recording">
+                <span>固定样式暂不支持配置</span>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item name="3">
+              <template slot="title">
+                <el-checkbox v-model="form.hasOrder" disabled></el-checkbox>
+                <span class="title">订单信息</span>
+              </template>
+              <div class="order">
+                <span>固定样式暂不支持配置</span>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item name="4">
+              <template slot="title">
+                <el-checkbox v-model="form.hasPicNavOne"></el-checkbox>
+                <span class="title">图片导航1</span>
+              </template>
+              <div class="picNavOne">
+                <div>
+                  <div class="title">
+                    <span>图片上传</span>
+                  </div>
+                  <div>
+                    <img
+                      :src="form.picNavOnePic"
+                      alt
+                      v-if="form.picNavOnePic"
+                    />
+                    <img
+                      src="../../assets/images/horizontalpic.png"
+                      alt
+                      v-else
+                    />
+                    <el-button plain size="small" @click="imageSelectShow"
+                      >选择图片</el-button
+                    >
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>选择链接</span>
+                  </div>
+                  <div>
+                    <el-button plain size="small" @click="selectLinkShow(1)"
+                      >选择链接</el-button
+                    >
+                    <span>{{ form.picNavOneLinkTitle }}</span>
+                  </div>
+                </div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item name="5">
+              <template slot="title">
+                <el-checkbox v-model="form.hasDistribution"></el-checkbox>
+                <span class="title">分销中心</span>
+              </template>
+              <div class="distribution">
+                <div>
+                  <div class="title">
+                    <span>显示设置</span>
+                  </div>
+                  <div class="show">
+                    <el-radio v-model="form.distributionShowStatus" label="0">
+                      <span>所有客户可见</span>
+                    </el-radio>
+                    <el-radio v-model="form.distributionShowStatus" label="1">
+                      <span>所有客户不可见</span>
+                    </el-radio>
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>菜单名称</span>
+                  </div>
+                  <div>
+                    <el-input
+                      size="small"
+                      type="text"
+                      placeholder="请输入内容"
+                      v-model="form.distributionTitle"
+                      maxlength="10"
+                      show-word-limit
+                    >
+                    </el-input>
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>引导文案</span>
+                  </div>
+                  <div>
+                    <el-input
+                      size="small"
+                      type="text"
+                      placeholder="请输入内容"
+                      v-model="form.distributionCopywriting"
+                      maxlength="10"
+                      show-word-limit
+                    >
+                    </el-input>
+                  </div>
+                </div>
+                <div class="explanation">
+                  <span>此处页面展示为固定样式，具体以分销中心为准。</span>
+                </div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item name="6">
+              <template slot="title">
+                <el-checkbox v-model="form.hasMenu" disabled></el-checkbox>
+                <span class="title">菜单</span>
+              </template>
+              <div class="menu">
+                <div>
+                  <div class="title">
+                    <span>样式</span>
+                  </div>
+                  <div class="style">
+                    <el-radio v-model="form.menuStyle" label="0">
+                      <span>列表式</span>
+                    </el-radio>
+                    <el-radio v-model="form.menuStyle" label="1">
+                      <span>宫格式</span>
+                    </el-radio>
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>设置菜单</span>
+                  </div>
+                  <div class="list">
+                    <ul>
+                      <li v-for="(item, index) in userOthers" :key="index">
+                        <el-checkbox v-model="form[item.key]"></el-checkbox>
+                        <span>{{ item.title }}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item name="7">
+              <template slot="title">
+                <el-checkbox v-model="form.hasPicNavTwo"></el-checkbox>
+                <span class="title">图片导航2</span>
+              </template>
+              <div class="picNavTwo">
+                <div>
+                  <div class="title">
+                    <span>图片上传</span>
+                  </div>
+                  <div>
+                    <img
+                      :src="form.picNavOnePic"
+                      alt
+                      v-if="form.picNavOnePic"
+                    />
+                    <img
+                      src="../../assets/images/horizontalpic.png"
+                      alt
+                      v-else
+                    />
+                    <el-button plain size="small" @click="imageSelectShow"
+                      >选择图片</el-button
+                    >
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>选择链接</span>
+                  </div>
+                  <div>
+                    <el-button plain size="small" @click="selectLinkShow(2)"
+                      >选择链接</el-button
+                    >
+                    <span>{{ form.picNavTwoLinkTitle }}</span>
+                  </div>
+                </div>
+              </div>
+            </el-collapse-item>
+          </el-collapse>
         </div>
       </div>
-      <div class="operating-warpper">
-        <el-collapse
-          accordion
-          v-model="collapseActive"
-          @change="collapseChange"
-        >
-          <el-collapse-item name="1">
-            <template slot="title">
-              <el-checkbox v-model="form.hasHeader" disabled></el-checkbox>
-              <span class="title">用户头部</span>
-            </template>
-            <div class="header">
-              <div>
-                <div class="title">
-                  <span>头部背景</span>
-                </div>
-                <div>
-                  <el-color-picker
-                    v-model="form.userHeaderBackgroundColor"
-                    @change="colorSelect($event, 'userHeaderBackgroundColor')"
-                  ></el-color-picker>
-                  <span>{{ form.userHeaderBackgroundColor }}</span>
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>头部文字</span>
-                </div>
-                <div>
-                  <el-color-picker
-                    v-model="form.userHeadeTextrColor"
-                    @change="colorSelect($event, 'userHeadeTextrColor')"
-                  ></el-color-picker>
-                  <span>{{ form.userHeadeTextrColor }}</span>
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>会员卡文案</span>
-                </div>
-                <div>
-                  <el-input
-                    type="text"
-                    placeholder="请输入内容"
-                    v-model="form.userHeaderText"
-                    size="small"
-                    maxlength="10"
-                    show-word-limit
-                  >
-                  </el-input>
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>会员卡背景</span>
-                </div>
-                <div>
-                  <el-color-picker
-                    v-model="form.userHeaderMemberBackgroundColor"
-                    @change="
-                      colorSelect($event, 'userHeaderMemberBackgroundColor')
-                    "
-                  ></el-color-picker>
-                  <span>{{ form.userHeaderMemberBackgroundColor }}</span>
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>会员卡文字</span>
-                </div>
-                <div>
-                  <el-color-picker
-                    v-model="form.userHeaderMemberTextColor"
-                    @change="colorSelect($event, 'userHeaderMemberTextColor')"
-                  ></el-color-picker>
-                  <span>{{ form.userHeaderMemberTextColor }}</span>
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>会员卡显示</span>
-                </div>
-                <div>
-                  <el-checkbox v-model="form.hasMember"></el-checkbox>
-                  <span>是否显示会员卡</span>
-                </div>
-              </div>
-            </div>
-          </el-collapse-item>
-          <el-collapse-item name="2">
-            <template slot="title">
-              <el-checkbox v-model="form.hasRecording"></el-checkbox>
-              <span class="title">用户记录</span>
-            </template>
-            <div class="recording">
-              <span>固定样式暂不支持配置</span>
-            </div>
-          </el-collapse-item>
-          <el-collapse-item name="3">
-            <template slot="title">
-              <el-checkbox v-model="form.hasOrder" disabled></el-checkbox>
-              <span class="title">订单信息</span>
-            </template>
-            <div class="order">
-              <span>固定样式暂不支持配置</span>
-            </div>
-          </el-collapse-item>
-          <el-collapse-item name="4">
-            <template slot="title">
-              <el-checkbox v-model="form.hasPicNavOne"></el-checkbox>
-              <span class="title">图片导航1</span>
-            </template>
-            <div class="picNavOne">
-              <div>
-                <div class="title">
-                  <span>图片上传</span>
-                </div>
-                <div>
-                  <img :src="form.picNavOnePic" alt v-if="form.picNavOnePic" />
-                  <img src="../../assets/images/horizontalpic.png" alt v-else />
-                  <el-button plain size="small" @click="imageSelectShow"
-                    >选择图片</el-button
-                  >
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>选择链接</span>
-                </div>
-                <div>
-                  <el-button plain size="small" @click="selectLinkShow(1)"
-                    >选择链接</el-button
-                  >
-                  <span>{{ form.picNavOneLinkTitle }}</span>
-                </div>
-              </div>
-            </div>
-          </el-collapse-item>
-          <el-collapse-item name="5">
-            <template slot="title">
-              <el-checkbox v-model="form.hasDistribution"></el-checkbox>
-              <span class="title">分销中心</span>
-            </template>
-            <div class="distribution">
-              <div>
-                <div class="title">
-                  <span>显示设置</span>
-                </div>
-                <div class="show">
-                  <el-radio v-model="form.distributionShowStatus" label="0">
-                    <span>所有客户可见</span>
-                  </el-radio>
-                  <el-radio v-model="form.distributionShowStatus" label="1">
-                    <span>所有客户不可见</span>
-                  </el-radio>
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>菜单名称</span>
-                </div>
-                <div>
-                  <el-input
-                    size="small"
-                    type="text"
-                    placeholder="请输入内容"
-                    v-model="form.distributionTitle"
-                    maxlength="10"
-                    show-word-limit
-                  >
-                  </el-input>
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>引导文案</span>
-                </div>
-                <div>
-                  <el-input
-                    size="small"
-                    type="text"
-                    placeholder="请输入内容"
-                    v-model="form.distributionCopywriting"
-                    maxlength="10"
-                    show-word-limit
-                  >
-                  </el-input>
-                </div>
-              </div>
-              <div class="explanation">
-                <span>此处页面展示为固定样式，具体以分销中心为准。</span>
-              </div>
-            </div>
-          </el-collapse-item>
-          <el-collapse-item name="6">
-            <template slot="title">
-              <el-checkbox v-model="form.hasMenu" disabled></el-checkbox>
-              <span class="title">菜单</span>
-            </template>
-            <div class="menu">
-              <div>
-                <div class="title">
-                  <span>样式</span>
-                </div>
-                <div class="style">
-                  <el-radio v-model="form.menuStyle" label="0">
-                    <span>列表式</span>
-                  </el-radio>
-                  <el-radio v-model="form.menuStyle" label="1">
-                    <span>宫格式</span>
-                  </el-radio>
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>设置菜单</span>
-                </div>
-                <div class="list">
-                  <ul>
-                    <li v-for="(item, index) in userOthers" :key="index">
-                      <el-checkbox v-model="form[item.key]"></el-checkbox>
-                      <span>{{ item.title }}</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </el-collapse-item>
-          <el-collapse-item name="7">
-            <template slot="title">
-              <el-checkbox v-model="form.hasPicNavTwo"></el-checkbox>
-              <span class="title">图片导航2</span>
-            </template>
-            <div class="picNavTwo">
-              <div>
-                <div class="title">
-                  <span>图片上传</span>
-                </div>
-                <div>
-                  <img :src="form.picNavOnePic" alt v-if="form.picNavOnePic" />
-                  <img src="../../assets/images/horizontalpic.png" alt v-else />
-                  <el-button plain size="small" @click="imageSelectShow"
-                    >选择图片</el-button
-                  >
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>选择链接</span>
-                </div>
-                <div>
-                  <el-button plain size="small" @click="selectLinkShow(2)"
-                    >选择链接</el-button
-                  >
-                  <span>{{ form.picNavTwoLinkTitle }}</span>
-                </div>
-              </div>
-            </div>
-          </el-collapse-item>
-        </el-collapse>
-      </div>
+      <page-link-select
+        ref="pageLinkSelect"
+        @confirm="selectLinkConfirm"
+      ></page-link-select>
+
+      <image-select ref="imageSelect"></image-select>
     </div>
-    <div class="footer-btn">
+    <div class="footer-btn" slot="footer">
       <div>
         <el-button type="primary" size="medium" @click="releaseUser"
           >发布</el-button
@@ -364,19 +388,14 @@
         <el-button plain size="medium" @click="saveUser">保存</el-button>
       </div>
     </div>
-    <page-link-select
-      ref="pageLinkSelect"
-      @confirm="selectLinkConfirm"
-    ></page-link-select>
-
-    <image-select ref="imageSelect"></image-select>
-  </div>
+  </main-scroll>
 </template>
 
 <script>
 import PageLinkSelect from "@/components/public/page-link-select.vue";
 import ImageSelect from "@/components/public/image-select.vue";
 import { getPageUser } from "@/api/http.js";
+import MainScroll from "components/public/main-scroll.vue";
 export default {
   data() {
     return {
@@ -532,7 +551,8 @@ export default {
   },
   components: {
     PageLinkSelect,
-    ImageSelect
+    ImageSelect,
+    MainScroll
   }
 };
 </script>

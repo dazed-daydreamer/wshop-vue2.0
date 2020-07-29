@@ -125,28 +125,34 @@ export default {
   overflow: hidden;
   padding: 5px 0px;
   height: 700px;
-  .top-title {
-    padding: 0px 20px;
-    height: 50px;
-    text-align: left;
-    line-height: 50px;
-    font-size: 13px;
-    span:nth-of-type(2) {
-      font-weight: bold;
-      margin-left: 20px;
-      font-size: 15px;
+  .el-scrollbar {
+    height: 100%;
+    ::v-deep .el-scrollbar__wrap {
+      overflow-x: hidden;
+      .top-title {
+        padding: 0px 20px;
+        height: 50px;
+        text-align: left;
+        line-height: 50px;
+        font-size: 13px;
+        span:nth-of-type(2) {
+          font-weight: bold;
+          margin-left: 20px;
+          font-size: 15px;
+        }
+        & > .iconfont {
+          font-size: 25px;
+          color: $theme-color;
+        }
+      }
+      .empty-component {
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 13px;
+      }
     }
-    & > .iconfont {
-      font-size: 25px;
-      color: $theme-color;
-    }
-  }
-  .empty-component {
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 13px;
   }
 }
 </style>

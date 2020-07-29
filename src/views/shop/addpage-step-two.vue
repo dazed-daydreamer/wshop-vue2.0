@@ -10,7 +10,9 @@
           <shop-component-library></shop-component-library>
         </div>
         <div class="template-page-warpper">
-          <shop-template-page></shop-template-page>
+          <el-scrollbar>
+            <shop-template-page></shop-template-page>
+          </el-scrollbar>
         </div>
         <div class="template-components-data">
           <shop-component-form></shop-component-form>
@@ -96,8 +98,18 @@ export default {
         flex-shrink: 0;
       }
       .template-page-warpper {
-        width: 385px;
-        flex-shrink: 0;
+        flex: 1;
+        .el-scrollbar {
+          width: 100%;
+          height: 100%;
+          ::v-deep .el-scrollbar__wrap {
+            overflow-x: hidden;
+            .el-scrollbar__view {
+              display: flex;
+              justify-content: center;
+            }
+          }
+        }
       }
       .template-components-data {
         width: 365px;

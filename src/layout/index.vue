@@ -15,9 +15,7 @@
             ></secondary-directory>
           </div>
           <div class="main-content">
-            <el-scrollbar>
-              <router-view />
-            </el-scrollbar>
+            <router-view />
           </div>
         </el-main>
       </el-container>
@@ -68,6 +66,7 @@ export default {
   .el-main {
     padding: 0;
     display: flex;
+    overflow: hidden;
     & > .nav-second {
       width: 130px;
       flex-shrink: 0;
@@ -76,14 +75,7 @@ export default {
       height: 100%;
       flex: 1;
       box-sizing: border-box;
-      .el-scrollbar {
-        height: 100%;
-        width: 100%;
-        .el-scrollbar__wrap {
-          width: 100%;
-          overflow-x: hidden;
-        }
-      }
+      overflow: hidden;
     }
   }
 }

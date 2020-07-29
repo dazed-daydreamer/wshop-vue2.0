@@ -1,442 +1,534 @@
 <template>
-  <div class="goods-info-warpper public-warpper">
-    <div class="step-header">
-      <ul>
-        <li
-          v-for="(item, index) in stepList"
-          :key="index"
-          :class="{ active: index === 0 }"
-        >
-          <div>{{ index + 1 }}</div>
-          <span>{{ item }}</span>
-          <div class="line"></div>
-        </li>
-      </ul>
-    </div>
-    <div class="gray-bg-warpper">
-      <div class="title">基本信息</div>
-      <el-form ref="form" :model="form" label-width="100px" :rules="rules">
-        <el-form-item label="商品类型">
+  <main-scroll>
+    <div class="goods-info-warpper public-warpper">
+      <div class="step-header">
+        <ul>
+          <li
+            v-for="(item, index) in stepList"
+            :key="index"
+            :class="{ active: index === 0 }"
+          >
+            <div>{{ index + 1 }}</div>
+            <span>{{ item }}</span>
+            <div class="line"></div>
+          </li>
+        </ul>
+      </div>
+      <div class="gray-bg-warpper">
+        <el-form ref="form" :model="form" label-width="100px" :rules="rules">
           <div>
-            <el-radio v-model="form.type" label="0">实物商品(需配送)</el-radio>
-            <el-radio v-model="form.type" label="1">虚拟商品(无配送)</el-radio>
-            <span class="introduction">商品保存后无法修改，请谨慎选择</span>
-          </div>
-        </el-form-item>
-        <el-form-item label="销售模式">
-          <div>
-            <el-radio v-model="form.mode" label="0">现货销售</el-radio>
-            <el-radio v-model="form.mode" label="1">预售模式</el-radio>
-            <span class="introduction">需设置商品预售数量</span>
-          </div>
-        </el-form-item>
-        <el-form-item label="商品名称" prop="name">
-          <div>
-            <el-input
-              v-model="form.name"
-              maxlength="60"
-              show-word-limit
-              size="small"
-              class="w-400"
-            ></el-input>
-          </div>
-        </el-form-item>
-        <el-form-item label="SPU编码" v-show="hasClassify">
-          <div>
-            <el-input v-model="form.spu" size="small" class="w-400"></el-input>
-          </div>
-        </el-form-item>
-        <el-form-item label="预售数量" v-if="form.mode === '1'" prop="preSale">
-          <div class="preSale">
-            <el-input v-model="form.preSale" size="small"></el-input>
-          </div>
-        </el-form-item>
-        <el-form-item label="商品类目" prop="classify" ref="classify">
-          <div class="classify">
-            <div v-if="hasClassify">
-              <span>{{ form.classify.name }}</span>
-              <span @click="classifySelectShow">修改</span>
-            </div>
-            <el-button plain size="small" @click="classifySelectShow" v-else
-              >选择商品类目</el-button
+            <div class="title">基本信息</div>
+            <el-form-item label="商品类型">
+              <div>
+                <el-radio v-model="form.type" label="0"
+                  >实物商品(需配送)</el-radio
+                >
+                <el-radio v-model="form.type" label="1"
+                  >虚拟商品(无配送)</el-radio
+                >
+                <span class="introduction">商品保存后无法修改，请谨慎选择</span>
+              </div>
+            </el-form-item>
+            <el-form-item label="销售模式">
+              <div>
+                <el-radio v-model="form.mode" label="0">现货销售</el-radio>
+                <el-radio v-model="form.mode" label="1">预售模式</el-radio>
+                <span class="introduction">需设置商品预售数量</span>
+              </div>
+            </el-form-item>
+            <el-form-item label="商品名称" prop="name">
+              <div>
+                <el-input
+                  v-model="form.name"
+                  maxlength="60"
+                  show-word-limit
+                  size="small"
+                  class="w-400"
+                ></el-input>
+              </div>
+            </el-form-item>
+            <el-form-item label="SPU编码" v-show="hasClassify">
+              <div>
+                <el-input
+                  v-model="form.spu"
+                  size="small"
+                  class="w-400"
+                ></el-input>
+              </div>
+            </el-form-item>
+            <el-form-item
+              label="预售数量"
+              v-if="form.mode === '1'"
+              prop="preSale"
             >
-          </div>
-        </el-form-item>
-        <el-form-item label="商品规格" v-show="hasClassify">
-          <div>
-            <el-radio v-model="form.specificationModdel" label="0"
-              >统一规格</el-radio
-            >
-            <el-radio v-model="form.specificationModdel" label="1"
-              >多规格</el-radio
-            >
-          </div>
-        </el-form-item>
-        <div v-if="hasClassify && form.specificationModdel === '0'">
-          <el-form-item label="商家编码">
-            <div>
-              <el-input
-                v-model="form.coding"
-                size="small"
-                class="w-400"
-              ></el-input>
+              <div class="preSale">
+                <el-input v-model="form.preSale" size="small"></el-input>
+              </div>
+            </el-form-item>
+            <el-form-item label="商品类目" prop="classify" ref="classify">
+              <div class="classify">
+                <div v-if="hasClassify">
+                  <span>{{ form.classify.name }}</span>
+                  <span @click="classifySelectShow">修改</span>
+                </div>
+                <el-button plain size="small" @click="classifySelectShow" v-else
+                  >选择商品类目</el-button
+                >
+              </div>
+            </el-form-item>
+            <el-form-item label="商品规格" v-show="hasClassify">
+              <div>
+                <el-radio v-model="form.specificationModdel" label="0"
+                  >统一规格</el-radio
+                >
+                <el-radio v-model="form.specificationModdel" label="1"
+                  >多规格</el-radio
+                >
+              </div>
+            </el-form-item>
+            <div v-if="hasClassify && form.specificationModdel === '0'">
+              <el-form-item label="商家编码">
+                <div>
+                  <el-input
+                    v-model="form.coding"
+                    size="small"
+                    class="w-400"
+                  ></el-input>
+                </div>
+              </el-form-item>
+              <el-form-item label="销售价" prop="sellingPrice">
+                <div>
+                  <el-input
+                    v-model="form.sellingPrice"
+                    size="small"
+                    class="w-400"
+                  ></el-input>
+                </div>
+              </el-form-item>
+              <el-form-item label="成本价">
+                <div>
+                  <el-input
+                    v-model="form.costPrice"
+                    size="small"
+                    class="w-400"
+                  ></el-input>
+                </div>
+              </el-form-item>
+              <el-form-item label="市场价">
+                <div>
+                  <el-input
+                    v-model="form.marketPrice"
+                    size="small"
+                    class="w-400"
+                  ></el-input>
+                </div>
+              </el-form-item>
+              <el-form-item label="库存">
+                <div>
+                  <el-input
+                    v-model="form.stock"
+                    size="small"
+                    class="w-400"
+                  ></el-input>
+                </div>
+              </el-form-item>
+              <el-form-item label="重量 (Kg)">
+                <div>
+                  <el-input
+                    v-model="form.weight"
+                    size="small"
+                    class="w-400"
+                  ></el-input>
+                </div>
+              </el-form-item>
+              <el-form-item label="体积 (m³)">
+                <div>
+                  <el-input
+                    v-model="form.volume"
+                    size="small"
+                    class="w-400"
+                  ></el-input>
+                </div>
+              </el-form-item>
             </div>
-          </el-form-item>
-          <el-form-item label="销售价" prop="sellingPrice">
-            <div>
-              <el-input
-                v-model="form.sellingPrice"
-                size="small"
-                class="w-400"
-              ></el-input>
-            </div>
-          </el-form-item>
-          <el-form-item label="成本价">
-            <div>
-              <el-input
-                v-model="form.costPrice"
-                size="small"
-                class="w-400"
-              ></el-input>
-            </div>
-          </el-form-item>
-          <el-form-item label="市场价">
-            <div>
-              <el-input
-                v-model="form.marketPrice"
-                size="small"
-                class="w-400"
-              ></el-input>
-            </div>
-          </el-form-item>
-          <el-form-item label="库存">
-            <div>
-              <el-input
-                v-model="form.stock"
-                size="small"
-                class="w-400"
-              ></el-input>
-            </div>
-          </el-form-item>
-          <el-form-item label="重量 (Kg)">
-            <div>
-              <el-input
-                v-model="form.weight"
-                size="small"
-                class="w-400"
-              ></el-input>
-            </div>
-          </el-form-item>
-          <el-form-item label="体积 (m³)">
-            <div>
-              <el-input
-                v-model="form.volume"
-                size="small"
-                class="w-400"
-              ></el-input>
-            </div>
-          </el-form-item>
-        </div>
-        <!-- v-if="hasClassify && form.specificationModdel === '1'" -->
-        <div>
-          <div class="multiple">
-            <div>
-              <div
-                class="specification-list"
-                v-show="form.specificationList.length > 0"
-              >
-                <ul>
-                  <li
-                    v-for="(item, index) in form.specificationList"
-                    :key="index"
+            <div v-if="hasClassify && form.specificationModdel === '1'">
+              <div class="multiple">
+                <div>
+                  <div
+                    class="specification-list"
+                    v-show="form.specificationList.length > 0"
                   >
-                    <div class="specification-header">
-                      <span>{{ item.value }}</span>
-                      <el-popconfirm
-                        title="确认删除该规格？"
-                        @onConfirm="deleSpecification(index)"
+                    <ul>
+                      <li
+                        v-for="(item, index) in form.specificationList"
+                        :key="index"
                       >
-                        <span slot="reference">移除</span>
-                      </el-popconfirm>
-                    </div>
-                    <div class="specification-value">
-                      <ul>
-                        <li
-                          v-for="(valItem, valIndex) in item.specificationValue"
-                          :key="valIndex"
-                        >
-                          <el-tag
-                            effect="plain"
-                            type="info"
-                            closable
-                            @close="delItemSpecificationValue(valIndex, item)"
+                        <div class="specification-header">
+                          <span>{{ item.value }}</span>
+                          <el-popconfirm
+                            title="确认删除该规格？"
+                            @onConfirm="deleSpecification(index)"
                           >
-                            {{ valItem.value }}
-                          </el-tag>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="add-specification-value">
-                      <el-popover
-                        placement="bottom-start"
-                        width="670"
-                        trigger="click"
-                        :ref="`specificationValuePopover${index}`"
-                      >
-                        <div class="add-specification-value-wapper">
-                          <el-input
-                            placeholder="请选择或输入规格值"
-                            size="small"
-                            v-model="specificationValueInput"
-                          >
-                            <template slot="append">
-                              <span
-                                @click="specificationValueInputConfirm(item)"
-                                >新增</span
-                              >
-                            </template>
-                          </el-input>
-                          <el-scrollbar>
-                            <ul>
-                              <li
-                                v-for="(valItem,
-                                valIndex) in specificationValueList"
-                                :key="valIndex"
-                                @click="
-                                  changSpecificationValueAStatus(valItem, item)
-                                "
-                                :class="{
-                                  active: checkSpecificationValueActive(
-                                    valItem,
-                                    item
-                                  )
-                                }"
-                              >
-                                <span>{{ valItem.value }}</span>
-                                <el-popconfirm
-                                  title="确定删除该规格值？可能会影响到以含有该规格值的规格。"
-                                  @onConfirm="
-                                    delSpecificationValue(
-                                      valItem,
-                                      valIndex,
-                                      item
-                                    )
-                                  "
-                                >
-                                  <span
-                                    class="el-icon-close"
-                                    slot="reference"
-                                    @click.stop
-                                  ></span>
-                                </el-popconfirm>
-                              </li>
-                            </ul>
-                          </el-scrollbar>
-                          <div class="btn">
-                            <el-button
-                              type="primary"
-                              size="small"
-                              @click="specificationValueInputHide(index)"
-                              >确认</el-button
-                            >
-                          </div>
+                            <span slot="reference">移除</span>
+                          </el-popconfirm>
                         </div>
-                        <el-button slot="reference" size="small">
-                          添加规格值
-                        </el-button>
-                      </el-popover>
-                    </div>
+                        <div class="specification-value">
+                          <ul>
+                            <li
+                              v-for="(valItem,
+                              valIndex) in item.specificationValue"
+                              :key="valIndex"
+                            >
+                              <el-tag
+                                effect="plain"
+                                type="info"
+                                closable
+                                @close="
+                                  delItemSpecificationValue(valIndex, item)
+                                "
+                              >
+                                {{ valItem.value }}
+                              </el-tag>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="add-specification-value">
+                          <el-popover
+                            placement="bottom-start"
+                            width="670"
+                            trigger="click"
+                            :ref="`specificationValuePopover${index}`"
+                          >
+                            <div class="add-specification-value-wapper">
+                              <el-input
+                                placeholder="请选择或输入规格值"
+                                size="small"
+                                v-model="specificationValueInput"
+                              >
+                                <template slot="append">
+                                  <span
+                                    @click="
+                                      specificationValueInputConfirm(item)
+                                    "
+                                    >新增</span
+                                  >
+                                </template>
+                              </el-input>
+                              <el-scrollbar>
+                                <ul>
+                                  <li
+                                    v-for="(valItem,
+                                    valIndex) in specificationValueList"
+                                    :key="valIndex"
+                                    @click="
+                                      changSpecificationValueAStatus(
+                                        valItem,
+                                        item
+                                      )
+                                    "
+                                    :class="{
+                                      active: checkSpecificationValueActive(
+                                        valItem,
+                                        item
+                                      )
+                                    }"
+                                  >
+                                    <span>{{ valItem.value }}</span>
+                                    <el-popconfirm
+                                      title="确定删除该规格值？可能会影响到以含有该规格值的规格。"
+                                      @onConfirm="
+                                        delSpecificationValue(
+                                          valItem,
+                                          valIndex,
+                                          item
+                                        )
+                                      "
+                                    >
+                                      <span
+                                        class="el-icon-close"
+                                        slot="reference"
+                                        @click.stop
+                                      ></span>
+                                    </el-popconfirm>
+                                  </li>
+                                </ul>
+                              </el-scrollbar>
+                              <div class="btn">
+                                <el-button
+                                  type="primary"
+                                  size="small"
+                                  @click="specificationValueInputHide(index)"
+                                  >确认</el-button
+                                >
+                              </div>
+                            </div>
+                            <el-button slot="reference" size="small">
+                              添加规格值
+                            </el-button>
+                          </el-popover>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="add-specification">
+                    <el-button
+                      plain
+                      size="small"
+                      @click="specificationInputShow"
+                      v-show="!specificationInputVisible"
+                      >添加规格</el-button
+                    >
+                    <el-autocomplete
+                      v-model="specificationInput"
+                      :fetch-suggestions="specificationInputSearch"
+                      placeholder="请选择或输入规格"
+                      @select="specificationInputSelect"
+                      size="small"
+                      v-show="specificationInputVisible"
+                      :select-when-unmatched="true"
+                    >
+                      <template slot="append">
+                        <span @click="specificationInputConfirm">新增</span>
+                      </template>
+                    </el-autocomplete>
+                  </div>
+                </div>
+                <div v-show="moreSpecificationList.length > 0">
+                  <batch-setting
+                    @batchSettingConfirm="batchSettingConfirm"
+                  ></batch-setting>
+                  <div class="more-specification-list">
+                    <el-table
+                      :data="moreSpecificationTableData"
+                      :span-method="objectSpanMethod"
+                      border
+                      style="width: 100%; margin-top: 20px"
+                      :cell-style="tableCellStyle"
+                    >
+                      <el-table-column
+                        :label="item.value"
+                        v-for="(item, index) in moreSpecificationList"
+                        :key="index"
+                      >
+                        <template slot-scope="scope">
+                          <span style="display:none">{{
+                            setTabelValueColIndex(scope.$index, scope.row)
+                          }}</span>
+                          <span>{{ scope.row[item.value] }}</span>
+                        </template>
+                      </el-table-column>
+                      <el-table-column prop="name" label="规格图片" width="80">
+                        <template slot-scope="scope">
+                          <img
+                            :src="scope.row.image"
+                            alt=""
+                            v-if="scope.row.image"
+                          />
+                          <el-button
+                            v-else
+                            class="image-btn"
+                            icon="el-icon-plus"
+                            @click="imageSelectShow"
+                          ></el-button>
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="商家编码" width="200">
+                        <template slot-scope="scope">
+                          <edit-btn
+                            :value="scope.row.coding"
+                            :disable="scope.row.disable"
+                            @inputConfirm="
+                              inputConfirm($event, scope.$index, 'coding')
+                            "
+                          ></edit-btn>
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="售价(元)" width="110">
+                        <template slot-scope="scope">
+                          <edit-btn
+                            :value="scope.row.sellingPrice"
+                            :disable="scope.row.disable"
+                            @inputConfirm="
+                              inputConfirm($event, scope.$index, 'sellingPrice')
+                            "
+                          ></edit-btn>
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="市场价(元)" width="110">
+                        <template slot-scope="scope">
+                          <edit-btn
+                            :value="scope.row.marketPrice"
+                            :disable="scope.row.disable"
+                            @inputConfirm="
+                              inputConfirm($event, scope.$index, 'marketPrice')
+                            "
+                          ></edit-btn>
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="成本价(元)" width="110">
+                        <template slot-scope="scope">
+                          <edit-btn
+                            :value="scope.row.costPrice"
+                            :disable="scope.row.disable"
+                            @inputConfirm="
+                              inputConfirm($event, scope.$index, 'costPrice')
+                            "
+                          ></edit-btn>
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="库存" width="110">
+                        <template slot-scope="scope">
+                          <edit-btn
+                            :value="scope.row.stock"
+                            :disable="scope.row.disable"
+                            @inputConfirm="
+                              inputConfirm($event, scope.$index, 'stock')
+                            "
+                          ></edit-btn>
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="重量(kg)" width="110">
+                        <template slot-scope="scope">
+                          <edit-btn
+                            :value="scope.row.weight"
+                            :disable="scope.row.disable"
+                            @inputConfirm="
+                              inputConfirm($event, scope.$index, 'weight')
+                            "
+                          ></edit-btn>
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="体积(m³)" width="110">
+                        <template slot-scope="scope">
+                          <edit-btn
+                            :value="scope.row.volume"
+                            :disable="scope.row.disable"
+                            @inputConfirm="
+                              inputConfirm($event, scope.$index, 'volume')
+                            "
+                          ></edit-btn>
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="操作" min-width="120">
+                        <template slot-scope="scope">
+                          <el-button
+                            @click.native.prevent="clearRow(scope.$index)"
+                            type="text"
+                            size="small"
+                          >
+                            清空
+                          </el-button>
+                          <el-button
+                            @click.native.prevent="disableRow(scope.$index)"
+                            type="text"
+                            size="small"
+                            :style="{
+                              color: scope.row.disable ? '#F56C6C' : '#409EFF'
+                            }"
+                          >
+                            {{ scope.row.disable ? "启用" : "禁用" }}
+                          </el-button>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </div>
+                  <div class="total-inventory">
+                    <span>总库存</span>
+                    <el-input
+                      v-model="totalInventory"
+                      disabled
+                      size="small"
+                    ></el-input>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <el-form-item label="商品图片" prop="images">
+              <div class="goods-image">
+                <ul>
+                  <li v-for="(item, index) in form.images" :key="index">
+                    <img :src="item.url" alt="" />
+                  </li>
+                  <li @click="addGoodsImage">
+                    <span class="el-icon-plus"></span>
+                    <span>添加图片</span>
+                  </li>
+                </ul>
+                <span
+                  >尺寸建议750x750（正方形模式）或750×1000（长图模式）像素以上，大小2M以下，最多10张
+                  (可拖拽图片调整显示顺序 )</span
+                >
+              </div>
+            </el-form-item>
+            <el-form-item label="主图视频">
+              <div class="goods-video">
+                <ul>
+                  <li v-for="(item, index) in form.videos" :key="index">
+                    <img :src="item.url" alt="" />
+                  </li>
+                  <li @click="addGoodsImage">
+                    <span class="el-icon-plus"></span>
+                    <span>上传视频</span>
                   </li>
                 </ul>
               </div>
-              <div class="add-specification">
-                <el-button
-                  plain
-                  size="small"
-                  @click="specificationInputShow"
-                  v-show="!specificationInputVisible"
-                  >添加规格</el-button
-                >
-                <el-autocomplete
-                  v-model="specificationInput"
-                  :fetch-suggestions="specificationInputSearch"
-                  placeholder="请选择或输入规格"
-                  @select="specificationInputSelect"
-                  size="small"
-                  v-show="specificationInputVisible"
-                  :select-when-unmatched="true"
-                >
-                  <template slot="append">
-                    <span @click="specificationInputConfirm">新增</span>
-                  </template>
-                </el-autocomplete>
-              </div>
-            </div>
-            <div v-show="moreSpecificationList.length > 0">
-              <batch-setting
-                @batchSettingConfirm="batchSettingConfirm"
-              ></batch-setting>
-              <div class="more-specification-list">
-                <el-table
-                  :data="moreSpecificationTableData"
-                  :span-method="objectSpanMethod"
-                  border
-                  style="width: 100%; margin-top: 20px"
-                  :cell-style="tableCellStyle"
-                >
-                  <el-table-column
-                    :label="item.value"
-                    v-for="(item, index) in moreSpecificationList"
-                    :key="index"
-                  >
-                    <template slot-scope="scope">
-                      <span style="display:none">{{
-                        setTabelValueColIndex(scope.$index, scope.row)
-                      }}</span>
-                      <span>{{ scope.row[item.value] }}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column prop="name" label="规格图片" width="80">
-                    <template slot-scope="scope">
-                      <img
-                        :src="scope.row.image"
-                        alt=""
-                        v-if="scope.row.image"
-                      />
-                      <el-button
-                        v-else
-                        class="image-btn"
-                        icon="el-icon-plus"
-                        @click="imageSelectShow"
-                      ></el-button>
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="商家编码" width="200">
-                    <template slot-scope="scope">
-                      <edit-btn
-                        :value="scope.row.coding"
-                        :disable="scope.row.disable"
-                        @inputConfirm="
-                          inputConfirm($event, scope.$index, 'coding')
-                        "
-                      ></edit-btn>
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="售价(元)" width="110">
-                    <template slot-scope="scope">
-                      <edit-btn
-                        :value="scope.row.sellingPrice"
-                        :disable="scope.row.disable"
-                        @inputConfirm="
-                          inputConfirm($event, scope.$index, 'sellingPrice')
-                        "
-                      ></edit-btn>
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="市场价(元)" width="110">
-                    <template slot-scope="scope">
-                      <edit-btn
-                        :value="scope.row.marketPrice"
-                        :disable="scope.row.disable"
-                        @inputConfirm="
-                          inputConfirm($event, scope.$index, 'marketPrice')
-                        "
-                      ></edit-btn>
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="成本价(元)" width="110">
-                    <template slot-scope="scope">
-                      <edit-btn
-                        :value="scope.row.costPrice"
-                        :disable="scope.row.disable"
-                        @inputConfirm="
-                          inputConfirm($event, scope.$index, 'costPrice')
-                        "
-                      ></edit-btn>
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="库存" width="110">
-                    <template slot-scope="scope">
-                      <edit-btn
-                        :value="scope.row.stock"
-                        :disable="scope.row.disable"
-                        @inputConfirm="
-                          inputConfirm($event, scope.$index, 'stock')
-                        "
-                      ></edit-btn>
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="重量(kg)" width="110">
-                    <template slot-scope="scope">
-                      <edit-btn
-                        :value="scope.row.weight"
-                        :disable="scope.row.disable"
-                        @inputConfirm="
-                          inputConfirm($event, scope.$index, 'weight')
-                        "
-                      ></edit-btn>
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="体积(m³)" width="110">
-                    <template slot-scope="scope">
-                      <edit-btn
-                        :value="scope.row.volume"
-                        :disable="scope.row.disable"
-                        @inputConfirm="
-                          inputConfirm($event, scope.$index, 'volume')
-                        "
-                      ></edit-btn>
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="操作" min-width="120">
-                    <template slot-scope="scope">
-                      <el-button
-                        @click.native.prevent="clearRow(scope.$index)"
-                        type="text"
-                        size="small"
-                      >
-                        清空
-                      </el-button>
-                      <el-button
-                        @click.native.prevent="disableRow(scope.$index)"
-                        type="text"
-                        size="small"
-                        :style="{
-                          color: scope.row.disable ? '#F56C6C' : '#409EFF'
-                        }"
-                      >
-                        {{ scope.row.disable ? "启用" : "禁用" }}
-                      </el-button>
-                    </template>
-                  </el-table-column>
-                </el-table>
-              </div>
-              <div class="total-inventory">
-                <span>总库存</span>
-                <el-input
-                  v-model="totalInventory"
-                  disabled
-                  size="small"
-                ></el-input>
-              </div>
-            </div>
+            </el-form-item>
           </div>
-        </div>
-      </el-form>
+          <div>
+            <div class="title">交付设置</div>
+            <el-form-item label="配送方式">
+              <div>
+                <el-checkbox
+                  v-model="form.delivery"
+                  true-label="1"
+                  false-label="0"
+                  >商家配送</el-checkbox
+                >
+              </div>
+            </el-form-item>
+            <el-form-item
+              label="商家运费模版"
+              v-if="form.delivery === '1'"
+              prop="shipping"
+            >
+              <el-select
+                v-model="form.shipping"
+                placeholder="请选择运费模版"
+                size="small"
+              >
+                <el-option
+                  v-for="item in shippingList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+              <el-button type="text" size="small">
+                刷新
+              </el-button>
+
+              <el-button type="text" size="small">
+                新增
+              </el-button>
+            </el-form-item>
+          </div>
+        </el-form>
+      </div>
+      <classify-select
+        ref="classifySelect"
+        @confirm="classifySelectConfirm"
+      ></classify-select>
+      <image-select ref="imageSelect"></image-select>
     </div>
-    <div class="footer-btn">
+    <div class="footer-btn" slot="footer">
       <div>
-        <el-button size="medium" @click="back" plain>取消</el-button>
+        <el-button size="medium" @click="cancel" plain>取消</el-button>
         <el-button size="medium" @click="next" type="primary">下一步</el-button>
         <el-button size="medium" @click="save" type="primary">保存</el-button>
       </div>
     </div>
-    <classify-select
-      ref="classifySelect"
-      @confirm="classifySelectConfirm"
-    ></classify-select>
-    <image-select ref="imageSelect"></image-select>
-  </div>
+  </main-scroll>
 </template>
 
 <script>
@@ -444,11 +536,20 @@ import ClassifySelect from "@/components/goods/classify-select.vue";
 import BatchSetting from "@/components/goods/batch-setting.vue";
 import EditBtn from "@/components/public/edit-btn.vue";
 import ImageSelect from "@/components/public/image-select.vue";
+import MainScroll from "components/public/main-scroll.vue";
 export default {
   data() {
     var preSaleCheck = (rule, value, callback) => {
       if (value == 0) {
         return callback(new Error("预售数量不能为0"));
+      } else {
+        callback();
+      }
+    };
+
+    var goodsImageCheck = (rule, value, callback) => {
+      if (value.length === 0) {
+        return callback(new Error("需要添加产品图片"));
       } else {
         callback();
       }
@@ -464,7 +565,10 @@ export default {
         preSale: "0",
         specificationModdel: "0",
         specificationList: [],
-        stock: 0
+        stock: 0,
+        images: [],
+        videos: [],
+        delivery: "1"
       },
       //表单验证
       rules: {
@@ -476,7 +580,14 @@ export default {
           { validator: preSaleCheck, trigger: "change" },
           { required: true, message: "请输入预售数量", trigger: "blur" }
         ],
-        classify: [{ required: true, message: "必须填写", trigger: "change" }]
+        classify: [{ required: true, message: "必须填写", trigger: "change" }],
+        images: [
+          { validator: goodsImageCheck, trigger: "change" },
+          { required: true, message: "请输入预售数量", trigger: "blur" }
+        ],
+        shipping: [
+          { required: true, message: "必须选择运费模板", trigger: "change" }
+        ]
       },
       //新增规格输入值
       specificationInput: "",
@@ -487,23 +598,26 @@ export default {
       //规格属性列表
       specificationValueList: [],
       //多规格表格数据
-      moreSpecificationTableData: []
+      moreSpecificationTableData: [],
+      //运费模版列表
+      shippingList: []
     };
   },
   methods: {
     //取消该操作
-    back() {},
+    cancel() {},
     //保存表单
     save() {},
     //下一步
     next() {
-      this.$refs.form.validate(valid => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          return false;
-        }
-      });
+      // this.$refs.form.validate(valid => {
+      //   if (valid) {
+      //     alert("submit!");
+      //   } else {
+      //     return false;
+      //   }
+      // });
+      this.$router.push({ path: "/goods/expand", query: this.form });
     },
     //分类选择弹窗显示
     classifySelectShow() {
@@ -810,13 +924,18 @@ export default {
     //选择规格图片显示
     imageSelectShow() {
       this.$refs.imageSelect.show();
+    },
+    //添加产品图片
+    addGoodsImage() {
+      this.$refs.imageSelect.show();
     }
   },
   components: {
     ClassifySelect,
     BatchSetting,
     EditBtn,
-    ImageSelect
+    ImageSelect,
+    MainScroll
   },
   computed: {
     //拥有商品类目
@@ -843,7 +962,11 @@ export default {
     },
     //不同规格总库存
     totalInventory() {
-      return 0;
+      let count = 0;
+      this.moreSpecificationTableData.forEach(item => {
+        count += item.stock ? parseFloat(item.stock) : 0;
+      });
+      return count;
     }
   }
 };
@@ -895,16 +1018,33 @@ export default {
     }
   }
   .gray-bg-warpper {
-    padding-bottom: 50px;
-    & > .title {
-      text-align: left;
-      color: #595961;
-      font-size: 15px;
-      font-weight: bold;
-    }
+    background-color: #fff;
+    padding: 0;
     .el-form {
       overflow: hidden;
       margin-top: 10px;
+      & > div {
+        padding: 20px;
+        margin-bottom: 15px;
+        background-color: #f2f2f6;
+        border-radius: 5px;
+        & > .title {
+          text-align: left;
+          color: #595961;
+          font-size: 15px;
+          font-weight: bold;
+          margin-bottom: 15px;
+        }
+        &:nth-of-type(2) {
+          margin-bottom: 50px;
+          .el-select {
+            width: 300px;
+          }
+          .el-button:nth-of-type(1) {
+            margin-left: 15px;
+          }
+        }
+      }
       ::v-deep .el-form-item {
         .el-form-item__label {
           font-size: 12px;
@@ -946,6 +1086,42 @@ export default {
                 font-size: 12px;
               }
             }
+          }
+        }
+        .goods-image,
+        .goods-video {
+          ul {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            li {
+              margin-bottom: 15px;
+              background: #ffffff;
+              border: 1px dashed #e3e2e5;
+              border-radius: 4px;
+              width: 120px;
+              height: 120px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              &:nth-last-of-type(1) {
+                span {
+                  color: $secondary-text-color;
+                }
+                span:nth-of-type(1) {
+                  font-size: 20px;
+                  margin-bottom: 10px;
+                }
+                span:nth-of-type(2) {
+                  line-height: 20px;
+                }
+              }
+            }
+          }
+          & > span {
+            color: $secondary-text-color;
           }
         }
       }

@@ -24,7 +24,10 @@
     </div>
     <div class="text-warpper">
       <div class="ckeditor5-box">
-        <l-ckeditor :listShow="false"></l-ckeditor>
+        <l-ueditor
+          :content="localForm.content"
+          @editorChange="editorChange"
+        ></l-ueditor>
       </div>
     </div>
   </div>
@@ -33,7 +36,7 @@
 <script>
 import { shopComponentsRichTextInit } from "@/config/shop.js";
 import { shopFormMixins } from "mixins/shop-form-mixins.js";
-import LCkeditor from "components/public/l-ckeditor.vue";
+import LUeditor from "components/public/l-ueditor.vue";
 export default {
   mixins: [shopFormMixins],
   data() {
@@ -49,8 +52,15 @@ export default {
       default: () => {}
     }
   },
+  methods: {
+    //富文本内容改变
+    //content  富文本内容
+    editorChange(content) {
+      this.localForm.content = content;
+    }
+  },
   components: {
-    LCkeditor
+    LUeditor
   }
 };
 </script>

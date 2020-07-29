@@ -1,100 +1,104 @@
 <template>
-  <div class="shop-theme-warpper public-warpper">
-    <div class="gray-bg-warpper">
-      <div class="operating-warpper">
-        <ul>
-          <li
-            v-for="(item, index) in themeColors"
-            :key="index"
-            @click="changThemeActive(index)"
-          >
-            <div>
-              <span>{{ getThemeTitle(index) }}</span>
-              <span v-if="index === themeActive">(使用中)</span>
-            </div>
-            <div v-if="index === 5">
-              <el-color-picker v-model="item.main"></el-color-picker>
-              <el-color-picker v-model="item.secondary"></el-color-picker>
-            </div>
-            <div v-else>
-              <div :style="{ backgroundColor: item.main }"></div>
-              <div :style="{ backgroundColor: item.secondary }"></div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="show-warpper">
-        <div>
-          <img src="../../assets/images/theme_1.png" alt="" />
-          <div class="price" :style="{ color: activeMainColor }">
-            <span> ¥</span>
-            <span>800.00</span>
-          </div>
-          <div
-            class="goods-color"
-            :style="{ color: activeMainColor, borderColor: activeMainColor }"
-          >
-            <span>黄</span>
-          </div>
-
-          <div
-            class="goods-size"
-            :style="{ color: activeMainColor, borderColor: activeMainColor }"
-          >
-            <span>M</span>
-          </div>
-
-          <div class="btn">
-            <div :style="{ backgroundColor: activeSecondaryColor }">
-              <span>加入购物车</span>
-            </div>
-            <div :style="{ backgroundColor: activeMainColor }">
-              <span>立即购买</span>
-            </div>
-          </div>
+  <main-scroll>
+    <div class="shop-theme-warpper public-warpper">
+      <div class="gray-bg-warpper">
+        <div class="operating-warpper">
+          <ul>
+            <li
+              v-for="(item, index) in themeColors"
+              :key="index"
+              @click="changThemeActive(index)"
+            >
+              <div>
+                <span>{{ getThemeTitle(index) }}</span>
+                <span v-if="index === themeActive">(使用中)</span>
+              </div>
+              <div v-if="index === 5">
+                <el-color-picker v-model="item.main"></el-color-picker>
+                <el-color-picker v-model="item.secondary"></el-color-picker>
+              </div>
+              <div v-else>
+                <div :style="{ backgroundColor: item.main }"></div>
+                <div :style="{ backgroundColor: item.secondary }"></div>
+              </div>
+            </li>
+          </ul>
         </div>
-        <div>
-          <img src="../../assets/images/theme_2.png" alt="" />
-          <div class="delete" :style="{ backgroundColor: activeMainColor }">
-            <span>删除</span>
-          </div>
-          <div class="price" :style="{ color: activeMainColor }">
-            <span> ¥</span>
-            <span>800.00</span>
-          </div>
-          <div class="btn" :style="{ backgroundColor: activeMainColor }">
-            <span>去结算</span>
-          </div>
-        </div>
-        <div>
-          <img src="../../assets/images/theme_3.png" alt="" />
-          <div class="goods-price" :style="{ color: activeMainColor }">
-            <span> ¥</span>
-            <span>184.00</span>
-          </div>
+        <div class="show-warpper">
+          <div>
+            <img src="../../assets/images/theme_1.png" alt="" />
+            <div class="price" :style="{ color: activeMainColor }">
+              <span> ¥</span>
+              <span>800.00</span>
+            </div>
+            <div
+              class="goods-color"
+              :style="{ color: activeMainColor, borderColor: activeMainColor }"
+            >
+              <span>黄</span>
+            </div>
 
-          <div class="price" :style="{ color: activeMainColor }">
-            <span> ¥</span>
-            <span>170.00</span>
-          </div>
+            <div
+              class="goods-size"
+              :style="{ color: activeMainColor, borderColor: activeMainColor }"
+            >
+              <span>M</span>
+            </div>
 
-          <div class="btn" :style="{ backgroundColor: activeMainColor }">
-            <span>提交订单</span>
+            <div class="btn">
+              <div :style="{ backgroundColor: activeSecondaryColor }">
+                <span>加入购物车</span>
+              </div>
+              <div :style="{ backgroundColor: activeMainColor }">
+                <span>立即购买</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img src="../../assets/images/theme_2.png" alt="" />
+            <div class="delete" :style="{ backgroundColor: activeMainColor }">
+              <span>删除</span>
+            </div>
+            <div class="price" :style="{ color: activeMainColor }">
+              <span> ¥</span>
+              <span>800.00</span>
+            </div>
+            <div class="btn" :style="{ backgroundColor: activeMainColor }">
+              <span>去结算</span>
+            </div>
+          </div>
+          <div>
+            <img src="../../assets/images/theme_3.png" alt="" />
+            <div class="goods-price" :style="{ color: activeMainColor }">
+              <span> ¥</span>
+              <span>184.00</span>
+            </div>
+
+            <div class="price" :style="{ color: activeMainColor }">
+              <span> ¥</span>
+              <span>170.00</span>
+            </div>
+
+            <div class="btn" :style="{ backgroundColor: activeMainColor }">
+              <span>提交订单</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="footer-btn">
+
+    <div class="footer-btn" slot="footer">
       <div>
         <el-button size="medium" @click="saveTheme" type="primary"
           >保存</el-button
         >
       </div>
     </div>
-  </div>
+  </main-scroll>
 </template>
 
 <script>
+import MainScroll from "components/public/main-scroll.vue";
 export default {
   data() {
     return {
@@ -178,6 +182,9 @@ export default {
     activeSecondaryColor() {
       return this.themeColors[this.themeActive].secondary;
     }
+  },
+  components: {
+    MainScroll
   }
 };
 </script>

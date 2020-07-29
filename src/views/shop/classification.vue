@@ -1,167 +1,179 @@
 <template>
-  <div class="shop-classification-warpper public-warpper">
-    <div class="gray-bg-warpper">
-      <div class="show-warpper">
-        <img src="../../assets/images/classification_header.jpg" alt="" />
-        <div class="content">
-          <div class="classification-list">
-            <ul>
-              <li v-for="(item, index) in classificationList" :key="index">
-                <span>{{ item }}</span>
-                <div class="line"></div>
-              </li>
-            </ul>
-          </div>
-          <div class="main">
-            <div v-show="form.hasAdvertisingOne" class="advertising">
-              <img
-                :src="form.advertisingOneImage"
-                alt=""
-                v-if="form.advertisingOneImage"
-              />
-              <img src="../../assets/images/advertising.jpg" alt="" v-else />
-            </div>
-            <div class="middle-list">
+  <main-scroll>
+    <div class="shop-classification-warpper public-warpper">
+      <div class="gray-bg-warpper">
+        <div class="show-warpper">
+          <img src="../../assets/images/classification_header.jpg" alt="" />
+          <div class="content">
+            <div class="classification-list">
               <ul>
-                <li v-for="item in 9" :key="item">
-                  <img
-                    src="../../assets/images/classification_goods.jpg"
-                    alt=""
-                  />
-                  <span>{{ form.listStatus === "0" ? "商品" : "分类" }}</span>
+                <li v-for="(item, index) in classificationList" :key="index">
+                  <span>{{ item }}</span>
+                  <div class="line"></div>
                 </li>
               </ul>
             </div>
-            <div v-show="form.hasAdvertisingTwo" class="advertising">
-              <img
-                :src="form.advertisingTwoImage"
-                alt=""
-                v-if="form.advertisingTwoImage"
-              />
-              <img src="../../assets/images/advertising.jpg" alt="" v-else />
+            <div class="main">
+              <div v-show="form.hasAdvertisingOne" class="advertising">
+                <img
+                  :src="form.advertisingOneImage"
+                  alt=""
+                  v-if="form.advertisingOneImage"
+                />
+                <img src="../../assets/images/advertising.jpg" alt="" v-else />
+              </div>
+              <div class="middle-list">
+                <ul>
+                  <li v-for="item in 9" :key="item">
+                    <img
+                      src="../../assets/images/classification_goods.jpg"
+                      alt=""
+                    />
+                    <span>{{ form.listStatus === "0" ? "商品" : "分类" }}</span>
+                  </li>
+                </ul>
+              </div>
+              <div v-show="form.hasAdvertisingTwo" class="advertising">
+                <img
+                  :src="form.advertisingTwoImage"
+                  alt=""
+                  v-if="form.advertisingTwoImage"
+                />
+                <img src="../../assets/images/advertising.jpg" alt="" v-else />
+              </div>
             </div>
           </div>
+          <img src="../../assets/images/classification_footer.jpg" alt="" />
         </div>
-        <img src="../../assets/images/classification_footer.jpg" alt="" />
+        <div class="operating-warpper">
+          <el-collapse
+            accordion
+            v-model="collapseActive"
+            @change="collapseChange"
+          >
+            <el-collapse-item name="1">
+              <template slot="title">
+                <el-checkbox v-model="form.hasAdvertisingOne"></el-checkbox>
+                <span class="title">图片导航1</span>
+              </template>
+              <div class="picNavOne">
+                <div>
+                  <div class="title">
+                    <span>图片上传</span>
+                  </div>
+                  <div>
+                    <img
+                      :src="form.advertisingOne"
+                      alt
+                      v-if="form.advertisingOne"
+                    />
+                    <img
+                      src="../../assets/images/horizontalpic.png"
+                      alt
+                      v-else
+                    />
+                    <el-button plain size="small" @click="imageSelectShow"
+                      >选择图片</el-button
+                    >
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>选择链接</span>
+                  </div>
+                  <div>
+                    <el-button plain size="small" @click="selectLinkShow(1)"
+                      >选择链接</el-button
+                    >
+                    <span>{{ form.advertisingOneTitle }}</span>
+                  </div>
+                </div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item name="2">
+              <template slot="title">
+                <el-checkbox :value="true" disabled></el-checkbox>
+                <span class="title">菜单</span>
+              </template>
+              <div class="list">
+                <div>
+                  <div class="title">
+                    <span>列表选项</span>
+                  </div>
+                  <div>
+                    <el-checkbox v-model="form.listStatus" true-label="0"
+                      >商品</el-checkbox
+                    >
+                    <el-checkbox v-model="form.listStatus" true-label="1"
+                      >二级分类</el-checkbox
+                    >
+                  </div>
+                </div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item name="7">
+              <template slot="title">
+                <el-checkbox v-model="form.hasAdvertisingTwo"></el-checkbox>
+                <span class="title">图片导航2</span>
+              </template>
+              <div class="picNavTwo">
+                <div>
+                  <div class="title">
+                    <span>图片上传</span>
+                  </div>
+                  <div>
+                    <img
+                      :src="form.advertisingTwo"
+                      alt
+                      v-if="form.advertisingTwo"
+                    />
+                    <img
+                      src="../../assets/images/horizontalpic.png"
+                      alt
+                      v-else
+                    />
+                    <el-button plain size="small" @click="imageSelectShow"
+                      >选择图片</el-button
+                    >
+                  </div>
+                </div>
+                <div>
+                  <div class="title">
+                    <span>选择链接</span>
+                  </div>
+                  <div>
+                    <el-button plain size="small" @click="selectLinkShow(2)"
+                      >选择链接</el-button
+                    >
+                    <span>{{ form.advertisingTwoTitle }}</span>
+                  </div>
+                </div>
+              </div>
+            </el-collapse-item>
+          </el-collapse>
+        </div>
       </div>
-      <div class="operating-warpper">
-        <el-collapse
-          accordion
-          v-model="collapseActive"
-          @change="collapseChange"
-        >
-          <el-collapse-item name="1">
-            <template slot="title">
-              <el-checkbox v-model="form.hasAdvertisingOne"></el-checkbox>
-              <span class="title">图片导航1</span>
-            </template>
-            <div class="picNavOne">
-              <div>
-                <div class="title">
-                  <span>图片上传</span>
-                </div>
-                <div>
-                  <img
-                    :src="form.advertisingOne"
-                    alt
-                    v-if="form.advertisingOne"
-                  />
-                  <img src="../../assets/images/horizontalpic.png" alt v-else />
-                  <el-button plain size="small" @click="imageSelectShow"
-                    >选择图片</el-button
-                  >
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>选择链接</span>
-                </div>
-                <div>
-                  <el-button plain size="small" @click="selectLinkShow(1)"
-                    >选择链接</el-button
-                  >
-                  <span>{{ form.advertisingOneTitle }}</span>
-                </div>
-              </div>
-            </div>
-          </el-collapse-item>
-          <el-collapse-item name="2">
-            <template slot="title">
-              <el-checkbox :value="true" disabled></el-checkbox>
-              <span class="title">菜单</span>
-            </template>
-            <div class="list">
-              <div>
-                <div class="title">
-                  <span>列表选项</span>
-                </div>
-                <div>
-                  <el-checkbox v-model="form.listStatus" true-label="0"
-                    >商品</el-checkbox
-                  >
-                  <el-checkbox v-model="form.listStatus" true-label="1"
-                    >二级分类</el-checkbox
-                  >
-                </div>
-              </div>
-            </div>
-          </el-collapse-item>
-          <el-collapse-item name="7">
-            <template slot="title">
-              <el-checkbox v-model="form.hasAdvertisingTwo"></el-checkbox>
-              <span class="title">图片导航2</span>
-            </template>
-            <div class="picNavTwo">
-              <div>
-                <div class="title">
-                  <span>图片上传</span>
-                </div>
-                <div>
-                  <img
-                    :src="form.advertisingTwo"
-                    alt
-                    v-if="form.advertisingTwo"
-                  />
-                  <img src="../../assets/images/horizontalpic.png" alt v-else />
-                  <el-button plain size="small" @click="imageSelectShow"
-                    >选择图片</el-button
-                  >
-                </div>
-              </div>
-              <div>
-                <div class="title">
-                  <span>选择链接</span>
-                </div>
-                <div>
-                  <el-button plain size="small" @click="selectLinkShow(2)"
-                    >选择链接</el-button
-                  >
-                  <span>{{ form.advertisingTwoTitle }}</span>
-                </div>
-              </div>
-            </div>
-          </el-collapse-item>
-        </el-collapse>
-      </div>
+      <image-select ref="imageSelect"></image-select>
+      <page-link-select
+        ref="pageLinkSelect"
+        @confirm="selectLinkConfirm"
+      ></page-link-select>
     </div>
-    <div class="footer-btn">
+    <div class="footer-btn" slot="footer">
       <div>
         <el-button size="medium" @click="saveClassification" type="primary"
           >保存</el-button
         >
       </div>
     </div>
-    <image-select ref="imageSelect"></image-select>
-    <page-link-select
-      ref="pageLinkSelect"
-      @confirm="selectLinkConfirm"
-    ></page-link-select>
-  </div>
+  </main-scroll>
 </template>
 
 <script>
+import MainScroll from "components/public/main-scroll.vue";
 import PageLinkSelect from "@/components/public/page-link-select.vue";
 import ImageSelect from "@/components/public/image-select.vue";
+
 export default {
   data() {
     return {
@@ -242,7 +254,8 @@ export default {
   },
   components: {
     ImageSelect,
-    PageLinkSelect
+    PageLinkSelect,
+    MainScroll
   }
 };
 </script>
@@ -253,6 +266,7 @@ export default {
   .gray-bg-warpper {
     display: flex;
     justify-content: center;
+    padding-bottom: 50px;
     .show-warpper {
       width: 375px;
       display: flex;

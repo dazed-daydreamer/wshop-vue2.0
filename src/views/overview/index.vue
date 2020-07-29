@@ -1,7 +1,7 @@
 <template>
-  <div class="overview-warpper">
+  <el-scrollbar class="overview-warpper" tag="div">
     <div class="statistics-warpper">
-      <div class="handle">
+      <div class="handle-event">
         <ul class="cu-list">
           <li v-for="(item, index) in handleArr" :key="index" class="cu-item">
             <span>{{ item.count }}</span>
@@ -49,7 +49,7 @@
         </ul>
       </div>
     </div>
-  </div>
+  </el-scrollbar>
 </template>
 
 <script>
@@ -146,171 +146,174 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  .statistics-warpper {
-    padding: 0px 10px;
-    display: flex;
-    margin-top: 5px;
-    .handle {
-      margin-right: 10px;
-      flex: 1;
-      background-color: #ffffff;
-      box-shadow: $shadow;
-      border-radius: 5px;
-      height: 190px;
-      .cu-list {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        margin: 0;
-        .cu-item {
-          flex: 1;
+  ::v-deep .el-scrollbar__wrap {
+    overflow-x: hidden;
+    .statistics-warpper {
+      padding: 0px 10px;
+      display: flex;
+      margin-top: 10px;
+      .handle-event {
+        margin-right: 10px;
+        flex: 1;
+        background-color: #ffffff;
+        box-shadow: $shadow;
+        border-radius: 5px;
+        height: 190px;
+        .cu-list {
           display: flex;
+          align-items: center;
+          height: 100%;
+          margin: 0;
+          .cu-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            span:nth-of-type(1) {
+              margin-bottom: 10px;
+              color: $theme-color;
+              font-weight: bold;
+              font-size: 28px;
+            }
+            span:nth-of-type(2) {
+              font-size: 15px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+      .bindings {
+        width: 500px;
+        background-color: #ffffff;
+        height: 190px;
+        border-radius: 5px;
+        box-shadow: $shadow;
+        .no-bindings {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
           flex-direction: column;
           justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          span:nth-of-type(1) {
-            margin-bottom: 10px;
-            color: $theme-color;
-            font-weight: bold;
-            font-size: 28px;
-          }
-          span:nth-of-type(2) {
-            font-size: 15px;
-            font-weight: bold;
-          }
-        }
-      }
-    }
-    .bindings {
-      width: 500px;
-      background-color: #ffffff;
-      height: 190px;
-      border-radius: 5px;
-      box-shadow: $shadow;
-      .no-bindings {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-        span {
-          font-size: 14px;
-        }
-        button {
-          margin-top: 15px;
-          background-color: $theme-color;
-        }
-      }
-    }
-  }
-  .function-warpper {
-    height: 180px;
-    margin: 15px 10px;
-    background-color: #ffffff;
-    box-shadow: $shadow;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 0px 30px;
-    .title {
-      margin-top: 20px;
-      font-size: 15px;
-      font-weight: bold;
-    }
-    .cu-list {
-      margin-top: 30px;
-      display: flex;
-      .cu-item {
-        margin-right: 8vw;
-        .icon-warpper {
-          width: 65px;
-          height: 65px;
-          line-height: 65px;
-          text-align: center;
-          background-color: $theme-color;
-          border-radius: 5px;
           span {
-            color: #ffffff;
-            font-size: 25px;
+            font-size: 14px;
           }
-        }
-        .nav-title {
-          margin-top: 10px;
-          font-size: 14px;
+          button {
+            margin-top: 15px;
+            background-color: $theme-color;
+          }
         }
       }
     }
-  }
-
-  .marketing-warpper {
-    height: 380px;
-    margin: 15px 10px;
-    background-color: #ffffff;
-    box-shadow: $shadow;
-    padding: 0px 30px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    .title {
-      margin-top: 20px;
-      font-size: 15px;
-      font-weight: bold;
-    }
-    .cu-warpper {
-      width: 100%;
+    .function-warpper {
+      height: 180px;
+      margin: 15px 10px;
+      background-color: #ffffff;
+      box-shadow: $shadow;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 0px 30px;
+      .title {
+        margin-top: 20px;
+        font-size: 15px;
+        font-weight: bold;
+      }
       .cu-list {
-        width: 100%;
+        margin-top: 30px;
         display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-        cursor: pointer;
         .cu-item {
-          margin: 25px 0px;
-          width: 27%;
-          border: 1px solid #dcdfe6;
-          height: 100px;
-          border-radius: 5px;
-          display: flex;
-          align-items: center;
+          margin-right: 8vw;
           .icon-warpper {
             width: 65px;
             height: 65px;
-            flex-shrink: 0;
-            margin: 0px 15px;
-            border-radius: 5px;
             line-height: 65px;
             text-align: center;
-            background-color: #fc7d99;
+            background-color: $theme-color;
+            border-radius: 5px;
             span {
               color: #ffffff;
               font-size: 25px;
             }
           }
           .nav-title {
+            margin-top: 10px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .marketing-warpper {
+      height: 380px;
+      margin: 15px 10px;
+      background-color: #ffffff;
+      box-shadow: $shadow;
+      padding: 0px 30px;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      .title {
+        margin-top: 20px;
+        font-size: 15px;
+        font-weight: bold;
+      }
+      .cu-warpper {
+        width: 100%;
+        .cu-list {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around;
+          align-items: center;
+          cursor: pointer;
+          .cu-item {
+            margin: 25px 0px;
+            width: 27%;
+            border: 1px solid #dcdfe6;
+            height: 100px;
+            border-radius: 5px;
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            flex: 1;
-            width: 0;
-            span {
-              font-size: 15px;
-              text-align: left;
+            align-items: center;
+            .icon-warpper {
+              width: 65px;
+              height: 65px;
+              flex-shrink: 0;
+              margin: 0px 15px;
+              border-radius: 5px;
+              line-height: 65px;
+              text-align: center;
+              background-color: #fc7d99;
+              span {
+                color: #ffffff;
+                font-size: 25px;
+              }
             }
-            span:nth-of-type(2) {
-              width: 100%;
-              font-size: 13px;
-              margin-top: 15px;
-              color: $secondary-text-color;
-              text-overflow: ellipsis;
-              overflow: hidden;
-              white-space: nowrap;
+            .nav-title {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              flex: 1;
+              width: 0;
+              span {
+                font-size: 15px;
+                text-align: left;
+              }
+              span:nth-of-type(2) {
+                width: 100%;
+                font-size: 13px;
+                margin-top: 15px;
+                color: $secondary-text-color;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+              }
             }
           }
         }

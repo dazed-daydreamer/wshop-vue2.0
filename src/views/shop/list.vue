@@ -1,39 +1,42 @@
 <template>
-  <div class="shop-list-warpper public-warpper">
-    <div class="gray-bg-warpper">
-      <div class="show-warpper">
-        <img
-          src="../../assets/images/listTpl.png"
-          v-if="listStatus == 0"
-          alt=""
-        />
-        <img src="../../assets/images/listTpl_2.png" v-else alt="" />
-      </div>
-      <div class="operating-warpper">
-        <div>
-          <div class="title">显示设置</div>
-          <div class="show">
-            <div>
-              <el-checkbox v-model="listStatus">大图显示</el-checkbox>
-            </div>
-            <div>
-              <el-checkbox v-model="listSales">商品销量</el-checkbox>
+  <main-scroll>
+    <div class="shop-list-warpper public-warpper">
+      <div class="gray-bg-warpper">
+        <div class="show-warpper">
+          <img
+            src="../../assets/images/listTpl.png"
+            v-if="listStatus == 0"
+            alt=""
+          />
+          <img src="../../assets/images/listTpl_2.png" v-else alt="" />
+        </div>
+        <div class="operating-warpper">
+          <div>
+            <div class="title">显示设置</div>
+            <div class="show">
+              <div>
+                <el-checkbox v-model="listStatus">大图显示</el-checkbox>
+              </div>
+              <div>
+                <el-checkbox v-model="listSales">商品销量</el-checkbox>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="footer-btn">
+    <div class="footer-btn" slot="footer">
       <div>
         <el-button size="medium" @click="saveList" type="primary"
           >保存</el-button
         >
       </div>
     </div>
-  </div>
+  </main-scroll>
 </template>
 
 <script>
+import MainScroll from "components/public/main-scroll.vue";
 import { getPagelistStencil } from "@/api/http.js";
 export default {
   data() {
@@ -61,6 +64,9 @@ export default {
         type: "success"
       });
     }
+  },
+  components: {
+    MainScroll
   }
 };
 </script>

@@ -1,166 +1,298 @@
 <template>
-  <div class="goods-all-warpper public-warpper">
-    <div class="gray-bg-warpper">
-      <div class="search-header">
-        <div>
+  <main-scroll>
+    <div class="goods-all-warpper public-warpper">
+      <div class="gray-bg-warpper">
+        <div class="search-header">
           <div>
-            <el-select
-              v-model="keyWorkTypeActive"
-              placeholder="请选择"
-              size="small"
-            >
-              <el-option
-                v-for="(item, index) in keyWorkTypes"
+            <div>
+              <el-select
+                v-model="keyWorkTypeActive"
+                placeholder="请选择"
+                size="small"
+              >
+                <el-option
+                  v-for="(item, index) in keyWorkTypes"
+                  :key="index"
+                  :label="item"
+                  :value="index"
+                >
+                </el-option>
+              </el-select>
+
+              <el-input
+                placeholder="请输入内容"
+                v-model="keyWork"
+                class="input-with-select"
+                size="small"
+              >
+                <el-button
+                  slot="append"
+                  icon="el-icon-search"
+                  @click="keyWorkSearch"
+                ></el-button>
+              </el-input>
+            </div>
+            <div>
+              <el-button plain size="small" @click="show">高级筛选</el-button>
+            </div>
+          </div>
+          <div>
+            <span>商品标签</span>
+            <div>
+              <div>
+                <el-tag
+                  size="medium"
+                  :type="labelFilterList.length === 0 ? '' : 'info'"
+                  >不限</el-tag
+                >
+              </div>
+              <div>
+                <ul>
+                  <li v-for="(item, index) in labelFilterList" :key="index">
+                    <el-tag closable @close="deleTelabelFilterItem(index)">
+                      {{ item.label }}
+                    </el-tag>
+                  </li>
+                </ul>
+                <el-button plain size="small" @click="labelSelectShow"
+                  >添加标签</el-button
+                >
+              </div>
+            </div>
+          </div>
+          <div class="more" v-show="!headeMoreSearchShow">
+            <ul>
+              <li v-show="productTypeShow">
+                <span>商品类型:</span>
+                <span>{{ productTypeSelectName }}</span>
+              </li>
+              <li v-show="searchMoreForm.salesModel != '0'">
+                <span>销售模式:</span>
+                <span>{{
+                  salesModel[parseInt(searchMoreForm.salesModel)]
+                }}</span>
+              </li>
+              <li v-show="searchMoreForm.productStatus != '0'">
+                <span>商品状态:</span>
+                <span>{{
+                  productStatus[parseInt(searchMoreForm.productStatus)]
+                }}</span>
+              </li>
+              <li v-show="searchMoreForm.date != ''">
+                <span>商品上下架时间:</span>
+                <span>{{ porductDateName }}</span>
+              </li>
+              <li
+                v-show="
+                  searchMoreForm.priceLowest != '' ||
+                    searchMoreForm.priceHighest != ''
+                "
+              >
+                <span>商品价格区间:</span>
+                <span>{{ porductPriceName }}</span>
+              </li>
+
+              <li v-show="searchMoreForm.group != '0'">
+                <span>商品分组:</span>
+                <span>{{ productGroup[parseInt(searchMoreForm.group)] }}</span>
+              </li>
+            </ul>
+            <div @click="cleanMore" class="clean">
+              <span>清空高级筛选</span>
+            </div>
+          </div>
+          <div>
+            <span>快捷操作</span>
+            <div>
+              <el-button plain size="small" @click="productPageShow()"
+                >新增商品</el-button
+              >
+              <el-button plain size="small">批量上架</el-button>
+              <el-button plain size="small">批量下架</el-button>
+              <el-button plain size="small">导出</el-button>
+            </div>
+          </div>
+        </div>
+        <div class="product-table">
+          <el-table
+            :data="productList"
+            style="width: 100%"
+            stripe
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column type="selection" width="55"> </el-table-column>
+            <el-table-column prop="title" label="商品名称"> </el-table-column>
+            <el-table-column prop="price" label="价格" width="120" sortable>
+            </el-table-column>
+            <el-table-column prop="stock" label="库存" width="100" sortable>
+            </el-table-column>
+            <el-table-column prop="sales" label="销量" width="120" sortable>
+            </el-table-column>
+            <el-table-column prop="date" label="上架时间" width="160" sortable>
+            </el-table-column>
+            <el-table-column label="上架状态" width="120">
+              <template slot-scope="scope">
+                <span>{{ scope.row.status === "0" ? "下架" : "上架" }}</span>
+                <el-switch
+                  v-model="scope.row.status"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                  active-value="1"
+                  inactive-value="0"
+                >
+                </el-switch>
+              </template>
+            </el-table-column>
+            <el-table-column prop="sort" label="排序" width="90" sortable>
+            </el-table-column>
+            <el-table-column label="操作" width="200">
+              <template slot-scope="scope">
+                <el-button
+                  size="mini"
+                  @click="handleEdit(scope.$index, scope.row)"
+                  type="primary"
+                  >编辑</el-button
+                >
+                <el-button
+                  size="mini"
+                  @click="handleCope(scope.$index, scope.row)"
+                  >复制</el-button
+                >
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
+      <el-dialog
+        :visible.sync="searchMoreDialogVisible"
+        width="740px"
+        :before-close="hide"
+        class="search-more-dialog"
+        append-to-body
+      >
+        <div slot="title">
+          <span>高级筛选</span>
+        </div>
+        <div>
+          <div class="type">
+            <div class="title">
+              商品类型
+            </div>
+            <ul>
+              <li
+                v-for="(item, index) in productType"
                 :key="index"
-                :label="item"
-                :value="index"
+                @click="searchMoreFormChange(index, 'productType')"
+                :class="{
+                  active: getProductTypeActive(index)
+                }"
               >
-              </el-option>
-            </el-select>
-
-            <el-input
-              placeholder="请输入内容"
-              v-model="keyWork"
-              class="input-with-select"
-              size="small"
-            >
-              <el-button
-                slot="append"
-                icon="el-icon-search"
-                @click="keyWorkSearch"
-              ></el-button>
-            </el-input>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
           </div>
-          <div>
-            <el-button plain size="small" @click="show">高级筛选</el-button>
-          </div>
-        </div>
-        <div>
-          <span>商品标签</span>
-          <div>
-            <div>
-              <el-tag
-                size="medium"
-                :type="labelFilterList.length === 0 ? '' : 'info'"
-                >不限</el-tag
-              >
+          <div class="mode">
+            <div class="title">
+              销售模式
             </div>
-            <div>
-              <ul>
-                <li v-for="(item, index) in labelFilterList" :key="index">
-                  <el-tag closable @close="deleTelabelFilterItem(index)">
-                    {{ item.label }}
-                  </el-tag>
-                </li>
-              </ul>
-              <el-button plain size="small" @click="labelSelectShow"
-                >添加标签</el-button
+            <ul>
+              <li
+                v-for="(item, index) in salesModel"
+                :key="index"
+                @click="searchMoreFormChange(index, 'salesModel')"
+                :class="{
+                  active: index === parseInt(temSearchMoreForm.salesModel)
+                }"
               >
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="status">
+            <div class="title">
+              商品状态
             </div>
+            <ul>
+              <li
+                v-for="(item, index) in productStatus"
+                :key="index"
+                @click="searchMoreFormChange(index, 'productStatus')"
+                :class="{
+                  active: index === parseInt(temSearchMoreForm.productStatus)
+                }"
+              >
+                <span>{{ item }}</span>
+              </li>
+            </ul>
           </div>
-        </div>
-        <div class="more" v-show="!headeMoreSearchShow">
-          <ul>
-            <li v-show="productTypeShow">
-              <span>商品类型:</span>
-              <span>{{ productTypeSelectName }}</span>
-            </li>
-            <li v-show="searchMoreForm.salesModel != '0'">
-              <span>销售模式:</span>
-              <span>{{ salesModel[parseInt(searchMoreForm.salesModel)] }}</span>
-            </li>
-            <li v-show="searchMoreForm.productStatus != '0'">
-              <span>商品状态:</span>
-              <span>{{
-                productStatus[parseInt(searchMoreForm.productStatus)]
-              }}</span>
-            </li>
-            <li v-show="searchMoreForm.date != ''">
-              <span>商品上下架时间:</span>
-              <span>{{ porductDateName }}</span>
-            </li>
-            <li
-              v-show="
-                searchMoreForm.priceLowest != '' ||
-                  searchMoreForm.priceHighest != ''
-              "
-            >
-              <span>商品价格区间:</span>
-              <span>{{ porductPriceName }}</span>
-            </li>
+          <div class="info">
+            <div class="title">
+              商品信息
+            </div>
+            <ul>
+              <li>
+                <span>商品上下架时间</span>
+                <el-date-picker
+                  v-model="temSearchMoreForm.date"
+                  type="daterange"
+                  align="right"
+                  unlink-panels
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  :picker-options="pickerOptions"
+                  size="small"
+                >
+                </el-date-picker>
+              </li>
+              <li>
+                <span>商品价格区间</span>
+                <div>
+                  <el-input
+                    placeholder="最低价格"
+                    v-model="temSearchMoreForm.priceLowest"
+                    size="small"
+                  >
+                    <template slot="append">元</template>
+                  </el-input>
+                  <span>-</span>
+                  <el-input
+                    placeholder="最高价格"
+                    v-model="temSearchMoreForm.priceHighest"
+                    size="small"
+                  >
+                    <template slot="append">元</template>
+                  </el-input>
+                </div>
+              </li>
 
-            <li v-show="searchMoreForm.group != '0'">
-              <span>商品分组:</span>
-              <span>{{ productGroup[parseInt(searchMoreForm.group)] }}</span>
-            </li>
-          </ul>
-          <div @click="cleanMore" class="clean">
-            <span>清空高级筛选</span>
+              <li>
+                <span>商品分组 </span>
+                <el-select
+                  v-model="temSearchMoreForm.group"
+                  placeholder="请选择"
+                  size="small"
+                >
+                  <el-option
+                    v-for="(item, index) in productGroup"
+                    :key="index"
+                    :label="item"
+                    :value="`${index}`"
+                  >
+                  </el-option>
+                </el-select>
+              </li>
+            </ul>
           </div>
         </div>
-        <div>
-          <span>快捷操作</span>
-          <div>
-            <el-button plain size="small" @click="productPageShow()"
-              >新增商品</el-button
-            >
-            <el-button plain size="small">批量上架</el-button>
-            <el-button plain size="small">批量下架</el-button>
-            <el-button plain size="small">导出</el-button>
-          </div>
-        </div>
-      </div>
-      <div class="product-table">
-        <el-table
-          :data="productList"
-          style="width: 100%"
-          stripe
-          @selection-change="handleSelectionChange"
-        >
-          <el-table-column type="selection" width="55"> </el-table-column>
-          <el-table-column prop="title" label="商品名称"> </el-table-column>
-          <el-table-column prop="price" label="价格" width="120" sortable>
-          </el-table-column>
-          <el-table-column prop="stock" label="库存" width="100" sortable>
-          </el-table-column>
-          <el-table-column prop="sales" label="销量" width="120" sortable>
-          </el-table-column>
-          <el-table-column prop="date" label="上架时间" width="160" sortable>
-          </el-table-column>
-          <el-table-column label="上架状态" width="120">
-            <template slot-scope="scope">
-              <span>{{ scope.row.status === "0" ? "下架" : "上架" }}</span>
-              <el-switch
-                v-model="scope.row.status"
-                active-color="#13ce66"
-                inactive-color="#ff4949"
-                active-value="1"
-                inactive-value="0"
-              >
-              </el-switch>
-            </template>
-          </el-table-column>
-          <el-table-column prop="sort" label="排序" width="90" sortable>
-          </el-table-column>
-          <el-table-column label="操作" width="200">
-            <template slot-scope="scope">
-              <el-button
-                size="mini"
-                @click="handleEdit(scope.$index, scope.row)"
-                type="primary"
-                >编辑</el-button
-              >
-              <el-button
-                size="mini"
-                @click="handleCope(scope.$index, scope.row)"
-                >复制</el-button
-              >
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="hide">取 消</el-button>
+          <el-button type="primary" @click="saveMoreSearch">确 定</el-button>
+        </span>
+      </el-dialog>
+      <label-select ref="labelSelect" @confirm="labelConfirm"></label-select>
     </div>
-    <div class="footer-btn">
+    <div class="footer-btn" slot="footer">
       <div>
         <span>已选0条,共2条,当前为第1页</span>
         <el-pagination
@@ -172,139 +304,12 @@
         </el-pagination>
       </div>
     </div>
-    <el-dialog
-      :visible.sync="searchMoreDialogVisible"
-      width="740px"
-      :before-close="hide"
-      class="search-more-dialog"
-      append-to-body
-    >
-      <div slot="title">
-        <span>高级筛选</span>
-      </div>
-      <div>
-        <div class="type">
-          <div class="title">
-            商品类型
-          </div>
-          <ul>
-            <li
-              v-for="(item, index) in productType"
-              :key="index"
-              @click="searchMoreFormChange(index, 'productType')"
-              :class="{
-                active: getProductTypeActive(index)
-              }"
-            >
-              <span>{{ item }}</span>
-            </li>
-          </ul>
-        </div>
-        <div class="mode">
-          <div class="title">
-            销售模式
-          </div>
-          <ul>
-            <li
-              v-for="(item, index) in salesModel"
-              :key="index"
-              @click="searchMoreFormChange(index, 'salesModel')"
-              :class="{
-                active: index === parseInt(temSearchMoreForm.salesModel)
-              }"
-            >
-              <span>{{ item }}</span>
-            </li>
-          </ul>
-        </div>
-        <div class="status">
-          <div class="title">
-            商品状态
-          </div>
-          <ul>
-            <li
-              v-for="(item, index) in productStatus"
-              :key="index"
-              @click="searchMoreFormChange(index, 'productStatus')"
-              :class="{
-                active: index === parseInt(temSearchMoreForm.productStatus)
-              }"
-            >
-              <span>{{ item }}</span>
-            </li>
-          </ul>
-        </div>
-        <div class="info">
-          <div class="title">
-            商品信息
-          </div>
-          <ul>
-            <li>
-              <span>商品上下架时间</span>
-              <el-date-picker
-                v-model="temSearchMoreForm.date"
-                type="daterange"
-                align="right"
-                unlink-panels
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                :picker-options="pickerOptions"
-                size="small"
-              >
-              </el-date-picker>
-            </li>
-            <li>
-              <span>商品价格区间</span>
-              <div>
-                <el-input
-                  placeholder="最低价格"
-                  v-model="temSearchMoreForm.priceLowest"
-                  size="small"
-                >
-                  <template slot="append">元</template>
-                </el-input>
-                <span>-</span>
-                <el-input
-                  placeholder="最高价格"
-                  v-model="temSearchMoreForm.priceHighest"
-                  size="small"
-                >
-                  <template slot="append">元</template>
-                </el-input>
-              </div>
-            </li>
-
-            <li>
-              <span>商品分组 </span>
-              <el-select
-                v-model="temSearchMoreForm.group"
-                placeholder="请选择"
-                size="small"
-              >
-                <el-option
-                  v-for="(item, index) in productGroup"
-                  :key="index"
-                  :label="item"
-                  :value="`${index}`"
-                >
-                </el-option>
-              </el-select>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="hide">取 消</el-button>
-        <el-button type="primary" @click="saveMoreSearch">确 定</el-button>
-      </span>
-    </el-dialog>
-    <label-select ref="labelSelect" @confirm="labelConfirm"></label-select>
-  </div>
+  </main-scroll>
 </template>
 
 <script>
 import LabelSelect from "@/components/public/label-select.vue";
+import MainScroll from "components/public/main-scroll.vue";
 import { publicMixins } from "@/mixins/public-mixins.js";
 export default {
   mixins: [publicMixins],
@@ -556,7 +561,8 @@ export default {
     }
   },
   components: {
-    LabelSelect
+    LabelSelect,
+    MainScroll
   },
   computed: {
     //显示商品类型状态数值
@@ -733,24 +739,24 @@ export default {
       }
     }
   }
-  .footer-btn {
-    & > div {
-      display: flex;
-      padding: 0px 10px;
-      justify-content: space-between;
-      align-items: center;
-      & > span {
-        font-size: 13px;
-        color: $secondary-text-color;
-      }
-      ::v-deep {
-        .el-pagination {
+}
+.footer-btn {
+  & > div {
+    display: flex;
+    padding: 0px 10px;
+    justify-content: space-between;
+    align-items: center;
+    & > span {
+      font-size: 13px;
+      color: $secondary-text-color;
+    }
+    ::v-deep {
+      .el-pagination {
+        display: flex;
+        align-items: center;
+        ul {
           display: flex;
           align-items: center;
-          ul {
-            display: flex;
-            align-items: center;
-          }
         }
       }
     }
