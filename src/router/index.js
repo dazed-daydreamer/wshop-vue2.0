@@ -131,13 +131,13 @@ const routes = [
         component: () => import("@/views/goods/index.vue")
       },
       {
-        path: "/goods/group",
+        path: "/goods/classify",
         meta: {
-          title: "商品分组",
+          title: "商品分类",
           group: "商品管理"
         },
-        name: "goodsGroup",
-        component: () => import("@/views/goods/group.vue")
+        name: "goodsClassify",
+        component: () => import("@/views/goods/classify.vue")
       },
       {
         path: "/goods/label",

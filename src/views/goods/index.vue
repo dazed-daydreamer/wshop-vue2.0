@@ -39,7 +39,7 @@
           <div>
             <span>商品标签</span>
             <div>
-              <div>
+              <div @click="removeAllLabelFilterList">
                 <el-tag
                   size="medium"
                   :type="labelFilterList.length === 0 ? '' : 'info'"
@@ -558,6 +558,10 @@ export default {
       } else {
         this.$router.replace({ name: "goodsInfo" });
       }
+    },
+    //清除所有商品标签搜索
+    removeAllLabelFilterList() {
+      this.labelFilterList = [];
     }
   },
   components: {
@@ -661,7 +665,8 @@ export default {
             margin-left: 10px;
             margin-right: 15px;
             .el-tag {
-              width: 100px;
+              cursor: pointer;
+              width: 80px;
             }
           }
           & > div:nth-of-type(2) {

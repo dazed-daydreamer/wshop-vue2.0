@@ -34,7 +34,7 @@
                 type="text"
                 size="small"
                 class="mar-left-15"
-                @click="addGroup"
+                @click="addClassify"
               >
                 新增分类
               </el-button>
@@ -165,7 +165,7 @@
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="classifyHandleClose" size="small">取 消</el-button>
-          <el-button type="primary" @click="addGroupConfirm" size="small"
+          <el-button type="primary" @click="addClassifyConfirm" size="small"
             >确 定</el-button
           >
         </span>
@@ -290,7 +290,7 @@ export default {
     //商品分组选择
     classifyHandleSelect() {},
     //新增分组
-    addGroup() {
+    addClassify() {
       this.classifyForm = {
         level: "1",
         show: "1"
@@ -303,7 +303,7 @@ export default {
       this.classifyDialogVisible = false;
     },
     //新增分组确认
-    addGroupConfirm() {
+    addClassifyConfirm() {
       this.$refs.classifyForm.validate(valid => {
         if (valid) {
           alert("submit!");

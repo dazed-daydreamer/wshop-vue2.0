@@ -31,6 +31,18 @@ ul {
   }
 }
 
+.el-image {
+  .image-slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: #f5f7fa;
+    color: #909399;
+  }
+}
+
 .gray-bg-warpper {
   background-color: #f2f2f6;
   margin: 10px;
