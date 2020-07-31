@@ -148,15 +148,15 @@ const routes = [
         name: "goodsLabel",
         component: () => import("@/views/goods/label.vue")
       },
-      {
-        path: "/goods/template",
-        meta: {
-          title: "商详模板",
-          group: "商品管理"
-        },
-        name: "goodsTemplate",
-        component: () => import("@/views/goods/template.vue")
-      },
+      // {
+      //   path: "/goods/template",
+      //   meta: {
+      //     title: "商详模板",
+      //     group: "商品管理"
+      //   },
+      //   name: "goodsTemplate",
+      //   component: () => import("@/views/goods/template.vue")
+      // },
       {
         path: "/goods/property",
         meta: {
