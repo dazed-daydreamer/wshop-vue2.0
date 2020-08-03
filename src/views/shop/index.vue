@@ -13,7 +13,11 @@
       <div class="page-list-warpeer gray-bg-warpper">
         <div class="top-wapper">
           <div class="btn-warpper">
-            <el-select v-model="filterForm.listType" placeholder="请选择">
+            <el-select
+              v-model="filterForm.listType"
+              placeholder="请选择"
+              size="small"
+            >
               <el-option
                 v-for="item in typeSelect"
                 :key="item.id"
@@ -21,11 +25,15 @@
                 :value="item.id"
               ></el-option>
             </el-select>
-            <el-button plain>批量删除</el-button>
-            <el-button plain>修改分享信息</el-button>
+            <el-button plain size="small">批量删除</el-button>
+            <el-button plain size="small">修改分享信息</el-button>
           </div>
           <div class="search-warpper">
-            <el-input placeholder="请输入内容" v-model="filterForm.keyword">
+            <el-input
+              placeholder="请输入内容"
+              v-model="filterForm.keyword"
+              size="small"
+            >
               <template slot="append">
                 <div @click="search">搜索</div>
               </template>
@@ -68,15 +76,18 @@
             </el-table-column>
           </el-table>
         </div>
-        <div class="page-warpper">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page.sync="page"
-            :page-size="100"
-            layout="total, prev, pager, next,jumper"
-            :total="1000"
-          ></el-pagination>
-        </div>
+      </div>
+    </div>
+    <div class="footer-btn footer-page" slot="footer">
+      <div>
+        <span>已选0条,共2条,当前为第1页</span>
+        <el-pagination
+          background
+          :page-size="100"
+          layout="prev, pager, next, jumper"
+          :total="1000"
+        >
+        </el-pagination>
       </div>
     </div>
   </main-scroll>
@@ -174,14 +185,13 @@ export default {
   }
   .page-list-warpeer {
     .top-wapper {
-      height: 70px;
       border-radius: 5px;
       background-color: #fff;
       margin-top: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0px 15px;
+      padding: 20px;
       button {
         margin-left: 15px;
       }
@@ -194,7 +204,7 @@ export default {
   }
 
   .table-warpper {
-    margin-top: 30px;
+    margin-top: 20px;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: $shadow;
@@ -206,19 +216,6 @@ export default {
         margin-right: 14px;
         color: $theme-color;
       }
-    }
-  }
-
-  .page-warpper {
-    height: 60px;
-    margin-top: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    .el-pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 60px;
     }
   }
 }

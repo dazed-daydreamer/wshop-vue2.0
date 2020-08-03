@@ -367,7 +367,6 @@ export default {
 @import "@/styles/theme.scss";
 .product-classify-warpper {
   .gray-bg-warpper {
-    padding-bottom: 40px;
     .draggable-header {
       height: 48px;
       background-color: #fff;

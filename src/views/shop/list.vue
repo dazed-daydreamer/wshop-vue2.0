@@ -78,7 +78,7 @@ export default {
     display: flex;
     justify-content: center;
     padding-top: 40px;
-    padding-bottom: 60px;
+    padding-bottom: 20px;
     .show-warpper {
       img {
         width: 355px;

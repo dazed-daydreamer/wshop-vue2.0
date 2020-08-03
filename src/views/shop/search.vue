@@ -223,12 +223,12 @@ export default {
 .shop-search-warpper {
   .gray-bg-warpper {
     text-align: left;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
     padding-top: 20px;
     & > .header {
       margin-top: 15px;
       span {
-        font-size: 13px;
+        font-size: 12px;
       }
       span:nth-of-type(1) {
         padding: 0px 20px;
@@ -236,12 +236,16 @@ export default {
       .el-button {
         margin-right: 20px;
       }
+      span:nth-of-type(2) {
+        font-size: 12px;
+        color: $secondary-text-color;
+      }
     }
     .search-list {
       width: 550px;
       border-radius: 5px;
       margin-top: 10px;
-      margin-left: 94px;
+      margin-left: 88px;
       background-color: #fff;
       border: 1px solid #dcdfe6;
       .list-header {

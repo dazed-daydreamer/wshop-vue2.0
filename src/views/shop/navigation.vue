@@ -283,7 +283,6 @@ export default {
 .shop-navigation-warpper {
   .gray-bg-warpper {
     display: flex;
-    padding-bottom: 50px;
     padding-top: 40px;
     justify-content: center;
     .show-warpper {

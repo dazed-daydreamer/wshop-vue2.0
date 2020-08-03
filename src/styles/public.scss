@@ -9,11 +9,11 @@ ul {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0px 1px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-  margin: 10px 15px 10px 10px;
+  margin: 10px 15px 75px 10px;
   padding: 10px;
 }
 
-.footer-btn-warpper{
+.footer-btn-warpper {
   width: 100%;
   & > .footer-btn {
     width: 100%;
@@ -27,6 +27,26 @@ ul {
       background-color: #fff;
       margin: 0px 10px;
       height: 100%;
+    }
+  }
+  & > .footer-btn.footer-page {
+    & > div {
+      display: flex;
+      padding: 0px 10px;
+      justify-content: space-between;
+      align-items: center;
+      & > span {
+        font-size: 13px;
+        color: #909399;
+      }
+      .el-pagination {
+        display: flex;
+        align-items: center;
+        ul {
+          display: flex;
+          align-items: center;
+        }
+      }
     }
   }
 }
@@ -139,8 +159,8 @@ ul {
     }
   }
 
-   .component-style {
-     .style-warpper {
+  .component-style {
+    .style-warpper {
       margin-top: 20px;
       border-radius: 5px;
       background: #f6f7f9;
@@ -161,9 +181,7 @@ ul {
       }
     }
   }
-
 }
-
 
 .stype-dialog-warpper {
   padding: 16px;

@@ -57,7 +57,7 @@
         </div>
       </div>
     </div>
-    <div class="footer-btn" slot="footer">
+    <div class="footer-btn footer-page" slot="footer">
       <div>
         <span>已选0条,共2条,当前为第1页</span>
         <el-pagination
@@ -202,7 +202,6 @@ export default {
 @import "@/styles/theme.scss";
 .product-label-warpper {
   .gray-bg-warpper {
-    padding-bottom: 50px;
     .label-header {
       height: 50px;
       border-radius: 5px;
@@ -234,28 +233,6 @@ export default {
           & > .el-button {
             margin-left: 10px;
           }
-        }
-      }
-    }
-  }
-}
-.footer-btn {
-  & > div {
-    display: flex;
-    padding: 0px 10px;
-    justify-content: space-between;
-    align-items: center;
-    & > span {
-      font-size: 13px;
-      color: $secondary-text-color;
-    }
-    ::v-deep {
-      .el-pagination {
-        display: flex;
-        align-items: center;
-        ul {
-          display: flex;
-          align-items: center;
         }
       }
     }

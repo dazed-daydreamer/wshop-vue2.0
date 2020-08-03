@@ -564,7 +564,7 @@ export default {
     display: flex;
     justify-content: center;
     padding-top: 40px;
-    padding-bottom: 60px;
+    padding-bottom: 20px;
     .show-warpper {
       width: 380px;
       border-radius: 5px;

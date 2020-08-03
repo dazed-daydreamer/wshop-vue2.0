@@ -266,7 +266,6 @@ export default {
   .gray-bg-warpper {
     display: flex;
     justify-content: center;
-    padding-bottom: 50px;
     .show-warpper {
       width: 375px;
       display: flex;

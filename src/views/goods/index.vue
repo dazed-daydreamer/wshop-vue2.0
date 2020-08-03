@@ -292,7 +292,7 @@
       </el-dialog>
       <label-select ref="labelSelect" @confirm="labelConfirm"></label-select>
     </div>
-    <div class="footer-btn" slot="footer">
+    <div class="footer-btn footer-page" slot="footer">
       <div>
         <span>已选0条,共2条,当前为第1页</span>
         <el-pagination
@@ -622,7 +622,6 @@ export default {
 @import "@/styles/theme.scss";
 .goods-all-warpper {
   .gray-bg-warpper {
-    padding-bottom: 50px;
     .search-header {
       background-color: #fff;
       border-radius: 5px;
@@ -653,7 +652,8 @@ export default {
       & > div:nth-of-type(2) {
         margin-top: 25px;
         & > span {
-          font-size: 13px;
+          font-size: 12px;
+          margin-bottom: 10px;
         }
         & > div {
           display: flex;
@@ -664,6 +664,7 @@ export default {
           & > div:nth-of-type(1) {
             margin-left: 10px;
             margin-right: 15px;
+            margin-bottom: 10px;
             .el-tag {
               cursor: pointer;
               width: 80px;
@@ -673,8 +674,14 @@ export default {
             display: flex;
             ul {
               display: flex;
+              flex-wrap: wrap;
               li {
                 margin-right: 10px;
+                min-width: 80px;
+                margin-bottom: 10px;
+                .el-tag {
+                  width: 100%;
+                }
               }
             }
             & > .el-button {
@@ -694,7 +701,7 @@ export default {
           li {
             margin-right: 15px;
             span {
-              font-size: 13px;
+              font-size: 12px;
               color: $secondary-text-color;
             }
             & > span:nth-of-type(1) {
@@ -741,28 +748,6 @@ export default {
         width: 35px;
         height: 20px;
         margin-left: 10px;
-      }
-    }
-  }
-}
-.footer-btn {
-  & > div {
-    display: flex;
-    padding: 0px 10px;
-    justify-content: space-between;
-    align-items: center;
-    & > span {
-      font-size: 13px;
-      color: $secondary-text-color;
-    }
-    ::v-deep {
-      .el-pagination {
-        display: flex;
-        align-items: center;
-        ul {
-          display: flex;
-          align-items: center;
-        }
       }
     }
   }

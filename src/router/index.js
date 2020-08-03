@@ -212,13 +212,13 @@ const routes = [
         component: () => import("@/views/order/index.vue")
       },
       {
-        path: "/order/mail",
+        path: "/order/send",
         meta: {
           title: "发货管理",
           group: "订单管理"
         },
-        name: "orderMail",
-        component: () => import("@/views/order/mail.vue")
+        name: "orderSend",
+        component: () => import("@/views/order/send.vue")
       },
       {
         path: "/order/wait",
@@ -237,25 +237,16 @@ const routes = [
         },
         name: "orderAfter",
         component: () => import("@/views/order/after.vue")
-      },
-      {
-        path: "/order/cancel",
-        meta: {
-          title: "取消订单",
-          group: "历史订单"
-        },
-        name: "orderCancel",
-        component: () => import("@/views/order/cancel.vue")
-      },
-      {
-        path: "/order/pay",
-        meta: {
-          title: "支付单",
-          group: "历史订单"
-        },
-        name: "orderPay",
-        component: () => import("@/views/order/pay.vue")
       }
+      // {
+      //   path: "/order/pay",
+      //   meta: {
+      //     title: "支付单",
+      //     group: "历史订单"
+      //   },
+      //   name: "orderPay",
+      //   component: () => import("@/views/order/pay.vue")
+      // }
     ]
   },
   {

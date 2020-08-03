@@ -1,13 +1,10 @@
 <template>
   <main-scroll>
-    <div class="order-all-warpper public-warpper">
+    <div class="order-send-warpper public-warpper">
       <div class="gray-bg-warpper">
-        <div class="order-filter">
+        <div class="send-filter">
           <div>
             <div>
-              <span>筛选条件</span>
-              <el-switch v-model="filterShow"></el-switch>
-
               <el-select
                 v-model="filterForm.dateType"
                 placeholder="请选择"
@@ -57,50 +54,79 @@
             </div>
           </div>
           <div>
-            <el-button plain size="small">订单导出</el-button>
-          </div>
-          <div v-show="filterShow">
-            <ul>
-              <li v-for="(item, index) in moreFilterList" :key="index">
-                <div class="title">{{ item.title }}</div>
-                <div class="list">
-                  <ul>
-                    <li
-                      :class="{ active: filterForm[item.key] === '' }"
-                      @click="moreFilterChange(item.key, '')"
-                    >
-                      <span> 不限</span>
-                    </li>
-                    <li
-                      v-for="lItem in item.list"
-                      :key="lItem.id"
-                      :class="{ active: filterForm[item.key] === lItem.id }"
-                      @click="moreFilterChange(item.key, lItem.id)"
-                    >
-                      <span>{{ lItem.name }}</span>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
             <div>
-              <el-button type="primary" size="small" @click="search"
-                >搜索</el-button
+              <span>发货状态</span>
+              <el-select
+                v-model="filterForm.sendType"
+                placeholder="请选择"
+                size="small"
               >
-              <el-button plain size="small" @click="initFilterForm"
-                >清空</el-button
+                <el-option
+                  v-for="item in sendType"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                >
+                </el-option>
+              </el-select>
+            </div>
+            <div>
+              <span>配送方式</span>
+              <el-select
+                v-model="filterForm.delivery"
+                placeholder="不限"
+                size="small"
+                clearable
               >
+                <el-option
+                  v-for="item in moreFilterList[3].list"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                >
+                </el-option>
+              </el-select>
+            </div>
+
+            <div>
+              <span>营销类型</span>
+              <el-select
+                v-model="filterForm.market"
+                placeholder="全部订单"
+                size="small"
+                clearable
+              >
+                <el-option
+                  v-for="item in moreFilterList[0].list"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                >
+                </el-option>
+              </el-select>
             </div>
           </div>
+          <div>
+            <span>批量操作：</span>
+            <el-button plain size="small">批量打印配送单</el-button>
+            <el-button plain size="small">批量打印快递单</el-button>
+            <el-button plain size="small">批量发货</el-button>
+            <el-button plain size="small">批量交付</el-button>
+          </div>
         </div>
-        <div class="order-table">
-          <el-table :data="tableData" stripe>
+        <div class="send-table">
+          <el-table
+            :data="tableData"
+            stripe
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column type="selection" width="55"> </el-table-column>
             <el-table-column
               prop="goods"
               label="商品信息"
               min-width="200"
             ></el-table-column>
-            <el-table-column label="实收货款" width="120">
+            <el-table-column prop="price" label="实收货款" width="120">
               <template slot-scope="scope">
                 <span>{{ scope.row.price }}元</span>
               </template>
@@ -115,15 +141,19 @@
             <el-table-column label="配送和支付方式" width="200">
               <template slot-scope="scope">
                 <span>{{
-                  returnTableValue(moreFilterList[3].list, scope.row.pay)
+                  returnTableValue(moreFilterList[2].list, scope.row.pay)
                 }}</span>
                 <span style="margin:0px 5px">-</span>
                 <span>{{
-                  returnTableValue(moreFilterList[2].list, scope.row.delivery)
+                  returnTableValue(moreFilterList[3].list, scope.row.delivery)
                 }}</span>
               </template>
             </el-table-column>
-
+            <el-table-column
+              prop="remark"
+              label="配送信息或备注"
+              min-width="150"
+            ></el-table-column>
             <el-table-column label="订单状态" width="90">
               <template slot-scope="scope">
                 <span>{{
@@ -135,7 +165,6 @@
         </div>
       </div>
     </div>
-
     <div class="footer-btn footer-page" slot="footer">
       <div>
         <span>已选0条,共2条,当前为第1页</span>
@@ -156,8 +185,6 @@ import MainScroll from "components/public/main-scroll.vue";
 export default {
   data() {
     return {
-      //更多筛选显示
-      filterShow: false,
       //筛选时间类型
       dateType: [
         {
@@ -170,7 +197,11 @@ export default {
         },
         {
           id: "2",
-          name: "发货时间"
+          name: "配送时间"
+        },
+        {
+          id: "3",
+          name: "收货时间"
         }
       ],
       //筛选关键字类型
@@ -201,38 +232,10 @@ export default {
         }
       ],
       //筛选表单
-      filterForm: {},
-      //筛选时间配置
-      pickerOptions: {
-        shortcuts: [
-          {
-            text: "最近一周",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", [start, end]);
-            }
-          },
-          {
-            text: "最近一个月",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit("pick", [start, end]);
-            }
-          },
-          {
-            text: "最近三个月",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
+      filterForm: {
+        dateType: "0",
+        keyWorkType: "0",
+        sendType: "0"
       },
       //更多筛选列表
       moreFilterList: [
@@ -298,30 +301,84 @@ export default {
           title: "配送方式",
           list: [
             {
-              id: "0",
+              id: "1",
               name: "商家配送"
             },
             {
-              id: "1",
+              id: "2",
               name: "到店自提"
             },
             {
-              id: "2",
+              id: "3",
               name: "无需配送"
             }
           ],
           key: "delivery"
         }
       ],
+      //筛选时间配置
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: "最近一周",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近一个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近三个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit("pick", [start, end]);
+            }
+          }
+        ]
+      },
+      //发货状态
+      sendType: [
+        {
+          id: "0",
+          name: "待发货"
+        },
+        {
+          id: "1",
+          name: "已发货"
+        },
+        {
+          id: "2",
+          name: "已完成"
+        }
+      ],
       //表单数据
-      tableData: []
+      tableData: [],
+      //表单选择列表
+      tableSelete: []
     };
   },
   created() {
-    this.initFilterForm();
+    const end = new Date();
+    const start = new Date();
+    start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+    this.$set(this.filterForm, "date", [start, end]);
     this.getOrderList();
   },
   methods: {
+    //搜索
+    search() {},
     //根据不同的数组和不同的id返回不同的值
     //list    返回内容的数组
     //id      返回内容的id
@@ -329,28 +386,9 @@ export default {
       const matchItem = list.find(item => item.id === id);
       return matchItem.name;
     },
-    //搜索
-    search() {},
-    //初始化搜索表单
-    initFilterForm() {
-      let tem = {
-        dateType: "0",
-        keyWorkType: "0"
-      };
-      const end = new Date();
-      const start = new Date();
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-      this.$set(tem, "date", [start, end]);
-      this.moreFilterList.forEach(item => {
-        this.$set(tem, item.key, "");
-      });
-      this.filterForm = JSON.parse(JSON.stringify(tem));
-    },
-    //更多筛选改变时触发
-    //key       筛选的key值
-    //id        选中筛选值的id值
-    moreFilterChange(key, id) {
-      this.$set(this.filterForm, key, id);
+    //表单选择
+    handleSelectionChange(arr) {
+      this.tableSelete = arr;
     },
     //获取订单列表
     getOrderList() {
@@ -362,7 +400,38 @@ export default {
           delivery: "1",
           status: "2",
           name: "梁先生",
-          phone: "13211321132"
+          phone: "13211321132",
+          remark: "备注3333333333333123131312"
+        },
+        {
+          goods: "测试9测试9测试9测试9测试9测试9测试9",
+          price: "1000.00",
+          pay: "1",
+          delivery: "1",
+          status: "2",
+          name: "梁先生",
+          phone: "13211321132",
+          remark: "备注3333333333333123131312"
+        },
+        {
+          goods: "测试9测试9测试9测试9测试9测试9测试9",
+          price: "1000.00",
+          pay: "1",
+          delivery: "1",
+          status: "2",
+          name: "梁先生",
+          phone: "13211321132",
+          remark: "备注3333333333333123131312"
+        },
+        {
+          goods: "测试9测试9测试9测试9测试9测试9测试9",
+          price: "1000.00",
+          pay: "1",
+          delivery: "1",
+          status: "2",
+          name: "梁先生",
+          phone: "13211321132",
+          remark: "备注3333333333333123131312"
         }
       ];
     }
@@ -375,15 +444,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/styles/theme.scss";
-.order-all-warpper {
+.order-send-warpper {
   .gray-bg-warpper {
-    .order-filter {
-      display: flex;
-      font-size: 12px;
-      align-items: center;
-      padding: 20px;
+    .send-filter {
       background-color: #fff;
-      flex-direction: column;
+      padding: 20px;
       & > div:nth-of-type(1) {
         display: flex;
         width: 100%;
@@ -393,11 +458,7 @@ export default {
           display: flex;
           align-items: center;
           &:nth-of-type(1) {
-            & > span:nth-of-type(1) {
-              margin-right: 10px;
-            }
             .el-select {
-              margin-left: 20px;
               width: 110px;
               ::v-deep .el-input__inner {
                 border-radius: 5px 0px 0px 5px;
@@ -425,57 +486,32 @@ export default {
         }
       }
       & > div:nth-of-type(2) {
-        width: 100%;
-        text-align: left;
-        margin-top: 5px;
-      }
-      & > div:nth-of-type(3) {
-        width: 100%;
-        & > ul {
-          & > li {
-            margin-top: 20px;
-            display: flex;
-            .title {
-              width: 100px;
-            }
-            .list {
-              flex: 1;
-              ul {
-                display: flex;
-                align-items: center;
-                flex-wrap: wrap;
-                li {
-                  width: 80px;
-                  margin-right: 10px;
-                  border: 1px solid #e3e2e5;
-                  border-radius: 5px;
-                  padding: 6px 0px;
-                  cursor: pointer;
-                  &:hover,
-                  &.active {
-                    background-color: white !important;
-                    border-color: #2589ff !important;
-                    span {
-                      color: #2589ff !important;
-                    }
-                  }
-                  span {
-                    color: #595961;
-                  }
-                }
-              }
-            }
-          }
-        }
+        display: flex;
+        margin-top: 12px;
         & > div {
-          margin-top: 20px;
           display: flex;
           align-items: center;
-          justify-content: center;
+          margin-right: 20px;
+          & > span {
+            margin-right: 10px;
+            font-size: 12px;
+          }
+          .el-select {
+            width: 120px;
+          }
+        }
+      }
+      & > div:nth-of-type(3) {
+        display: flex;
+        align-items: center;
+        margin-top: 12px;
+        & > span {
+          margin-right: 10px;
+          font-size: 12px;
         }
       }
     }
-    .order-table {
+    .send-table {
       width: 100%;
       margin-top: 10px;
       border-radius: 5px;
