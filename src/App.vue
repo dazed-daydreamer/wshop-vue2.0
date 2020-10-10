@@ -36,4 +36,23 @@ ul {
     }
   }
 }
+.el-popconfirm__main {
+  font-size: 12px;
+}
+.el-select-dropdown__item {
+  span {
+    font-size: 13px;
+  }
+}
+//火狐
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+//谷歌
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 </style>

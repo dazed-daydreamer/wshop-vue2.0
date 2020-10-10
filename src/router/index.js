@@ -17,7 +17,7 @@ const routes = [
     children: [
       {
         path: "/overview/index",
-        name: "overview",
+        name: "overviewPage",
         meta: {
           title: "主页概况",
           group: "主页概况"
@@ -46,12 +46,15 @@ const routes = [
         component: () => import("@/views/shop/index.vue")
       },
       {
-        path: "/shop/step_1",
+        path: "/shop/step-1",
         name: "shopPageStep1",
+        meta: {
+          father: "/shop/index"
+        },
         component: () => import("@/views/shop/addpage-step-one.vue")
       },
       {
-        path: "/shop/step_2",
+        path: "/shop/step-2",
         name: "shopPageStep2",
         component: () => import("@/views/shop/addpage-step-two.vue")
       },
@@ -269,6 +272,14 @@ const routes = [
         component: () => import("@/views/customer/index.vue")
       },
       {
+        path: "/customer/detail",
+        name: "customerDetail",
+        meta: {
+          father: "/customer/index"
+        },
+        component: () => import("@/views/customer/detail.vue")
+      },
+      {
         path: "/customer/label",
         meta: {
           title: "客户标签",
@@ -278,6 +289,23 @@ const routes = [
         component: () => import("@/views/customer/label.vue")
       },
       {
+        path: "/customer/blacklist",
+        meta: {
+          title: "黑名单",
+          group: "客户管理"
+        },
+        name: "customerBlacklist",
+        component: () => import("@/views/customer/blacklist.vue")
+      },
+      {
+        path: "/customer/label-from",
+        meta: {
+          father: "/customer/label"
+        },
+        name: "customerLabelForm",
+        component: () => import("@/views/customer/label-form.vue")
+      },
+      {
         path: "/customer/setup",
         meta: {
           title: "会员设置",
@@ -285,6 +313,22 @@ const routes = [
         },
         name: "customerSetup",
         component: () => import("@/views/customer/setup.vue")
+      },
+      {
+        path: "/customer/multi-level-form",
+        meta: {
+          father: "/customer/setup"
+        },
+        name: "multiLevelForm",
+        component: () => import("@/views/customer/multi-level-form.vue")
+      },
+      {
+        path: "/customer/single-level-form",
+        meta: {
+          father: "/customer/setup"
+        },
+        name: "singleLevelForm",
+        component: () => import("@/views/customer/single-level-form.vue")
       },
       {
         path: "/customer/benefit",

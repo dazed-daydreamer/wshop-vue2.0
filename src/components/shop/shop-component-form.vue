@@ -124,7 +124,7 @@ export default {
   border-radius: 5px;
   overflow: hidden;
   padding: 5px 0px;
-  height: 700px;
+  height: 100%;
   .el-scrollbar {
     height: 100%;
     ::v-deep .el-scrollbar__wrap {

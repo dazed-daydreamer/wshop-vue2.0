@@ -15,7 +15,10 @@
             ></secondary-directory>
           </div>
           <div class="main-content">
-            <router-view />
+            <router-view v-if="!$route.meta.keepAlive"></router-view>
+            <keep-alive>
+              <router-view v-if="$route.meta.keepAlive"></router-view>
+            </keep-alive>
           </div>
         </el-main>
       </el-container>

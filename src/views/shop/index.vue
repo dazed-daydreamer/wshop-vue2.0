@@ -208,13 +208,16 @@ export default {
     border-radius: 5px;
     overflow: hidden;
     box-shadow: $shadow;
+    div {
+      font-size: 13px;
+    }
     .table-btn {
       display: flex;
       span {
-        font-size: 14px;
         cursor: pointer;
         margin-right: 14px;
         color: $theme-color;
+        font-size: 13px;
       }
     }
   }

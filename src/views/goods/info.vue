@@ -1132,6 +1132,7 @@ export default {
         margin: 0px 40px;
         text-align: left;
         padding: 20px 10px;
+        margin-bottom: 22px;
         & > div:nth-of-type(1) {
           border-bottom: 1px dashed #e3e2e5;
           padding-bottom: 20px;

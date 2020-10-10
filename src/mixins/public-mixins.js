@@ -19,6 +19,13 @@ export const publicMixins = {
       var day =
         temDate.getDate() > 9 ? temDate.getDate() : "0" + temDate.getDate();
       return temDate.getFullYear() + "-" + month + "-" + day;
+    },
+    //根据不同的数组和不同的id返回不同的值
+    //list    返回内容的数组
+    //id      返回内容的id
+    returnTableValue(list, id) {
+      const matchItem = list.find(item => item.id === id);
+      return matchItem.name;
     }
   }
 };

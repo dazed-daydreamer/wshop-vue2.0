@@ -69,15 +69,19 @@ export default {
 .edit-btn-warpper {
   width: 100%;
   height: 32px;
+  border: 1px solid #dcdfe6;
+  border-radius: 5px;
   & > span {
-    display: inline-block;
-    line-height: 32px;
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
     overflow: hidden;
     white-space: nowrap;
     max-width: 100%;
     text-overflow: ellipsis;
+    padding: 0px 16px;
+    font-size: 13px;
   }
 }
 </style>

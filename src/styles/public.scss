@@ -5,6 +5,30 @@ ul {
   }
 }
 
+//定制宽度
+.w-250{
+  width: 250px;
+}
+
+
+//全体单选字体尺寸
+.el-radio{
+  .el-radio__label{
+    font-size: 12px;
+  }
+}
+
+//全体多选字体尺寸样式
+.el-checkbox-group{
+  .el-checkbox{
+    .el-checkbox__label{
+      font-size: 12px;
+    }
+  }
+}
+
+
+//公共包装样式
 .public-warpper {
   background-color: #fff;
   border-radius: 10px;
@@ -13,6 +37,7 @@ ul {
   padding: 10px;
 }
 
+//脚步按钮包装样式
 .footer-btn-warpper {
   width: 100%;
   & > .footer-btn {
@@ -51,6 +76,7 @@ ul {
   }
 }
 
+//修改全体图片样式
 .el-image {
   .image-slot {
     display: flex;
@@ -63,6 +89,7 @@ ul {
   }
 }
 
+//灰色包装样式
 .gray-bg-warpper {
   background-color: #f2f2f6;
   margin: 10px;
@@ -70,6 +97,7 @@ ul {
   padding: 15px;
 }
 
+//店铺装修表单样式
 .shop-template-form {
   text-align: left;
   & > div:not(.dialog) {
@@ -183,6 +211,7 @@ ul {
   }
 }
 
+//店铺装修类型选择弹窗样式
 .stype-dialog-warpper {
   padding: 16px;
   padding-bottom: 0px;

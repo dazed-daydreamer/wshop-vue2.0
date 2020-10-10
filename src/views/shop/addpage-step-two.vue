@@ -77,6 +77,7 @@ export default {
       justify-content: space-between;
       align-items: center;
       height: 60px;
+      flex-shrink: 0;
       & > span {
         margin-left: 20px;
         color: #fff;
@@ -89,9 +90,9 @@ export default {
       }
     }
     .draggable-content {
-      padding: 30px 20px;
+      margin: 30px 20px;
       display: flex;
-      flex: 1;
+      height: calc(100% - 120px);
       justify-content: space-between;
       .template-components-warpper {
         width: 270px;

@@ -46,19 +46,23 @@ export default {
   methods: {
     //初始化路由
     _initRoute() {
-      this._matchSecondRoute(this.$router.currentRoute.path);
+      this._matchSecondRoute(
+        this.$router.currentRoute.path,
+        this.$router.currentRoute.meta
+      );
     },
     //获取当前路由父级路由下的所有子路由
     //router 路由地址
-    _matchSecondRoute(router) {
+    //meta   路由携带的设定
+    _matchSecondRoute(router, meta) {
       let arr = [];
-      this.activeRoute = router;
+      this.activeRoute = meta.father ? meta.father : router;
       const firstName = router.split("/")[1];
       const firstRouter = this.$router.options.routes.filter(
         item => item.name === firstName
       )[0];
       firstRouter.children.forEach(item => {
-        if (item.meta) {
+        if (item.meta && item.meta.title) {
           const hasGroup = arr.findIndex(
             groupItem => groupItem.title === item.meta.group
           );
@@ -88,7 +92,7 @@ export default {
     // to 跳转到的路由
     $route(to) {
       if (Object.keys(to.meta).length) {
-        this._matchSecondRoute(to.path);
+        this._matchSecondRoute(to.path, to.meta);
       }
     }
   }
